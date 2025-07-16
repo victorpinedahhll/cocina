@@ -120,7 +120,8 @@ if($nologg != "NO"){
     <?php if($nologg != "NO" && $page!="pacientesart"){ ?>
     <div class="logout">
       Bienvenido: <b style="font-size: 12pt;"><?php echo $nmsession; ?> &nbsp;
-      <?php 
+      <?php
+      // textos segun tipo de usuario 
       if($nvsessiontemp=="S"){ 
         echo "<span class='bg-success text-light px-2 py-1' style='font-size: 8pt; border-radius: 30px;'> &nbsp;Solicitudes </span>"; 
       }elseif($nvsessiontemp=="C"){ 
