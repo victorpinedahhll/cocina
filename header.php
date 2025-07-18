@@ -4,6 +4,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //error_reporting(E_ALL & ~E_NOTICE);
 
 require("security.php");
+require("security_adv.php");
 require("_private/_access.php");
 if($nologg != "NO"){
     include("logged.php");

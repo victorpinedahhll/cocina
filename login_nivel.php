@@ -15,7 +15,7 @@ if($_POST['submitsolicitud']){
 	$_SESSION['nivelcooktemp'] = "S";
 }elseif($_POST['submitcocina']){
 	$_SESSION['nivelcooktemp'] = "C";
-}elseif($_POST['submitadmin']){
+}elseif($_POST['submitadmin'] || $_POST['submitusuarios']){
 	$_SESSION['nivelcooktemp'] = "A";
 }
 
@@ -30,6 +30,8 @@ if($_POST['submitclose']){
 		header("Location: cocina.php");
 	}elseif($_POST['submitadmin']){
 		header("Location: platos.php");
+	}elseif($_POST['submitusuarios']){
+		header("Location: usuarios.php");
 	}
 }
 

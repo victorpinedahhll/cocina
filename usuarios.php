@@ -1,0 +1,139 @@
+<?php
+$titulo = "Control de Usuarios";
+$nologg = "SI";
+$page   = "usuarios";
+
+include("header.php");
+
+if($nvsessiontemp!="A"){
+	echo "<body>";
+	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
+	echo "</body>";
+	exit;
+}
+?>
+<style>
+	body {
+	  background: #eee;
+	  }
+	.logout {
+        position: fixed;
+    }
+	.content-text {
+		margin: 160px 21px 0 21px;
+	}
+	header {
+		height: 160px;
+	}
+</style>
+
+<div class="row pt-0 mb-4">
+	<div class="col-md-12 content-box position-relative">
+		<header>
+		<div class="row">
+			<div class="col-md-3 pt-2">
+				<img src="images/logo-trans.png" height="60">
+			</div>
+			<div class="col-md-2 pt-4 esconder-tablet text-center">
+				<h1 class="pb-0 mb-0" style="font-size: 16pt !important;"></h1>
+			</div>
+			<div class="col-md-7 pt-5 pr-5 text-right" style="padding-top: 33px;">
+				<a href="usuarios_agregar.php" class="btn btn-outline-secondary"><i class="fa fa-plus"></i>&nbsp; agregar usuario</a>
+			</div>
+		</div>
+		
+		<div class="row mb-5">
+			<div class="col-md-12">
+				<div class="esconder-movil">
+					<div class="mb-3 h4-sidebar-nobg text-center" style="background: #002d59; height: 43px; font-size: 16pt; padding-top: 2px;">
+						<?php echo $titulo;?>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		</header>
+
+		<div class="px-5" style="margin-top: 170px;">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box-admin-opt pt-3">
+						<div class="row bg-info text-light" style="height: 27px; font-weight: bold;">
+							<div class="col-md-2">
+								Usuario
+							</div>
+                            <div class="col-md-3">
+								Nombre
+							</div>
+							<div class="col-md-4">
+								Email
+							</div>
+							<div class="col-md-2">
+								
+							</div>
+						</div>
+						<?php
+						$van = 0;
+						if($idsession==="1"){
+							$qryus = "
+                                SELECT * 
+                                FROM _usuarios_admin 
+                                WHERE 
+                                    id_us00 > '0'  
+                                ORDER BY 
+                                    status_wua32 desc
+                                    , nombre_us07
+                            ";
+						}else{
+							// no lista webmaster ni ambiente de pruebas (sandbox)
+							$qryus = "
+                                SELECT * 
+                                FROM _usuarios_admin 
+                                WHERE 
+                                    id_us00 > '1' 
+                                ORDER BY 
+                                    status_wua32 desc
+                                    , nombre_us07";
+						}
+						$stmt = $pdo->prepare($qryus);
+                        $stmt->execute();
+						while ($rowus = $stmt->fetch(PDO::FETCH_ASSOC)){
+							$van = $van + 1;
+						?>
+						<div class="row pb-2 pt-2 mb-0 <?php if ($van%2==0){ echo "bg-muted"; } ?>" <?php if($rowus["status_wua32"]=="0"){ ?>style="background: #fbe4e4;<?php } ?>">
+						    <div class="col-md-2">
+								<?php echo $rowus["usuario_us13"]; ?>
+							</div>	
+                            <div class="col-md-3">
+								<?php echo $rowus["nombre_us07"]; ?>
+							</div>
+							<div class="col-md-5">
+								<?php echo $rowus["email_wua25"]; ?>
+							</div>
+							<div class="col-md-1 text-center">
+								<?php if($rowus["status_wua32"]=="1"){ ?>
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm btn-outline-secondary bg-light">
+                                    desactivar
+								</a>
+								<?php }else{ ?>
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm btn-outline-secondary bg-light px-3">
+                                    activar
+								</a>
+								<?php } ?>
+							</div>
+							<div class="col-md-1 text-center">
+								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4 btn-outline-secondary bg-light">
+                                    editar
+								</a>
+							</div>
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php include("footer.php"); ?>
+

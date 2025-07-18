@@ -3,6 +3,7 @@ html,body {
   height: 100%;
   font-family: 'Quicksand', sans-serif;
   scroll-behavior: smooth;
+  background: #f4f6f9;
 }
 .color-uno {
   color: #069ef6 !important;
@@ -48,8 +49,8 @@ header {
   left: 0px;
   width: 100%;
   z-index: 99;
-  background: #f4f6f9;
-
+  background: #fff;
+  height: 160px;
   padding: 15px 35px 0 35px;
 }
 .logo-home {
@@ -251,7 +252,7 @@ input:focus {
   min-height: 350px;
   z-index: 5;
   overflow: hidden;
-  margin-top: 115px;
+  margin: 160px 21px 0 21px;
 }
 .content-box h1, .content-box-calendar h1 {
   font-size: 20pt;
@@ -420,6 +421,7 @@ input:focus {
 }
 .areas-accesos li {
   padding-bottom: 7px;
+  font-size: 13pt;
 }
 
 

@@ -98,6 +98,9 @@ if($nvsession=="ALL" || $nvsession=="777"){
 					<div class="input-group form-group">
 						<input type="submit" name="submitcocina" class="btn btn-md btn-warning text-dark w-100 font-weight-bold py-3" value="Cocina">
 					</div>
+					<div class="input-group form-group">
+						<input type="submit" name="submitusuarios" class="btn btn-md btn-secondary text-light w-100 font-weight-bold py-3" value="Control de Usuarios">
+					</div>
 					<?php //if($_SESSION['splitacc']=="SI"){ ?>
 					<div class="input-group form-group">
 						<input type="submit" name="submitclose" class="btn btn-md btn-danger text-light w-100 font-weight-bold py-3" value="Cerrar Sesión">
