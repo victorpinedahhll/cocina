@@ -1,8 +1,8 @@
 <?php
 $whost = "localhost";
-$wuser = "hhllcocina22";
-$wpass = "dN7zME!49@]3wF3Q";
-$wdb   = "hhllcocina";
+$wuser = "sandbcocina";
+$wpass = ")eGL9EdN3_bzxL[S";
+$wdb   = "sandboxcocina";
 
 $conexion = mysqli_connect($whost,$wuser,$wpass,$wdb);
 if(mysqli_connect_errno()) {
@@ -10,6 +10,15 @@ if(mysqli_connect_errno()) {
 	exit();
 }
 $conexion->set_charset('utf8');
+
+// conexion PDO
+try {
+    $pdo = new PDO("mysql:host=$whost;dbname=$wdb", $wuser, $wpass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    error_log("Error DB: " . $e->getMessage());
+    die("Lo sentimos, hubo un problema de conexión.");
+}
 
 $wuser2 = "hhllreservaciones";
 $wpass2 = "PkV2!hrRP8dF6MPw";
