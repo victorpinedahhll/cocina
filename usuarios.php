@@ -111,18 +111,24 @@ if($nvsessiontemp!="A"){
 								<?php echo $rowus["email_wua25"]; ?>
 							</div>
 							<div class="col-md-1 text-center">
+								<?php 
+								$colinac = "style='border: 1px solid #808080 !important; color: #808080 !important;'";
+								if($rowus["status_wua32"]=="0"){
+									$colinac = "style='border: 1px solid #f42a54 !important; color: #f42a54 !important;'";
+								}
+								?>
 								<?php if($rowus["status_wua32"]=="1"){ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm btn-outline-secondary bg-light">
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm" <?php echo $colinac; ?>>
                                     desactivar
 								</a>
 								<?php }else{ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm btn-outline-secondary bg-light px-3">
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm px-3" <?php echo $colinac; ?>>
                                     activar
 								</a>
 								<?php } ?>
 							</div>
 							<div class="col-md-1 text-center">
-								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4 btn-outline-secondary bg-light">
+								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4" <?php echo $colinac; ?>>
                                     editar
 								</a>
 							</div>

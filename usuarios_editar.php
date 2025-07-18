@@ -69,6 +69,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <h5>Webmaster</h5>
                                     <?php }else{ ?>
                                     <select name="nivel" id="areaSelect" class="form-control">
+                                        <option value="">elija nivel</option>
                                         <option value="111" <?php if($row["nivel_wua67"]=="111"){ ?>selected<?php } ?>>Enfermería</option>
                                         <option value="333" <?php if($row["nivel_wua67"]=="333"){ ?>selected<?php } ?>>Cocina</option>
                                         <option value="755" <?php if($row["nivel_wua67"]=="755"){ ?>selected<?php } ?>>Administración</option>
