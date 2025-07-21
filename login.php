@@ -36,7 +36,7 @@ if(isset($_POST["submitlogin"]) && $row > 0 && password_verify($password, $row["
 	$_SESSION['clientenamecook'] = $row["nombre_us07"];
 	$_SESSION['nivelcook']       = $row["nivel_wua67"];
 
-	if($row["nivel_wua67"]=="777" || $row["nivel_wua67"]=="ALL"){
+	if($row["nivel_wua67"]=="777" || $row["nivel_wua67"]=="755"){
 		$_SESSION['nivelcooktemp'] = "A";
 		header("Location: dashboard.php");
 	}elseif($row["nivel_wua67"]=="C"){
