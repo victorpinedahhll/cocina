@@ -49,12 +49,13 @@ if($nologg != "NO"){
             right: 35px;
             z-index: 999999;
             font-size: 10pt;
+            color: white;
         }
-        @media (max-width: 991px){
+        /*@media (max-width: 991px){
             .content-box, .logout {
                 display: none;
             }
-        }
+        }*/
 
     </style>
 
