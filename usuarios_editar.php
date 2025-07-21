@@ -72,7 +72,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <option value="">elija nivel</option>
                                         <option value="111" <?php if($row["nivel_wua67"]=="111"){ ?>selected<?php } ?>>Enfermería</option>
                                         <option value="333" <?php if($row["nivel_wua67"]=="333"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="755" <?php if($row["nivel_wua67"]=="755"){ ?>selected<?php } ?>>Administración</option>
+                                        <option value="777" <?php if($row["nivel_wua67"]=="777"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
                                     <?php } ?>
                                 </div>
@@ -135,7 +135,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="COCINA" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="COCINA"){ echo "checked"; } ?>>&nbsp; Pedidos
                                 </div>
 
-                                <div class="grupo pt-3" data-area="755">
+                                <div class="grupo pt-3" data-area="777">
                                     <b>Administración</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
                                 </div>
@@ -162,7 +162,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             // Desmarcar todos primero
             $('.rol-checkbox').prop('checked', false);
 
-            if (areaSeleccionada === "755") {
+            if (areaSeleccionada === "777") {
                 $('.rol-checkbox').prop('checked', true); // Todos los checkboxes
             } else {
                 $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);

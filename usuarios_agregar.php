@@ -66,7 +66,7 @@ $postuseradd = $_SESSION["formadduser"];
                                     <select name="nivel" id="areaSelect" class="form-control">
                                         <option value="111" <?php if($postuseradd["nivel"]=="111"){ ?>selected<?php }else{ ?>selected<?php } ?>>Enfermería</option>
                                         <option value="333" <?php if($postuseradd["nivel"]=="333"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="755" <?php if($postuseradd["nivel"]=="755"){ ?>selected<?php } ?>>Administración</option>
+                                        <option value="777" <?php if($postuseradd["nivel"]=="777"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
                                     <?php } ?>
                                 </div>
@@ -118,7 +118,7 @@ $postuseradd = $_SESSION["formadduser"];
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="COCINA">&nbsp; Pedidos
                                 </div>
 
-                                <div class="grupo pt-3" data-area="755">
+                                <div class="grupo pt-3" data-area="777">
                                     <b>Administración</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios
                                 </div>
