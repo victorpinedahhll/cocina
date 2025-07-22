@@ -2,15 +2,9 @@
 $titulo = "Pacientes Cocina";
 $nologg = "SI";
 $page   = "pacientes";
+$areaLg = "PEDIDOS";  // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="S"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 $idPac  = $_GET["id"];
 $qryPac = "SELECT * FROM _pacientes_activos WHERE status='A' and id='$idPac'";

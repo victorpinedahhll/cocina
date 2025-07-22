@@ -1,16 +1,10 @@
 <?php
 $titulo = "Pacientes";
 $nologg = "SI";
-$page   = "pacientes";
+$page   = "pacientes";   // identifica pagina para scripts, etc
+$areaLg = "INGRESO_PAC"; // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 $idPac  = $_GET["id"];
 $qryPac = "SELECT * FROM _pacientes_activos WHERE id='$idPac'";

@@ -2,12 +2,14 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+$page   = "dashboard";
+
 require("security.php");
 require("_private/_access.php");
-if($nologg != "NO"){
+// if($nologg != "NO"){
     include("logged.php");
     include("parametros_generales.php");
-}
+// }
 
 if($nvsession=="ALL" || $nvsession=="777"){
 ?>

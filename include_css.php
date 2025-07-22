@@ -4,6 +4,10 @@ html,body {
   font-family: 'Quicksand', sans-serif;
   scroll-behavior: smooth;
   background: #f4f6f9;
+  color: #3e3e3e !important;
+}
+a {
+  color: blue;
 }
 .color-uno {
   color: #069ef6 !important;
@@ -751,6 +755,12 @@ h5 {
 .logout .active {
   font-weight: bold;
   font-size: 11pt;
+}
+.logout {
+  color: #3e3e3e !important;
+}
+.logout a {
+  color: blue !important;
 }
 .title-formpay {
   color: #000;

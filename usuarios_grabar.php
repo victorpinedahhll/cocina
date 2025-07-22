@@ -4,18 +4,13 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+$areaLg = "USUARIOS";  // valida roles del usuario
+
 require("security.php");
 require("security_adv.php");
 require("_private/_access.php");
 require("logged.php");
 include("parametros_generales.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 if ( $_POST["acceso"]=="agregar" ) {
     $_SESSION["formadduser"] = $_POST;

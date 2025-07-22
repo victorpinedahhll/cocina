@@ -36,14 +36,14 @@ if(isset($_POST["submitlogin"]) && $row > 0 && password_verify($password, $row["
 	$_SESSION['clientenamecook'] = $row["nombre_us07"];
 	$_SESSION['nivelcook']       = $row["nivel_wua67"];
 
-	if($row["nivel_wua67"]=="777" || $row["nivel_wua67"]=="755"){
+	if($row["nivel_wua67"]=="777"){
 		$_SESSION['nivelcooktemp'] = "A";
 		header("Location: dashboard.php");
-	}elseif($row["nivel_wua67"]=="C"){
+	}elseif($row["nivel_wua67"]=="333"){
 		$_SESSION['nivelcooktemp'] = "C";
 		header("Location: cocina.php");
 	}else{
-		$_SESSION['nivelcooktemp'] = "S";
+		$_SESSION['nivelcooktemp'] = "111";
 		header("Location: pacientes.php");
 	}
 	exit;

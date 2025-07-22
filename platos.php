@@ -1,16 +1,10 @@
 <?php
 $titulo = "Platos Cocina";
 $nologg = "SI";
-$page   = "platos";
+$page   = "platos"; // identifica pagina para scripts, etc
+$areaLg = "MENUS";  // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 $bus = $_POST["busqueda"];
 $qryB = "";

@@ -5,13 +5,6 @@ $page   = "pacientes";
 
 include("header.php");
 
-if($nvsessiontemp!="S"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
-
 $idPac  = $_GET["id"];
 $qryPac = "SELECT * FROM _pacientes_activos WHERE status='A' and id='$idPac'";
 $rsPac  = $conexion->query($qryPac);

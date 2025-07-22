@@ -4,7 +4,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 require("security.php");
 require("_private/_access.php");
-include("logged.php");
+// include("logged.php");
 include("parametros_generales.php");
 
 // creo una sesion para identificar que el usuario tiene acceso a los dos modulos

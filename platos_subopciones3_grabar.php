@@ -2,17 +2,12 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+$areaLg = "MENUS";  // valida roles del usuario
+
 require("security.php");
 require("_private/_access.php");
 require("logged.php");
 include("parametros_generales.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 $id     = $_POST['id'];
 $idopc  = $_POST['idopcion'];

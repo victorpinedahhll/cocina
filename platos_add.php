@@ -2,8 +2,12 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+$areaLg = "MENUS";  // valida roles del usuario
+
 require("security.php");
+require("security_adv.php");
 require("_private/_access.php");
+include("logged.php");
 include("parametros_generales.php");
 
 $idPac  = $_GET['idpac'];

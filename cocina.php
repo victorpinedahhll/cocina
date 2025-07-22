@@ -2,15 +2,9 @@
 $titulo = "Solicitudes Cocina";
 $nologg = "SI";
 $page   = "solicitud";
+$areaLg = "COCINA";  // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="C"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 ?>
 <style>
 	body {

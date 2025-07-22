@@ -6,10 +6,10 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require("security.php");
 require("security_adv.php");
 require("_private/_access.php");
-if($nologg != "NO"){
+// if($nologg != "NO"){
     include("logged.php");
     include("parametros_generales.php");
-}
+// }
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -138,8 +138,7 @@ if($nologg != "NO"){
       <?php }elseif($nvsessiontemp=="S"){  ?>
         <a href="pacientes.php" <?php if($page=="pacientes"){ ?>class="active"<?php } ?>>Pacientes Activos</a> &nbsp;|&nbsp;
         <a href="solicitudes.php" <?php if($page=="solicitud"){ ?>class="active"<?php } ?>>Solicitudes</a> &nbsp;|&nbsp;
-      <?php }elseif($nvsession=="ALL" || $nvsession=="777"){  ?>
-        <a href="usuarios.php" <?php if($page=="usuarios"){ ?>class="active"<?php } ?>>Usuarios</a> &nbsp;|&nbsp; 
+      <?php }elseif($nvsessiontemp=="A"){  ?>
         <a href="pacientes_activos.php" <?php if($page=="pacientes"){ ?>class="active"<?php } ?>>Pacientes</a> &nbsp;|&nbsp; 
         <a href="programaciones.php" <?php if($page=="progra"){ ?>class="active"<?php } ?>>Programación Menus</a> &nbsp;|&nbsp; 
         <a href="platos.php" <?php if($page=="platos"){ ?>class="active"<?php } ?>>Platos</a> &nbsp;|&nbsp; 

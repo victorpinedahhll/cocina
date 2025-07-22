@@ -4,13 +4,6 @@ $nologg = "SI";
 $page   = "form";
 
 include("header.php");
-
-if($nvsessiontemp!="S"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 ?>
 <style>
 	body {

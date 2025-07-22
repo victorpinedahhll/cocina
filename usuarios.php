@@ -2,15 +2,9 @@
 $titulo = "Control de Usuarios";
 $nologg = "SI";
 $page   = "usuarios";
+$areaLg = "USUARIOS";  // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 ?>
 <style>
 	body {
@@ -110,7 +104,7 @@ if($nvsessiontemp!="A"){
 							<div class="col-md-5">
 								<?php echo $rowus["email_wua25"]; ?>
 							</div>
-							<div class="col-md-1 text-center">
+							<div class="col-md-1 col-3 text-center">
 								<?php 
 								$colinac = "style='border: 1px solid #808080 !important; color: #808080 !important;'";
 								if($rowus["status_wua32"]=="0"){
@@ -118,17 +112,17 @@ if($nvsessiontemp!="A"){
 								}
 								?>
 								<?php if($rowus["status_wua32"]=="1"){ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm" <?php echo $colinac; ?>>
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm mt-2 mt-md-0" <?php echo $colinac; ?>>
                                     desactivar
 								</a>
 								<?php }else{ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm px-3" <?php echo $colinac; ?>>
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm px-3 mt-2 mt-md-0" <?php echo $colinac; ?>>
                                     activar
 								</a>
 								<?php } ?>
 							</div>
-							<div class="col-md-1 text-center">
-								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4" <?php echo $colinac; ?>>
+							<div class="col-md-1 col-3 text-center">
+								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4 mt-2 mt-md-0" <?php echo $colinac; ?>>
                                     editar
 								</a>
 							</div>

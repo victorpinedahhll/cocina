@@ -2,15 +2,9 @@
 $titulo = "Tipo Dietas";
 $nologg = "SI";
 $page   = "dieta";
+$areaLg = "TIPO_DIETA"; // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
 
 $bus = $_POST["busqueda"];
 $qryB = "";

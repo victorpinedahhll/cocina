@@ -1,21 +1,23 @@
 <?php
-$logged = "false";
-
 if (isset($_SESSION['logincook'])){
-	$logged = "true";
-}
 
-if($logged == "false"){
+	$excepciones = ["dashboard","perfil"];
+	if (!in_array($page, $excepciones)) {
 
-	setcookie("logincook","");
-	if(isset($_SESSION)){
-		foreach ($_SESSION as $keylog => $valuelog) {
-			unset($_SESSION[$keylog]);
+		$idLg   = $_SESSION['clienteidcook'];
+		$qryLgg = "SELECT * FROM _usuarios_roles WHERE _usuario_id = ? AND _rol = ?";
+		$resLgg = $pdo->prepare($qryLgg);
+		$resLgg->execute([$idLg,$areaLg]);
+		$rowLgg = $resLgg->fetch(PDO::FETCH_ASSOC);
+		if(!$rowLgg){
+			header("location: logout.php");
+			exit;
 		}
-		session_destroy();
 	}
-	
-	header("location: index.php?iniciarSesion=SI");
+
+}else{
+
+	header("location: logout.php");
 	exit;
 
 }

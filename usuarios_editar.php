@@ -4,17 +4,11 @@ error_reporting(E_ALL);
 $titulo = "Control de Usuarios";
 $nologg = "SI";
 $page   = "usuarios";
+$areaLg = "USUARIOS";  // valida roles del usuario
 
 include("header.php");
 
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
-
-$id   = get_int('us');
+$id   = $_GET["us"];
 $qry  = "SELECT * FROM _usuarios_admin WHERE id_us00 = ?";
 $stmt = $pdo->prepare($qry);
 $stmt->execute([$id]);

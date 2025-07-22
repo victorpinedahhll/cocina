@@ -1,17 +1,10 @@
 <?php
 $titulo = "Platos Cocina";
 $nologg = "SI";
-$page   = "platos";
+$page   = "platos"; // identifica pagina para scripts, etc
+$areaLg = "MENUS";  // valida roles del usuario
 
 include("header.php");
-
-if($nvsessiontemp!="A"){
-	echo "<body>";
-	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
-	echo "</body>";
-	exit;
-}
-
 ?>
 <style>
 	body {
@@ -72,7 +65,7 @@ $rowR = $rsAg->fetch_assoc();
 		<div class="container" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-7 box-admin-opt">
-					<form action="platos_grabar2.php" method="POST" accept-charset="utf-8">
+					<form action="platos_grabar.php" method="POST" accept-charset="utf-8">
 					<input type="hidden" name="acc" value="edit">
 					<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 					<div class="row">
