@@ -61,8 +61,10 @@ header {
   border-right: 1px solid #fff;
   font-size: 10pt;
 }
-.navbar-nav .nav-link:hover {
-  color: #0053a5 !important;
+.navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+  color: #000 !important;
+  background-color: #e6e6e6;
+  font-weight: normal !important;
 }
 .logo-home {
   padding: 10px 0px 30px 0;

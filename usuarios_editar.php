@@ -54,6 +54,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <select name="nivel" id="areaSelect" class="form-control">
                                         <option value="">elija nivel</option>
                                         <option value="ENFERMERIA" <?php if($row["nivel_wua67"]=="ENFERMERIA"){ ?>selected<?php } ?>>Enfermería</option>
+                                        <option value="AUXILIAR" <?php if($row["nivel_wua67"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Cocina</option>
                                         <option value="COCINA" <?php if($row["nivel_wua67"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
                                         <option value="ADMIN" <?php if($row["nivel_wua67"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
@@ -95,11 +96,15 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="row">
                         <div class="col-md-12 pl-5 pt-3">
                             
-                        <h5 class="mb-0 pb-0 mt-5">Roles Usuario</h5>
+                        <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
                             <div id="checkboxes">
                                 <div class="grupo pt-3" data-area="ENFERMERIA">
                                     <b>Enfermería</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="INGRESO_PAC" <?php if(!empty($row["INGRESO_PAC"]) && $row["INGRESO_PAC"]=="INGRESO_PAC"){ echo "checked"; } ?>>&nbsp; Pacientes</label><br>
+                                </div>
+
+                                <div class="grupo pt-3" data-area="AUXILIAR">
+                                    <b>Auxiliar de Cocina</b><br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes</label>
                                 </div>
 
@@ -121,7 +126,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     <div class="form-row mt-4 mb-4 pl-4">
                         <div class="form-group col-md-5">
-                            <input type="submit" class="btn px-4" name="formsubmit" value="Salvar cambios" style="font-size: 12pt !important; background: #002d59; color: #fff;">
+                            <input type="submit" class="btn btn-secondary px-4" name="formsubmit" value="Salvar cambios" style="font-size: 12pt !important; color: #fff;">
                         </div>
                     </div>
                 </div>

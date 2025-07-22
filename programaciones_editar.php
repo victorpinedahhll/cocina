@@ -30,7 +30,7 @@ $rowR = $rsAg->fetch_assoc();
 					<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 					<div class="row">
 						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-info"><b><a href="programaciones.php" class="text-info">< Editar Programación</a></b></h5>
+							<h5 class="mt-0 mb-3 pl-2 text-secondary"><b><a href="programaciones.php" class="text-secondary">< Editar Programación</a></b></h5>
 						</div>
 					</div>
 					<div class="form-row">
@@ -64,14 +64,14 @@ $rowR = $rsAg->fetch_assoc();
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<input type="submit" name="submitformEdit" class="form-control btn btn-info text-light" value="grabar cambios">
+							<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
 						</div>
 					</div>
 					</form>
 				</div>
 				<div class="col-md-4">
 					<div class="box-admin-opt">
-						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-info w-100">
+						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100">
 							agregar plato
 						</a>
 
@@ -97,7 +97,7 @@ $rowR = $rsAg->fetch_assoc();
 							<!-- Modal borrar -->
 							<div class="modal fade" id="boxDel<?php echo $rowOp["id"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  	<div class="modal-dialog modal-dialog-centered position-relative" role="document">
-							    	<div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+							    	<div class="modal-content">
 								        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 								          <span aria-hidden="true">&times;</span>
 								        </button>
@@ -114,7 +114,7 @@ $rowR = $rsAg->fetch_assoc();
 											<input type="hidden" name="idprogra"  value="<?php echo $id;?>">
 											<div class="row">
 												<div class="col-md-8">
-													<h5 class="mt-0 mb-3 pl-2 text-info"><b>Eliminar Menu</b></h5>
+													<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Eliminar Menu</b></h5>
 												</div>
 											</div>
 											<div class="form-row">
@@ -124,7 +124,7 @@ $rowR = $rsAg->fetch_assoc();
 											</div>
 											<div class="form-row">
 												<div class="form-group col-md-6">
-													<input type="submit" name="submitformDel" class="form-control btn btn-info text-light" value="Si, eliminar">
+													<input type="submit" name="submitformDel" class="form-control btn btn-secondary text-light" value="Si, eliminar">
 												</div>
 											</div>
 											</form>
@@ -140,7 +140,7 @@ $rowR = $rsAg->fetch_assoc();
 			<!-- Modal agregar -->
 			<div class="modal fade" id="boxAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  	<div class="modal-dialog modal-dialog-centered modal-lg position-relative" role="document">
-			    	<div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+			    	<div class="modal-content">
 				        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -150,7 +150,7 @@ $rowR = $rsAg->fetch_assoc();
 							<input type="hidden" name="idprogra" value="<?php echo $id; ?>">
 							<div class="row">
 								<div class="col-md-8">
-									<h5 class="mt-0 mb-3 pl-2 text-info"><b>Agregar Menu</b></h5>
+									<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Agregar Menu</b></h5>
 								</div>
 							</div>
 							<div class="form-row">
@@ -171,7 +171,7 @@ $rowR = $rsAg->fetch_assoc();
 							<div class="form-row mt-4">
 								<div class="form-group col-md-3"></div>
 								<div class="form-group col-md-6">
-									<input type="submit" name="submitform" class="form-control btn btn-info text-light" value="agregar">
+									<input type="submit" name="submitform" class="form-control btn btn-secondary text-light" value="agregar">
 								</div>
 							</div>
 							</form>

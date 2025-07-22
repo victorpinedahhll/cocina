@@ -1,5 +1,5 @@
 <?php
-$titulo = "Pacientes Editar";
+$titulo = "Orden Médica Editar";
 $nologg = "SI";
 $page   = "pacientes";   // identifica pagina para scripts, etc
 $areaLg = "INGRESO_PAC"; // valida roles del usuario
@@ -42,7 +42,7 @@ $status     = $rowPac["status"];
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="box-admin-opt">
-						<h5 class="pt-0 mt-0">Datos del paciente</h5>
+						<h5 class="pt-0 mt-0 text-secondary">Datos del paciente</h5>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Fecha Ingreso *</label>
@@ -231,7 +231,7 @@ $status     = $rowPac["status"];
 					<div class="form-row mt-3">
 						<div class="form-group col-md-4"></div>
 						<div class="form-group col-md-4">
-							<input type="submit" name="submitedit" class="form-control btn text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; background: #002d59; margin-top: 0px;">
+							<input type="submit" name="submitedit" class="form-control btn btn-secondary text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; margin-top: 0px;">
 						</div>
 					</div>
 				</div>

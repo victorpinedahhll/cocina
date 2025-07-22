@@ -101,7 +101,7 @@ $couAg = $rowAg["cuantosag"];
 						<!-- Modal editar -->
 						<div class="modal fade" id="boxEdit<?php echo $rowR["id"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  	<div class="modal-dialog modal-dialog-centered position-relative" role="document">
-						    	<div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+						    	<div class="modal-content">
 							        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -135,7 +135,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformEdit" class="form-control btn btn-info text-light" value="grabar cambios">
+												<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
 											</div>
 										</div>
 										</form>
@@ -147,7 +147,7 @@ $couAg = $rowAg["cuantosag"];
 						<!-- Modal borrar -->
 						<div class="modal fade" id="boxDel<?php echo $rowR["id"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  	<div class="modal-dialog modal-dialog-centered position-relative" role="document">
-						    	<div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+						    	<div class="modal-content">
 							        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -157,7 +157,7 @@ $couAg = $rowAg["cuantosag"];
 										<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 										<div class="row">
 											<div class="col-md-8">
-												<h5 class="mt-0 mb-3 pl-2 text-info"><b>Eliminar Tipo Dieta</b></h5>
+												<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Eliminar Tipo Dieta</b></h5>
 											</div>
 										</div>
 										<div class="form-row">
@@ -167,7 +167,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformDel" class="form-control btn btn-info text-light" value="Si, eliminar">
+												<input type="submit" name="submitformDel" class="form-control btn btn-secondary text-light" value="Si, eliminar">
 											</div>
 										</div>
 										</form>
@@ -250,7 +250,7 @@ $couAg = $rowAg["cuantosag"];
 			<!-- Modal buscador texto -->
 			<div class="modal fade" id="boxSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  	<div class="modal-dialog position-relative" role="document">
-				    <div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+				    <div class="modal-content">
 				        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 				          <span aria-hidden="true">&times;</span>
 				        </button>

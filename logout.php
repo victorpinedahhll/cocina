@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(!empty($_SESSION['splitacc'])){
+// if(!empty($_SESSION['splitacc'])){
 	
-	if($_SESSION['splitacc']=="SI"){
-		$_SESSION['nivelcooktemp']   = "";
-		header("Location: dashboard.php");
-	}
+// 	if($_SESSION['splitacc']=="SI"){
+// 		$_SESSION['nivelcooktemp']   = "";
+// 		header("Location: dashboard.php");
+// 	}
 
-}else{
+// }else{
 
 	setcookie("logincook","");
 	$_SESSION['logincook']       = "";
@@ -20,5 +20,5 @@ if(!empty($_SESSION['splitacc'])){
 	session_destroy();
 	header("Location: index.php");
 
-}
+// }
 ?>

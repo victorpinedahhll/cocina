@@ -148,7 +148,7 @@ $couAg = $rowAg["cuantosag"];
 						<!-- Modal borrar -->
 						<div class="modal fade" id="boxDel<?php echo $rowR["id"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  	<div class="modal-dialog modal-dialog-centered position-relative" role="document">
-						    	<div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+						    	<div class="modal-content">
 							        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -168,7 +168,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformDel" class="form-control btn btn-info text-light" value="Si, eliminar">
+												<input type="submit" name="submitformDel" class="form-control btn btn-secondary text-light" value="Si, eliminar">
 											</div>
 										</div>
 										</form>
@@ -216,7 +216,7 @@ $couAg = $rowAg["cuantosag"];
 			<!-- Modal agregar -->
 			<div class="modal fade" id="boxAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  	<div class="modal-dialog position-relative" role="document">
-				    <div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+				    <div class="modal-content">
 				        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -254,7 +254,7 @@ $couAg = $rowAg["cuantosag"];
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<input type="submit" name="submitformAdd" class="form-control btn btn-info text-light" value="agregar">
+									<input type="submit" name="submitformAdd" class="form-control btn btn-secondary text-light" value="agregar">
 								</div>
 							</div>
 							</form>
@@ -266,7 +266,7 @@ $couAg = $rowAg["cuantosag"];
 			<!-- Modal buscador texto -->
 			<div class="modal fade" id="boxSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  	<div class="modal-dialog position-relative" role="document">
-				    <div class="modal-content" style="background: linear-gradient(#f4f6f9, #dae4f4);">
+				    <div class="modal-content">
 				        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -278,7 +278,7 @@ $couAg = $rowAg["cuantosag"];
 									<input type="text" name="busqueda" class="form-control">
 								</div>
 								<div class="col-3 p-0">
-									<input type="submit" class="btn btn-info form-control" name="filtro" value="buscar" style="font-weight: bold;">
+									<input type="submit" class="btn btn-secondary form-control" name="filtro" value="buscar" style="font-weight: bold;">
 								</div>
 							</div>
 							</form>

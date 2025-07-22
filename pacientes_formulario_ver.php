@@ -1,8 +1,8 @@
 <?php
-$titulo = "Solicitudes Cocina";
+$titulo = "Pedidos Cocina";
 $nologg = "SI";
 $page   = "solicitud";
-$areaLg = "COCINA";  // valida roles del usuario
+$areaLg = "PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 
@@ -47,17 +47,8 @@ if($mesEnv=="12"){ $mesElej = "dic"; }
 $dateEmail = $diaEnv." / ".$mesElej." / ".$anoEnv;
 ?>
 <style>
-	body {
-	  background: #f4f6f9 url('images/bg-cocina.jpg') no-repeat top center fixed; background-size: cover;
-	  }
-	.logout {
-        position: fixed;
-    }
 	.content-text {
 		margin: 160px 21px 0 21px;
-	}
-	header {
-		height: 160px;
 	}
 	.form-control:disabled {
 		padding: 0px !important;
@@ -69,40 +60,6 @@ $dateEmail = $diaEnv." / ".$mesElej." / ".$anoEnv;
 
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
-		<header>
-		<div class="row">
-			<div class="col-md-3 pt-2">
-				<img src="images/logo-trans.png" height="60">
-			</div>
-			<div class="col-md-2 pt-4 esconder-tablet text-center">
-				<h1 class="pb-0 mb-0" style="font-size: 16pt !important;"></h1>
-			</div>
-			<div class="col-md-7 pt-5 text-right" style="padding-top: 33px;">
-				<a href="#" class="btn">&nbsp;</a>
-			</div>
-		</div>
-		
-		<div class="row mb-5">
-			<div class="col-md-12">
-				<div class="esconder-movil">
-					<div class="mb-3 h4-sidebar-nobg text-center" style="height: 43px; font-size: 16pt; padding-top: 2px; background: #17a2b8; text-shadow: 0px 1px 1px #1d527d;">
-						<?php echo $titulo;?>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<style>
-			.colores {
-				margin: -12px 0 12px 0;
-				font-size: 10pt;
-			}
-			.colores i {
-				border:  1px solid #808080;
-			}
-		</style>
-		
-		</header>
 
 		<div style="width: 90%; margin: 175px auto 50px auto;">
 			<?php if($status<"2"){ ?>
@@ -113,7 +70,7 @@ $dateEmail = $diaEnv." / ".$mesElej." / ".$anoEnv;
 			<?php } ?>
 			<?php if($status=="2"){ ?>
 			<div class="row mb-3">
-				<div class="col bg-success text-light text-center" style="border-radius: 7px; font-size: 20pt; padding-top: 5px; padding-bottom: 5px;">
+				<div class="col text-success text-center" style="border-radius: 7px; font-size: 20pt; padding-top: 5px; padding-bottom: 5px;">
 					<b>Solicitud Finalizada</b>
 				</div>
 			</div>

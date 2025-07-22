@@ -36,17 +36,24 @@ if(isset($_POST["submitlogin"]) && $row > 0 && password_verify($password, $row["
 	$_SESSION['clientenamecook'] = $row["nombre_us07"];
 	$_SESSION['nivelcook']       = $row["nivel_wua67"];
 
-	if($row["nivel_wua67"]=="777"){
+	if($row["nivel_wua67"]=="ADMIN"){
 		$_SESSION['nivelcooktemp'] = "A";
-		header("Location: dashboard.php");
-	}elseif($row["nivel_wua67"]=="333"){
+		header("Location: usuarios.php");
+		exit;
+	}elseif($row["nivel_wua67"]=="COCINA"){
 		$_SESSION['nivelcooktemp'] = "C";
 		header("Location: cocina.php");
-	}else{
-		$_SESSION['nivelcooktemp'] = "111";
+		exit;
+	}elseif($row["nivel_wua67"]=="ENFERMERIA"){
+		$_SESSION['nivelcooktemp'] = "E";
+		header("Location: pacientes_activos.php");
+		exit;
+	}elseif($row["nivel_wua67"]=="AUXILIAR"){
+		$_SESSION['nivelcooktemp'] = "U";
 		header("Location: pacientes.php");
+		exit;
 	}
-	exit;
+	
 
 }else{
 

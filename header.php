@@ -124,19 +124,23 @@ require("_private/_access.php");
               , (
                 SELECT _url FROM _roles r WHERE r._nombre_sys = a._rol
               ) as url  
+              , (
+                SELECT _orden FROM _roles r WHERE r._nombre_sys = a._rol
+              ) as orden 
             FROM _usuarios_roles a 
-            WHERE _usuario_id = ?
+            WHERE _usuario_id = ? 
+            ORDER by orden
           ";
           $resMe = $pdo->prepare($qryMe);
           $resMe->execute([$idsession]);
           while ($rowMe = $resMe->fetch(PDO::FETCH_ASSOC)){
           ?>
           <li class="nav-item">
-            <a class="nav-link px-3" href="<?php echo $rowMe["url"]; ?>" <?php if($rowMe["_rol"]==$areaLg){ ?>style="font-weight: bold; color: #0053a5 !important;"<?php } ?>><?php echo $rowMe["namerol"]; ?></a>
+            <a class="nav-link px-3 <?php if($rowMe["_rol"]==$areaLg){ ?>active<?php } ?>" href="<?php echo $rowMe["url"]; ?>"><?php echo $rowMe["namerol"]; ?></a>
           </li>
           <?php } ?>
           <li class="nav-item">
-            <a class="nav-link px-3" href="perfil_editar.php" <?php if($page=="perfil"){ ?>style="font-weight: bold; color: #0053a5 !important;"<?php } ?>>Perfil</a>
+            <a class="nav-link px-3 <?php if($page=="perfil"){ ?>active<?php } ?>" href="perfil_editar.php">Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link px-3" href="logout.php" style="color: red !important;">Salir</a>
@@ -151,8 +155,8 @@ require("_private/_access.php");
 			</div>
 			<div class="col-8 pr-5 pt-3 text-right">
         <?php if($page=="pacientes"){ ?>
-        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold;">
-					<i class="fa fa-plus"></i>&nbsp; agregar paciente
+        <a href="pacientes_activos_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
+					<i class="fa fa-plus"></i>&nbsp; agregar orden
 				</a>
         <?php } ?>
 
@@ -168,7 +172,7 @@ require("_private/_access.php");
 				</a>
         <?php } ?>
 
-        <?php if($page=="platos" || $page=="progra"){ ?>
+        <?php if( ($page=="platos" || $page=="progra") && $_GET["id"] <= "0" ){ ?>
         <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold;">
 					agregar
 				</a>
@@ -179,10 +183,30 @@ require("_private/_access.php");
 			</div>
 		</div>
 		
+    <?php
+    $bgcol   = "#002d59"; 
+    $fontcol = "#ffffff";
+    if($page=="pacientes"){
+      $bgcol = "#d9ead3";
+      $fontcol = "#3e3e3e";
+    }elseif($page=="pedidos"){
+      $bgcol = "#f4cccc";
+      $fontcol = "#3e3e3e";
+    }elseif($page=="platos"){
+      $bgcol = "#e1f0ed";
+      $fontcol = "#3e3e3e";
+    }elseif($page=="solicitud"){
+      $bgcol = "#efe4d6";
+      $fontcol = "#3e3e3e";
+    }elseif($page=="usuarios"){
+      $bgcol = "#ded3fa";
+      $fontcol = "#3e3e3e";
+    }
+    ?>
 		<div class="row mt-3">
 			<div class="col-md-12">
 				<div class="esconder-movil">
-					<div class="mb-3 text-center text-light" style="background: #002d59; height: 40px; font-size: 16pt; padding-top: 2px; font-weight: bold;">
+					<div class="mb-3 text-center" style="background: <?php echo $bgcol; ?>; color: <?php echo $fontcol; ?>; height: 42px; font-size: 16pt; padding-top: 4px; font-weight: bold;">
 						<?php echo $titulo;?>
 					</div>
 				</div>

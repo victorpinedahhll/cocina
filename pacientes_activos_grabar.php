@@ -49,8 +49,13 @@ if($row["segundo_apellido_med37"] > "0"){
 
 if(isset($_POST['submitadd'])){
 
+	$_SESSION["sessadd"] = $_POST;
+
  	$qry = "INSERT INTO `_pacientes_activos`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `alergias`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','$alergias','$status','$nmsession','$fingreso')";
- 	$conexion->query($qry);
+ 	$result = $conexion->query($qry);
+	if($result){
+		unset($_SESSION["sessadd"]);
+	}
 
 }
 

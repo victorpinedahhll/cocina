@@ -86,7 +86,7 @@ $rsEdit  = $conexion->query($qryEdit);
 					</div>
 					<div class="form-row mt-4 mb-5">
 						<div class="col-md-4">
-							<input type="submit" name="submitform" value="Grabar Cambios" class="btn-lg btn-info" style="font-weight: bold;">
+							<input type="submit" name="submitform" value="Grabar Cambios" class="btn btn-secondary" style="font-weight: bold;">
 						</div>
 					</div>
 					</form>

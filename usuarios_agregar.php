@@ -36,6 +36,7 @@ $postuseradd = $_SESSION["formadduser"];
                                     <select name="nivel" id="areaSelect" class="form-control">
                                         <option value="ENFERMERIA" <?php if($postuseradd["nivel"]=="ENFERMERIA"){ ?>selected<?php }else{ ?>selected<?php } ?>>Enfermería</option>
                                         <option value="COCINA" <?php if($postuseradd["nivel"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
+                                        <option value="AUXILIAR" <?php if($postuseradd["nivel"]=="AUXILIAR"){ ?>selected<?php }else{ ?>selected<?php } ?>>Auxiliar de Cocina</option>
                                         <option value="ADMIN" <?php if($postuseradd["nivel"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
                                     <?php } ?>
@@ -70,12 +71,16 @@ $postuseradd = $_SESSION["formadduser"];
                     <div class="row">
                         <div class="col-md-12 pl-5 pt-3">
                             
-                        <h5 class="mb-0 pb-0 mt-5">Roles Usuario</h5>
+                        <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
 
                             <div id="checkboxes">
                                 <div class="grupo pt-3" data-area="ENFERMERIA">
                                     <b>Enfermería</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="INGRESO_PAC">&nbsp; Pacientes</label><br>
+                                </div>
+
+                                <div class="grupo pt-3" data-area="AUXILIAR">
+                                    <b>Auxiliar de Cocina</b><br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes</label>
                                 </div>
 
@@ -97,7 +102,7 @@ $postuseradd = $_SESSION["formadduser"];
 
                     <div class="form-row mt-4 mb-4 pl-4">
                         <div class="form-group col-md-5">
-                            <input type="submit" class="btn px-4" name="formsubmit" value="Agregar usuario" style="font-size: 12pt !important; background: #002d59; color: #fff;">
+                            <input type="submit" class="btn btn-secondary px-4" name="formsubmit" value="Agregar usuario" style="font-size: 12pt !important; color: #fff;">
                         </div>
                     </div>
                 </div>

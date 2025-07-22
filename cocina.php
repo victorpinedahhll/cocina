@@ -1,5 +1,5 @@
 <?php
-$titulo = "Solicitudes Cocina";
+$titulo = "Pedidos Cocina";
 $nologg = "SI";
 $page   = "solicitud";
 $areaLg = "PEDIDOS";  // valida roles del usuario

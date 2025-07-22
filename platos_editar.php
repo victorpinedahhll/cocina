@@ -30,7 +30,7 @@ $rowR = $rsAg->fetch_assoc();
 					<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 					<div class="row">
 						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-info"><b><a href="platos.php" class="text-info">< Editar Plato</a></b></h5>
+							<h5 class="mt-0 mb-3 pl-2 text-info"><b><a href="platos.php" class="text-secondary"><&nbsp; Editar Plato</a></b></h5>
 						</div>
 					</div>
 					<div class="form-row">
@@ -84,14 +84,14 @@ $rowR = $rsAg->fetch_assoc();
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<input type="submit" name="submitformEdit" class="form-control btn btn-info text-light" value="grabar cambios">
+							<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
 						</div>
 					</div>
 					</form>
 				</div>
 				<div class="col-md-5">
 					<div class="box-admin-opt">
-						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-info w-100">
+						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100">
 							agregar opción
 						</a>
 
