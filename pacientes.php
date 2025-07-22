@@ -1,8 +1,8 @@
 <?php
-$titulo = "Pacientes Pacientes";
+$titulo = "Pedidos a Pacientes";
 $nologg = "SI";
 $page   = "pedidos";
-$areaLg = "PEDIDOS";  // valida roles del usuario
+$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 ?>

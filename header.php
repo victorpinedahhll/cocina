@@ -106,6 +106,7 @@ require("_private/_access.php");
   <body id="page-top">
     <header>
     <nav class="navbar navbar-expand-lg logout m-0 px-4 py-0">
+      <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fa fa-bars"></i>
       </button>
@@ -131,11 +132,11 @@ require("_private/_access.php");
           while ($rowMe = $resMe->fetch(PDO::FETCH_ASSOC)){
           ?>
           <li class="nav-item">
-            <a class="nav-link px-3" href="<?php echo $rowMe["url"]; ?>"><?php echo $rowMe["namerol"]; ?></a>
+            <a class="nav-link px-3" href="<?php echo $rowMe["url"]; ?>" <?php if($rowMe["_rol"]==$areaLg){ ?>style="font-weight: bold; color: #0053a5 !important;"<?php } ?>><?php echo $rowMe["namerol"]; ?></a>
           </li>
           <?php } ?>
           <li class="nav-item">
-            <a class="nav-link px-3" href="perfil_editar.php">Perfil</a>
+            <a class="nav-link px-3" href="perfil_editar.php" <?php if($page=="perfil"){ ?>style="font-weight: bold; color: #0053a5 !important;"<?php } ?>>Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link px-3" href="logout.php" style="color: red !important;">Salir</a>
@@ -154,13 +155,24 @@ require("_private/_access.php");
 					<i class="fa fa-plus"></i>&nbsp; agregar paciente
 				</a>
         <?php } ?>
+
         <?php if($page=="usuarios"){ ?>
 				<a href="usuarios_agregar.php" class="btn btn-outline-secondary">
           <i class="fa fa-plus"></i>&nbsp; agregar usuario
         </a>
         <?php } ?>
+
         <?php if($page=="tmenu" || $page=="dieta"){ ?>
         <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
+					<i class="fa fa-search"></i>
+				</a>
+        <?php } ?>
+
+        <?php if($page=="platos" || $page=="progra"){ ?>
+        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold;">
+					agregar
+				</a>
+				<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
 					<i class="fa fa-search"></i>
 				</a>
         <?php } ?>

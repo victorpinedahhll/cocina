@@ -32,8 +32,8 @@ $rsEdit  = $conexion->query($qryEdit);
 	}
 </style>
 <div class="row pt-0 pl-5 pr-5 mb-4">
-	<div class="col-md-12 content-box position-relative">
-		<h1 class="mt-3"><i class="fa fa-user"></i>&nbsp; <?php echo $titulo;?></h1>
+	<div class="col-md-12 content-box position-relative" style="margin-top: 150px;">
+		
 		<div class="row content-text mb-5">
 			<div class="col-md-9">
 				<?php

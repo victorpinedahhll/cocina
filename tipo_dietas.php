@@ -52,10 +52,10 @@ $couAg = $rowAg["cuantosag"];
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
 
-		<div class="container" style="margin-top: 200px;">
+		<div class="container" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-6 box-admin-opt">
-					<div class="row bg-info text-light py-2" style="border-radius: 4px;">
+					<div class="row bg-secondary text-light py-1" style="border-radius: 4px;">
 						<div class="col-8"><b>Nombre</b></div>
 						<div class="col-3 text-center"><b>Status</b></div>
 						<div class="col-1 text-center">&nbsp;</div>
@@ -216,7 +216,7 @@ $couAg = $rowAg["cuantosag"];
 					<input type="hidden" name="acc" value="add">
 					<div class="row">
 						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-info"><b>Agregar Tipo Dieta</b></h5>
+							<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Agregar Tipo Dieta</b></h5>
 						</div>
 					</div>
 					<div class="form-row">
@@ -240,7 +240,7 @@ $couAg = $rowAg["cuantosag"];
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<input type="submit" name="submitformAdd" class="form-control btn btn-info text-light" value="agregar">
+							<input type="submit" name="submitformAdd" class="form-control btn btn-secondary text-light" value="agregar">
 						</div>
 					</div>
 					</form>

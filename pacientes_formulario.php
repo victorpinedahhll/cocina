@@ -1,8 +1,8 @@
 <?php
-$titulo = "Pacientes Cocina";
+$titulo = "Pedido a Pacientes";
 $nologg = "SI";
 $page   = "pacientes";
-$areaLg = "INGRESO_PAC";  // valida roles del usuario
+$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 
