@@ -18,7 +18,7 @@ if ( $_POST["acceso"]=="agregar" ) {
 
 // sanitizo los valores
 $usuario = trim(get_post('usuario'));
-$nivel   = post_int('nivel');
+$nivel   = get_post('nivel');
 $nombre  = trim(get_post('nombre'));
 $email   = trim(post_email('email'));
 $clave1  = trim(get_post('pass1'));

@@ -54,8 +54,11 @@ header {
   width: 100%;
   z-index: 99;
   background: #fff;
-  height: 160px;
-  padding: 15px 35px 0 35px;
+  height: 120px;
+}
+.navbar-nav .nav-link {
+  color: #808080 !important;
+  border-right: 1px solid #fff;
 }
 .logo-home {
   padding: 10px 0px 30px 0;
@@ -758,6 +761,12 @@ h5 {
 }
 .logout {
   color: #3e3e3e !important;
+  background-color: #f4f4f4;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 77777;
 }
 .logout a {
   color: blue !important;

@@ -44,20 +44,6 @@ require("_private/_access.php");
     <!-- Favicons -->
     <link rel="icon" href="favicon.png" type="image/png">
 
-    <style>
-      .logout {
-            top: 15px;
-            right: 35px;
-            z-index: 999999;
-            font-size: 10pt;
-        }
-        @media (max-width: 991px){
-            .content-box, .logout {
-                display: none;
-            }
-        }
-
-    </style>
 
     <!-- Se agregaron las librerias arriba si no deja de funcionar -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -118,33 +104,77 @@ require("_private/_access.php");
   </head>
 
   <body id="page-top">
-    <?php if($nologg != "NO" && $page!="pacientesart"){ ?>
-    <div class="logout">
-      Bienvenido: <b style="font-size: 12pt;"><?php echo $nmsession; ?> &nbsp;
-      <?php
-      // textos segun tipo de usuario 
-      if($nvsessiontemp=="S"){ 
-        echo "<span class='bg-success text-light px-2 py-1' style='font-size: 8pt; border-radius: 30px;'> &nbsp;Solicitudes </span>"; 
-      }elseif($nvsessiontemp=="C"){ 
-        echo "<span class='bg-warning px-2 py-1' style='font-size: 8pt; border-radius: 30px;'> &nbsp;Cocina </span>"; 
-      }elseif($nvsession=="ALL"){ 
-        echo "<span class='bg-info text-light px-2 py-1' style='font-size: 8pt; border-radius: 30px;'> &nbsp;Chef </span>"; 
-      }elseif($nvsession=="777"){ 
-        echo "<span class='bg-secondary px-2 py-1 text-light' style='font-size: 8pt; border-radius: 30px;'> &nbsp;Webmaster </span>"; 
-      } ?>
-      </b> &nbsp;&nbsp;&nbsp;|&nbsp; 
-      <?php if($nvsessiontemp=="C"){  ?>
-        <a href="cocina.php" <?php if($page=="forms"){ ?>class="active"<?php } ?>>Solicitudes Cocina</a> &nbsp;|&nbsp;
-      <?php }elseif($nvsessiontemp=="S"){  ?>
-        <a href="pacientes.php" <?php if($page=="pacientes"){ ?>class="active"<?php } ?>>Pacientes Activos</a> &nbsp;|&nbsp;
-        <a href="solicitudes.php" <?php if($page=="solicitud"){ ?>class="active"<?php } ?>>Solicitudes</a> &nbsp;|&nbsp;
-      <?php }elseif($nvsessiontemp=="A"){  ?>
-        <a href="pacientes_activos.php" <?php if($page=="pacientes"){ ?>class="active"<?php } ?>>Pacientes</a> &nbsp;|&nbsp; 
-        <a href="programaciones.php" <?php if($page=="progra"){ ?>class="active"<?php } ?>>Programación Menus</a> &nbsp;|&nbsp; 
-        <a href="platos.php" <?php if($page=="platos"){ ?>class="active"<?php } ?>>Platos</a> &nbsp;|&nbsp; 
-        <a href="tipo_dietas.php" <?php if($page=="dieta"){ ?>class="active"<?php } ?>>Tipo Dietas</a> &nbsp;|&nbsp; 
-        <a href="tipo_menus.php" <?php if($page=="tmenu"){ ?>class="active"<?php } ?>>Tipo Menus</a> &nbsp;|&nbsp;
-      <?php } ?>
-        <a href="perfil_editar.php" <?php if($page=="perfil"){ ?>class="active"<?php } ?>>Perfil</a> &nbsp;|&nbsp; 
-        <a href="logout.php" style="color: #bd2026;">salir</a></div>
-      <?php } ?>
+    <header>
+    <nav class="navbar navbar-expand-lg logout m-0 px-4 py-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link">Bienvenido <b style="color: #002d59;"><?php echo $ussession; ?></b></a>
+          </li>
+          <?php 
+          $qryMe = "
+            SELECT *
+              , (
+                SELECT _nombre FROM _roles r WHERE r._nombre_sys = a._rol
+              ) as namerol 
+              , (
+                SELECT _url FROM _roles r WHERE r._nombre_sys = a._rol
+              ) as url  
+            FROM _usuarios_roles a 
+            WHERE _usuario_id = ?
+          ";
+          $resMe = $pdo->prepare($qryMe);
+          $resMe->execute([$idsession]);
+          while ($rowMe = $resMe->fetch(PDO::FETCH_ASSOC)){
+          ?>
+          <li class="nav-item">
+            <a class="nav-link px-3" href="<?php echo $rowMe["url"]; ?>"><?php echo $rowMe["namerol"]; ?></a>
+          </li>
+          <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link px-3" href="perfil_editar.php">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3" href="logout.php" style="color: red !important;">Salir</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+		<div class="row mt-5">
+			<div class="col-4 py-2 px-5">
+				<img src="images/logo-trans.png" height="45">
+			</div>
+			<div class="col-8 pr-5 pt-3 text-right">
+        <?php if($page=="pacientes"){ ?>
+        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold;">
+					<i class="fa fa-plus"></i>&nbsp; agregar paciente
+				</a>
+        <?php } ?>
+        <?php if($page=="usuarios"){ ?>
+				<a href="usuarios_agregar.php" class="btn btn-outline-secondary">
+          <i class="fa fa-plus"></i>&nbsp; agregar usuario
+        </a>
+        <?php } ?>
+        <?php if($page=="tmenu" || $page=="dieta"){ ?>
+        <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
+					<i class="fa fa-search"></i>
+				</a>
+        <?php } ?>
+			</div>
+		</div>
+		
+		<div class="row mt-3">
+			<div class="col-md-12">
+				<div class="esconder-movil">
+					<div class="mb-3 text-center text-light" style="background: #002d59; height: 40px; font-size: 16pt; padding-top: 2px; font-weight: bold;">
+						<?php echo $titulo;?>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		</header>

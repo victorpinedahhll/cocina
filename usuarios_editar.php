@@ -17,29 +17,6 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
-		<header>
-		<div class="row">
-			<div class="col-md-3 pt-2">
-				<img src="images/logo-trans.png" height="60">
-			</div>
-			<div class="col-md-2 pt-4 esconder-tablet text-center">
-				<h1 class="pb-0 mb-0" style="font-size: 16pt !important;"></h1>
-			</div>
-			<div class="col-md-7 pt-5 text-right" style="padding-top: 33px;">
-				<a href="#" class="btn">&nbsp;</a>
-			</div>
-		</div>
-		
-		<div class="row mb-5">
-			<div class="col-md-12">
-				<div class="esconder-movil">
-					<div class="mb-3 h4-sidebar-nobg text-center" style="background: #002d59; height: 43px; font-size: 16pt; padding-top: 2px;">
-						<?php echo $titulo;?>
-					</div>
-				</div>
-			</div>
-		</div>
-		</header>
 
 		<div class="px-5" style="margin-top: 140px;">
 			<form action="usuarios_grabar.php" method="POST" id="formRegistro">
@@ -47,7 +24,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             <input type="hidden" name="id"     value="<?php echo $id; ?>">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="pl-4"><a href="Javascript:history.back();" style="color: #82909d;"><i class="fa fa-caret-left"></i>&nbsp; regresar</a></h5>
+                    <h5 class="pl-4 mb-4 mt-5"><a href="Javascript:history.back();" style="color: #82909d;"><i class="fa fa-caret-left"></i>&nbsp; regresar</a></h5>
                     <div class="row content-text" style="margin-top: 15px;">
                         <div class="col-md-12">
                             <h3>Editar usuario</h3>
@@ -64,9 +41,9 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <?php }else{ ?>
                                     <select name="nivel" id="areaSelect" class="form-control">
                                         <option value="">elija nivel</option>
-                                        <option value="111" <?php if($row["nivel_wua67"]=="111"){ ?>selected<?php } ?>>Enfermería</option>
-                                        <option value="333" <?php if($row["nivel_wua67"]=="333"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="777" <?php if($row["nivel_wua67"]=="777"){ ?>selected<?php } ?>>Administración</option>
+                                        <option value="ENFERMERIA" <?php if($row["nivel_wua67"]=="ENFERMERIA"){ ?>selected<?php } ?>>Enfermería</option>
+                                        <option value="COCINA" <?php if($row["nivel_wua67"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
+                                        <option value="ADMIN" <?php if($row["nivel_wua67"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
                                     <?php } ?>
                                 </div>
@@ -114,22 +91,22 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                             $rowR  = $stmtR->fetch(PDO::FETCH_ASSOC);
                             ?>
                             <div id="checkboxes">
-                                <div class="grupo pt-3" data-area="111">
+                                <div class="grupo pt-3" data-area="ENFERMERIA">
                                     <b>Enfermería</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="INGRESO_PAC" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="INGRESO_PAC"){ echo "checked"; } ?>>&nbsp; Pacientes</label><br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes</label>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes</label>
                                 </div>
 
-                                <div class="grupo pt-3" data-area="333">
+                                <div class="grupo pt-3" data-area="COCINA">
                                     <b>Cocina</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TIPO_MENU" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="COCINA" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="COCINA"){ echo "checked"; } ?>>&nbsp; Pedidos
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos
                                 </div>
 
-                                <div class="grupo pt-3" data-area="777">
+                                <div class="grupo pt-3" data-area="ADMIN">
                                     <b>Administración</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($rowR["_rol"]) && $rowR["_rol"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
                                 </div>
@@ -156,7 +133,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             // Desmarcar todos primero
             $('.rol-checkbox').prop('checked', false);
 
-            if (areaSeleccionada === "777") {
+            if (areaSeleccionada === "ADMIN") {
                 $('.rol-checkbox').prop('checked', true); // Todos los checkboxes
             } else {
                 $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);

@@ -13,7 +13,7 @@ if(!empty($bus)){
 }
 
 $nivelm = "and status != 'E'";
-if($nvsession=="777"){
+if($nvsession=="ADMIN"){
 	$nivelm = "";
 }
 
@@ -35,18 +35,11 @@ if ($van_reg > $no_of_records_per_page){
 }
 ?>
 <style>
-	body {
-	  background: #f4f6f9 url('images/bg-cocina.jpg') no-repeat top center; background-size: cover;
-	  }
-	.logout {
-        position: fixed;
-    }
+
 	.content-text {
 		margin: 160px 21px 0 21px;
 	}
-	header {
-		height: 160px;
-	}
+
 </style>
 
 <?php
@@ -58,42 +51,6 @@ $couAg = $rowAg["cuantosag"];
 
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
-		<header>
-		<div class="row">
-			<div class="col-md-3 pt-2">
-				<img src="images/logo-trans.png" height="60">
-			</div>
-			<div class="col-md-2 pt-4 esconder-tablet text-center">
-				<h1 class="pb-0 mb-0" style="font-size: 16pt !important;"></h1>
-			</div>
-			<div class="col-md-7 pt-5 text-right" style="padding-top: 33px;">
-				<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
-					<i class="fa fa-search"></i>
-				</a>
-			</div>
-		</div>
-		
-		<div class="row mb-5">
-			<div class="col-md-12">
-				<div class="esconder-movil">
-					<div class="mb-3 h4-sidebar-nobg text-center bg-info" style="height: 43px; font-size: 16pt; padding-top: 2px;">
-						<?php echo $titulo;?> ( <?php echo $couAg; ?> )
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<style>
-			.colores {
-				margin: -12px 0 12px 0;
-				font-size: 10pt;
-			}
-			.colores i {
-				border:  1px solid #808080;
-			}
-		</style>
-		
-		</header>
 
 		<div class="container" style="margin-top: 200px;">
 			<div class="row">

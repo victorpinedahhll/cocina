@@ -23,36 +23,12 @@ include("header.php");
 
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
-		<header>
-		<div class="row">
-			<div class="col-md-3 pt-2">
-				<img src="images/logo-trans.png" height="60">
-			</div>
-			<div class="col-md-2 pt-4 esconder-tablet text-center">
-				<h1 class="pb-0 mb-0" style="font-size: 16pt !important;"></h1>
-			</div>
-			<div class="col-md-7 pt-5 pr-5 text-right" style="padding-top: 33px;">
-				<a href="usuarios_agregar.php" class="btn btn-outline-secondary"><i class="fa fa-plus"></i>&nbsp; agregar usuario</a>
-			</div>
-		</div>
-		
-		<div class="row mb-5">
-			<div class="col-md-12">
-				<div class="esconder-movil">
-					<div class="mb-3 h4-sidebar-nobg text-center" style="background: #002d59; height: 43px; font-size: 16pt; padding-top: 2px;">
-						<?php echo $titulo;?>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		</header>
 
 		<div class="px-5" style="margin-top: 170px;">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box-admin-opt pt-3">
-						<div class="row bg-info text-light" style="height: 27px; font-weight: bold;">
+						<div class="row bg-secondary text-light mb-3" style="height: 27px; font-weight: bold;">
 							<div class="col-md-2">
 								Usuario
 							</div>
