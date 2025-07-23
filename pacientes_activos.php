@@ -37,7 +37,7 @@ include("header.php");
 						</div>
 						<?php 
 						//$qryPac = "SELECT * FROM _pacientes_activos a WHERE a.id in (select id_paciente from _pacientes_solicitudes b WHERE a.id=b.id_paciente and b.status<'2') and a.status='A' ORDER by a.fecha_ingreso";
-						$qryPac = "SELECT * FROM _pacientes_activos ORDER by status,fecha_ingreso";
+						$qryPac = "SELECT * FROM _ordenes_medicas ORDER by status,fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
 						?>

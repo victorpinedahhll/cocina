@@ -6,7 +6,7 @@ $page   = "solicitud";
 include("header.php");
 
 $idSol  = $_GET["sol"];
-$qryPac = "SELECT *, (select alergias from _pacientes_activos b where b.id=a.id_paciente) as alergias FROM _pacientes_solicitudes a WHERE id='$idSol'";
+$qryPac = "SELECT *, (select alergias from _ordenes_medicas b where b.id=a.id_paciente) as alergias FROM _pacientes_solicitudes a WHERE id='$idSol'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 

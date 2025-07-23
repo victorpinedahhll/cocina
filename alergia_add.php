@@ -14,7 +14,7 @@ $alerg  = $_POST['alergia'];
 // }
 // exit;
 
- $qry = "UPDATE _pacientes_activos SET alergias='$alerg' WHERE id='$idPac'";
+ $qry = "UPDATE _ordenes_medicas SET alergias='$alerg' WHERE id='$idPac'";
  $conexion->query($qry);
 
 echo "alergia grabada";

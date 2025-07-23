@@ -17,7 +17,7 @@ if(!empty($_POST['key'])){
  	$observaciones = $_POST['observaciones'];
  	$key           = $_POST['key'];
 
- 	$qryPac = "SELECT *, (select alergias from _pacientes_activos b where b.id=a.id_paciente) as alergias FROM _pacientes_solicitudes a WHERE id='$idsol'";
+ 	$qryPac = "SELECT *, (select alergias from _ordenes_medicas b where b.id=a.id_paciente) as alergias FROM _pacientes_solicitudes a WHERE id='$idsol'";
 	$rsPac  = $conexion->query($qryPac);
 	$rowPac = $rsPac->fetch_assoc();
  	$pnombre       = $rowPac['pnombre'];

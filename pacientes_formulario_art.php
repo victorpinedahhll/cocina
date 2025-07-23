@@ -6,7 +6,7 @@ $page   = "pacientesart";
 include("header.php");
 
 $idPac  = $_GET["id"];
-$qryPac = "SELECT * FROM _pacientes_activos WHERE status='A' and id='$idPac'";
+$qryPac = "SELECT * FROM _ordenes_medicas WHERE status='A' and id='$idPac'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 

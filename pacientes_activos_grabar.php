@@ -51,7 +51,7 @@ if(isset($_POST['submitadd'])){
 
 	$_SESSION["sessadd"] = $_POST;
 
- 	$qry = "INSERT INTO `_pacientes_activos`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `alergias`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','$alergias','$status','$nmsession','$fingreso')";
+ 	$qry = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `alergias`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','$alergias','$status','$nmsession','$fingreso')";
  	$result = $conexion->query($qry);
 	if($result){
 		unset($_SESSION["sessadd"]);
@@ -61,7 +61,7 @@ if(isset($_POST['submitadd'])){
 
 if(isset($_POST['submitedit'])){
 
-	$qry = "UPDATE `_pacientes_activos` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', alergias='$alergias', status='$status', usuario='$nmsession', actualizacion='$datenowfull', fecha_ingreso='$fingreso' WHERE id='$id'";
+	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', alergias='$alergias', status='$status', usuario='$nmsession', actualizacion='$datenowfull', fecha_ingreso='$fingreso' WHERE id='$id'";
 	$conexion->query($qry);
 
 }

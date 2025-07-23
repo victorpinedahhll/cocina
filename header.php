@@ -112,7 +112,7 @@ require("_private/_access.php");
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item pr-2">
             <a class="nav-link">Bienvenido <b style="color: #002d59;"><?php echo $ussession; ?></b></a>
           </li>
           <?php 
