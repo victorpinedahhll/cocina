@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="robots" content="noindex, nofollow, nosnippet">
-	<title>HHLL | Cocina</title>
+	<title>HHLL | Sistema de Cocina</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="imupgrade.com" />
    
@@ -16,6 +16,10 @@
 	<?php include ('include_css.php'); ?>
 
 	<style>
+		html,body {
+			padding: 0px;
+			margin: 0px;
+		}
 		body {
 			background-image: url('images/bg-cocina2.jpg');
 			background-size: cover;

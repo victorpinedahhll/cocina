@@ -73,8 +73,8 @@ require("_private/_access.php");
                   // `
                   template += `
                     <div class='row pt-3 pb-0' taskId="${task.id}" taskIdpr="${task.idprogra} ${task.idmenu}" taskKey="${task.key}">
-                      <div class='col-11'>${task.name}</div>
-                      <div class='col-1 text-center'><i class='btn fa fa-times item-delete'></i></div>
+                      <div class='col-11'><b>${task.name}</b></div>
+                      <div class='col-1 text-center'><i class='btn fa fa-trash item-delete'></i></div>
                     </div>
                   `
 
@@ -186,22 +186,22 @@ require("_private/_access.php");
     <?php
     $bgcol   = "#002d59"; 
     $fontcol = "#ffffff";
-    if($page=="pacientes"){
-      $bgcol = "#d9ead3";
-      $fontcol = "#3e3e3e";
-    }elseif($page=="pedidos"){
-      $bgcol = "#f4cccc";
-      $fontcol = "#3e3e3e";
-    }elseif($page=="platos"){
-      $bgcol = "#e1f0ed";
-      $fontcol = "#3e3e3e";
-    }elseif($page=="solicitud"){
-      $bgcol = "#efe4d6";
-      $fontcol = "#3e3e3e";
-    }elseif($page=="usuarios"){
-      $bgcol = "#ded3fa";
-      $fontcol = "#3e3e3e";
-    }
+    // if($page=="pacientes"){
+    //   $bgcol = "#d9ead3";
+    //   $fontcol = "#3e3e3e";
+    // }elseif($page=="pedidos"){
+    //   $bgcol = "#f4cccc";
+    //   $fontcol = "#3e3e3e";
+    // }elseif($page=="platos"){
+    //   $bgcol = "#e1f0ed";
+    //   $fontcol = "#3e3e3e";
+    // }elseif($page=="solicitud"){
+    //   $bgcol = "#efe4d6";
+    //   $fontcol = "#3e3e3e";
+    // }elseif($page=="usuarios"){
+    //   $bgcol = "#ded3fa";
+    //   $fontcol = "#3e3e3e";
+    // }
     ?>
 		<div class="row mt-3">
 			<div class="col-md-12">

@@ -106,7 +106,9 @@ if($_GET["van"]=="1"){
 }
 ?>
 <style>
-
+	html,body {
+		background: #dedede !important;
+	}
 	.content-text {
 		margin: 160px 21px 0 21px;
 	}
@@ -146,7 +148,7 @@ if($_GET["van"]=="1"){
 			<input type="hidden" name="motivo"     value="<?php echo $motivo; ?>">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box-admin-opt p-3 pb-0" style="background: #002d59; color: #fff; padding-bottom: 0px !important; box-shadow: 5px 10px 10px -10px #333333;">
+					<div class="box-admin-opt p-3 pb-0 mb-3" style="background: #ffffff; color: #3e3e3e; padding-bottom: 0px !important; box-shadow: 5px 10px 10px -10px #333333;">
 						<div class="form-row">
 							<div class="form-group col">
 								<label>Nombre Paciente</label><br>
@@ -171,7 +173,7 @@ if($_GET["van"]=="1"){
 							</div>
 							<div class="form-group col">
 								<label>Alergias:</label><br>
-								<select name="alergias" id="alergias" class="w-100" style="background: #002d59; color: #fff; border: 1px solid #C0C0C0; padding: 4px 8px;">
+								<select name="alergias" id="alergias" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;">
 									<option value="">Ninguna</option>
 									<option value="Mariscos" <?php if($alergias=="Mariscos"){ echo "selected"; } ?>>Mariscos</option>
 									<option value="Gluten" <?php if($alergias=="Gluten"){ echo "selected"; } ?>>Gluten</option>
@@ -179,14 +181,14 @@ if($_GET["van"]=="1"){
 								</select>
 							</div>
 							<div class="form-group col-1 text-right">
-								<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+								<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
 									<i class="fa fa-plus"></i>
 								</button>
 								<!-- Modal -->
 								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
 								    <div class="modal-content">
-								      <div class="modal-header bg-info">
+								      <div class="modal-header" style="background: #002d59; color: #ffffff;">
 								        <h5 class="modal-title text-light" id="exampleModalLabel"><b>Código paciente:</b> <?php echo $codigo; ?></h5>
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								          <span aria-hidden="true">&times;</span>
@@ -200,13 +202,12 @@ if($_GET["van"]=="1"){
 								  </div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 			<?php if($alergias!="NO"){ ?>
-			<div class="row mt-2 mb-3 mx-2">
+			<div class="row mt-1 mb-3 mx-1 blink_me">
 				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
 					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $alergias; ?></b></h5>
 				</div>
@@ -247,18 +248,18 @@ if($_GET["van"]=="1"){
 							?>
 							<div class="col px-2 text-center">
 								<?php if($idplato > "0"){ ?>
-									<a nmae="#" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>;">
-										<?php echo $rowL["nombre"]; ?>
+									<a nmae="#" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #fff; color: #000; border: 1px solid #C0C0C0;">
+										<img src="images/svg/<?php echo $rowL["icon"]; ?>" height="40">&nbsp; <?php echo $rowL["nombre"]; ?>
 									</a>
 								<?php }else{ ?>
-									<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $rowL["id"]; ?>&opt1=SI&van=<?php echo $van; ?>" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>;">
-										<?php echo $rowL["nombre"]; ?>
+									<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $rowL["id"]; ?>&opt1=SI&van=<?php echo $van; ?>" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #fff; color: #000; border: 1px solid #C0C0C0;">
+										<img src="images/svg/<?php echo $rowL["icon"]; ?>" height="30">&nbsp; <?php echo $rowL["nombre"]; ?>
 									</a>
 								<?php } ?>
 							</div>
 							<?php if($idplato > "0"){ ?>
 							<div class="col-3">
-								<a href="?id=<?php echo $idPac; ?>" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #fff; color: #000; border: 1px solid #C0C0C0;">Menu Principal</a>
+								<a href="?id=<?php echo $idPac; ?>" class="btn btn-lg w-100" style="box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 40px; background: #fff; color: #000; border: 1px solid #C0C0C0;"><img src="images/svg/back-svgrepo-com.svg" height="40"></a>
 							</div>
 							<?php } ?>		
 						<?php } ?>
@@ -267,7 +268,7 @@ if($_GET["van"]=="1"){
 						<!----------- SELECCION DOS ------------>
 						<?php if($_GET['opt1']=="SI"){ ?>
 						<div class="row px-2">
-							<div class="col-md-12 mt-3 mb-0 py-2 text-center" style="background: #eee; color: #808080; border-radius: 4px; font-size: 12pt; font-weight: bold; box-shadow: 5px 10px 10px -10px #808080;"><?php echo $rowT2["nombre"]; ?></div>
+							<div class="col-md-12 mt-3 mb-0 py-2 text-center" style="background: #eee; color: #808080; border-radius: 4px; font-size: 12pt; font-weight: bold; box-shadow: 5px 10px 10px -10px #808080;">platos de este menú</div>
 						</div>
 						<div class="row">
 							<?php
@@ -276,7 +277,7 @@ if($_GET["van"]=="1"){
 							while ($row = $rs->fetch_assoc()){
 							?>
 								<div class="col-4 px-2 mt-3 text-center">
-									<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $row["id"]; ?>&opt2=SI&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol; ?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+									<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $row["id"]; ?>&opt2=SI&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 										<?php echo $row["nombre"]; ?>
 									</a>
 								</div>
@@ -302,13 +303,13 @@ if($_GET["van"]=="1"){
 									$row1 = $rs1->fetch_assoc();
 									?>
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $_GET["idtp"]; ?>&id2=<?php echo $_GET["id2"]; ?>&id3=<?php echo $row["id"]; ?>&opt3=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $_GET["idtp"]; ?>&id2=<?php echo $_GET["id2"]; ?>&id3=<?php echo $row["id"]; ?>&opt3=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row["nombre"]; ?>
 										</a>
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row["id"]; ?>&tipo=2&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row["id"]; ?>&tipo=2&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row["nombre"]; ?>
 										</a>
 									</div>
@@ -334,13 +335,13 @@ if($_GET["van"]=="1"){
 									$row22 = $rs22->fetch_assoc();
 									?>
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $_GET["idtp"]; ?>&id2=<?php echo $_GET["id2"]; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $row2["id"]; ?>&opt4=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $_GET["idtp"]; ?>&id2=<?php echo $_GET["id2"]; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $row2["id"]; ?>&opt4=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row2["nombre"]; ?>
 										</a>
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row2["id"]; ?>&tipo=3&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row2["id"]; ?>&tipo=3&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row2["nombre"]; ?>
 										</a>
 									</div>
@@ -367,13 +368,13 @@ if($_GET["van"]=="1"){
 									$row33 = $rs33->fetch_assoc();
 									?>
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $idM; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $idopc1; ?>&id5=<?php echo $row3["id"]; ?>&opt5=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row3["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $idM; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $idopc1; ?>&id5=<?php echo $row3["id"]; ?>&opt5=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row3["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row3["nombre"]; ?>
 										</a>
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row3["id"]; ?>&tipo=4&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row3["id"]; ?>&tipo=4&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row3["nombre"]; ?>
 										</a>
 									</div>
@@ -400,13 +401,13 @@ if($_GET["van"]=="1"){
 									$row44 = $rs44->fetch_assoc();
 									?>
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $idM; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $idopc1; ?>&id5=<?php echo $idopc2;?>&id6=<?php echo $id4;?>&opt6=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="?id=<?php echo $idPac; ?>&idtp=<?php echo $idplato; ?>&id2=<?php echo $idM; ?>&id3=<?php echo $idopc; ?>&id4=<?php echo $idopc1; ?>&id5=<?php echo $idopc2;?>&id6=<?php echo $id4;?>&opt6=SI&van=<?php echo $_GET["van"];?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row4["nombre"]; ?>
 										</a>
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row4["id"]; ?>&tipo=5&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row4["id"]; ?>&tipo=5&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row4["nombre"]; ?>
 										</a>
 									</div>
@@ -427,7 +428,7 @@ if($_GET["van"]=="1"){
 							while($row5 = $rs5->fetch_assoc()){
 								?>
 								<div class="col-4 px-2 mt-3 text-center">
-									<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row5["id"]; ?>&tipo=6&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #<?php echo $btncol;?>; color: #<?php echo $txtcol;?>; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
+									<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row5["id"]; ?>&tipo=6&idtp=<?php echo $idplato;?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 25){ echo "padding-top: 18px;"; } ?>">
 										<?php echo $row5["nombre"]; ?>
 									</a>
 								</div>
@@ -439,9 +440,9 @@ if($_GET["van"]=="1"){
 				</div>
 				<div class="col-md-4">
 					<div class="box-admin-opt">
-						<h5 class="mt-0 mb-2 bg-info text-light text-center p-3" style="border-radius: 4px;">Menú elegido</h5>
+						<h5 class="mt-0 mb-2 text-center p-3" style="background: #eee; color: #3e3e3e; border-radius: 4px;"><img src="images/svg/food-market-purchasing-svgrepo-com.svg" height="30">&nbsp; Menú elegido</h5>
 						
-						<div class="table-elegidas" id="tasks" style="min-height: 150px;"></div>
+						<div class="table-elegidas px-2" id="tasks" style="min-height: 150px;"></div>
 
 						<div class="row mt-3 pb-4">
 							<div class="col-md-12">

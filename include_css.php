@@ -814,12 +814,12 @@ h5 {
   width: 100%;
 }
 .table-elegidas .row {
-  border-bottom: 1px dotted #c0c0c0;
-  font-size: 13pt;
+  border-bottom: 1px solid #c0c0c0;
+  font-size: 12pt;
   line-height: 15pt;
   padding-top: 2px;
   padding-right: 12px;
-  padding-bottom: 8px !important;
+  padding-bottom: 12px !important;
 }
 @media (max-width: 1500px){
   .table-elegidas .row {
@@ -833,4 +833,16 @@ h5 {
   }
 }
 
+.blink_me {
+  animation: blink-custom 3s infinite ease-in-out;
+  opacity: 1;
+}
+
+@keyframes blink-custom {
+  0%   { opacity: 1; }   /* visible */
+  70%  { opacity: 1; }   /* sigue visible */
+  75%  { opacity: 0; }   /* desaparece rápido */
+  80%  { opacity: 1; }   /* vuelve a aparecer rápido */
+  100% { opacity: 1; }   /* permanece visible */
+}
 </style>
