@@ -11,7 +11,8 @@ include("header.php");
 $id   = $_GET["us"];
 $qry  = "
     SELECT *
-    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'INGRESO_PAC') AS INGRESO_PAC
+    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'PACIENTES') AS PACIENTES
+    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'ORDENES') AS ORDENES
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS') AS TOMA_PEDIDOS
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'TIPO_MENU') AS TIPO_MENU
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'TIPO_DIETA') AS TIPO_DIETA
@@ -100,12 +101,13 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                             <div id="checkboxes">
                                 <div class="grupo pt-3" data-area="ENFERMERIA">
                                     <b>Enfermería</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="INGRESO_PAC" <?php if(!empty($row["INGRESO_PAC"]) && $row["INGRESO_PAC"]=="INGRESO_PAC"){ echo "checked"; } ?>>&nbsp; Pacientes</label><br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES" <?php if(!empty($row["PACIENTES"]) && $row["PACIENTES"]=="PACIENTES"){ echo "checked"; } ?>>&nbsp; Pacientes<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES" <?php if(!empty($row["ORDENES"]) && $row["ORDENES"]=="ORDENES"){ echo "checked"; } ?>>&nbsp; Ordenes Médicas
                                 </div>
 
                                 <div class="grupo pt-3" data-area="AUXILIAR">
                                     <b>Auxiliar de Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes</label>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes
                                 </div>
 
                                 <div class="grupo pt-3" data-area="COCINA">

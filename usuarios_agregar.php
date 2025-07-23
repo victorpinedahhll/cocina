@@ -76,12 +76,13 @@ $postuseradd = $_SESSION["formadduser"];
                             <div id="checkboxes">
                                 <div class="grupo pt-3" data-area="ENFERMERIA">
                                     <b>Enfermería</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="INGRESO_PAC">&nbsp; Pacientes</label><br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES">&nbsp; Pacientes<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES">&nbsp; Ordenes Médicas
                                 </div>
 
                                 <div class="grupo pt-3" data-area="AUXILIAR">
                                     <b>Auxiliar de Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes</label>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes
                                 </div>
 
                                 <div class="grupo pt-3" data-area="COCINA">

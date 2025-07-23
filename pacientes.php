@@ -1,8 +1,8 @@
 <?php
-$titulo = "Pedidos a Pacientes";
+$titulo = "Pacientes";
 $nologg = "SI";
-$page   = "pedidos";
-$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
+$page   = "pacientes";
+$areaLg = "PACIENTES";  // valida roles del usuario
 
 include("header.php");
 ?>
@@ -34,8 +34,8 @@ include("header.php");
 							</div>
 						</div>
 						<?php 
-						//$qryPac = "SELECT * FROM _ordenes_medicas a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
-						$qryPac = "SELECT * FROM _ordenes_medicas a WHERE status='A' ORDER by fecha_ingreso";
+						//$qryPac = "SELECT * FROM _pacientes a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
+						$qryPac = "SELECT * FROM _pacientes a WHERE status='A' ORDER by fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
 						?>
