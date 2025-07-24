@@ -23,14 +23,17 @@ include("header.php");
 							<div class="col-md-2">
 								Fecha Ingreso
 							</div>
+							<div class="col-md-1">
+								Código
+							</div>
 							<div class="col-md-3">
 								Nombre Paciente
 							</div>
-							<div class="col-md-3 hidden-max-991">
-								Habitación
-							</div>
 							<div class="col-md-4">
 								Médico Tratante
+							</div>
+							<div class="col-md-2">
+								Alergias
 							</div>
 						</div>
 						<?php 
@@ -62,16 +65,19 @@ include("header.php");
 
 								echo $diaP."/".$mesN."/".$anoP; ?>
 							</div>
+							<div class="col-md-1">
+								<?php echo $rowPac["codigo"]; ?>
+							</div>
 							<div class="col-md-3">
-								<a href="pacientes_formulario.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+								<a href="pacientes_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
 									<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
 								</a>
 							</div>
-							<div class="col-md-3 hidden-max-991">
-								<?php echo $rowPac["habitacion"]; ?>
-							</div>
 							<div class="col-md-4">
 								<?php echo $rowPac["medico_tratante"]; ?>
+							</div>
+							<div class="col-md-2">
+								<?php echo $rowPac["alergias"]; ?>
 							</div>
 						</div>
 						<?php } ?>

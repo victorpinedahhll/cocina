@@ -57,14 +57,17 @@ header {
   height: 120px;
 }
 .navbar-nav .nav-link {
-  color: #808080 !important;
+  color: #606060 !important;
   border-right: 1px solid #fff;
+  border-bottom: 1px solid #f4f4f4;
   font-size: 10pt;
 }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
-  color: #000 !important;
+  color: #002d59 !important;
   background-color: #e6e6e6;
+  border-bottom: 1px solid #C0C0C0;
   font-weight: normal !important;
+  font-size: 10pt;
 }
 .logo-home {
   padding: 10px 0px 30px 0;

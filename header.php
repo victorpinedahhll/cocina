@@ -143,7 +143,9 @@ require("_private/_access.php");
             <a class="nav-link px-3 <?php if($page=="perfil"){ ?>active<?php } ?>" href="perfil_editar.php">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3" href="logout.php" style="color: red !important;">Salir</a>
+            <a class="nav-link px-3" href="logout.php" style="color: #002d59 !important;">
+              <i class="fa fa-power-off" title="cerrar sesión"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -154,9 +156,15 @@ require("_private/_access.php");
 				<img src="images/logo-trans.png" height="45">
 			</div>
 			<div class="col-8 pr-5 pt-3 text-right">
-        <?php if($page=="pacientes"){ ?>
-        <a href="pacientes_activos_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
+        <?php if($page=="ordenes"){ ?>
+        <a href="ordenes_medicas_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
 					<i class="fa fa-plus"></i>&nbsp; agregar orden
+				</a>
+        <?php } ?>
+
+        <?php if($page=="pacientes"){ ?>
+        <a href="pacientes_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
+					<i class="fa fa-plus"></i>&nbsp; agregar paciente
 				</a>
         <?php } ?>
 
