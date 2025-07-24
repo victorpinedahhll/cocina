@@ -111,7 +111,7 @@ $couAg = $rowAg["cuantosag"];
 										<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 										<div class="row">
 											<div class="col-md-8">
-												<h5 class="mt-0 mb-3 pl-2 text-info"><b>Editar Tipo Dieta</b></h5>
+												<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Editar Tipo Dieta</b></h5>
 											</div>
 										</div>
 										<div class="form-row">

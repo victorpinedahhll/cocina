@@ -109,7 +109,7 @@ $couAg = $rowAg["cuantosag"];
 										<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 										<div class="row">
 											<div class="col-md-8">
-												<h5 class="mt-0 mb-3 pl-2 text-info"><b>Editar Tipo Menu</b></h5>
+												<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Editar Tipo Menu</b></h5>
 											</div>
 										</div>
 										<div class="form-row">
@@ -133,7 +133,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformEdit" class="form-control btn btn-info text-light" value="grabar cambios">
+												<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
 											</div>
 										</div>
 										</form>

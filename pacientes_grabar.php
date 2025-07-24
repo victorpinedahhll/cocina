@@ -28,7 +28,6 @@ $papellido     = $_POST['papellido'];
 $sapellido     = $_POST['sapellido'];
 $medico        = $_POST['medico'];
 $otromed       = $_POST['otromed'];
-$motivo        = $_POST['motivo'];
 $observaciones = $_POST['observaciones'];
 $alergias       = $_POST['alergias'];
 $status        = $_POST['status'];
@@ -50,7 +49,7 @@ if(isset($_POST['submitadd'])){
 
 	$_SESSION["sessadd"] = $_POST;
 
- 	$qry = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `alergias`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','$alergias','$status','$nmsession','$fingreso')";
+ 	$qry = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `alergias`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','$alergias','$status','$nmsession','$fingreso')";
  	$result = $conexion->query($qry);
 	if($result){
 		unset($_SESSION["sessadd"]);
@@ -60,7 +59,7 @@ if(isset($_POST['submitadd'])){
 
 if(isset($_POST['submitedit'])){
 
-	$qry = "UPDATE `_pacientes` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', alergias='$alergias', status='$status', usuario='$nmsession', actualizacion='$datenowfull', fecha_ingreso='$fingreso' WHERE id='$id'";
+	$qry = "UPDATE `_pacientes` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', observaciones='$observaciones', alergias='$alergias', status='$status', usuario='$nmsession', actualizacion='$datenowfull', fecha_ingreso='$fingreso' WHERE id='$id'";
 	$conexion->query($qry);
 
 }

@@ -96,7 +96,8 @@ $postuseradd = $_SESSION["formadduser"];
 
                                 <div class="grupo pt-3" data-area="ADMIN">
                                     <b>Administración</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS">&nbsp; Alergias
                                 </div>
                         </div>
                     </div>

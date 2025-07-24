@@ -40,7 +40,7 @@ a {
   background: #5b6d7e;
 }
 input:disabled, select:disabled, textarea:disabled {
-  background: #f8f8f8 !important;
+  background: #ffffff !important;
   border: 0px;
 }
 .container {

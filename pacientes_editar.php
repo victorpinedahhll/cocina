@@ -7,7 +7,7 @@ $areaLg = "PACIENTES"; // valida roles del usuario
 include("header.php");
 
 $idPac  = $_GET["id"];
-$qryPac = "SELECT * FROM _ordenes_medicas WHERE id='$idPac'";
+$qryPac = "SELECT * FROM _pacientes WHERE id='$idPac'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 
@@ -16,11 +16,9 @@ $pnombre    = $rowPac["pnombre"];
 $snombre    = $rowPac["snombre"];
 $papellido  = $rowPac["papellido"];
 $sapellido  = $rowPac["sapellido"];
-$habitacion = $rowPac["habitacion"];
 $pcodigo    = $rowPac["codigo"];
 $codmedico  = $rowPac["cod_medico"];
 $medico     = $rowPac["medico_tratante"];
-$motivo     = $rowPac["motivo_ingreso"];
 $observaciones = $rowPac["observaciones"];
 $alergias   = $rowPac["alergias"];
 $status     = $rowPac["status"];
@@ -41,7 +39,12 @@ $status     = $rowPac["status"];
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="box-admin-opt">
-						<h5 class="pt-0 mt-0 text-secondary">Datos del paciente</h5>
+						<h5 class="pt-0 mt-0 text-secondary">
+							<a href="pacientes.php">
+								<i class="fa fa-angle-left"></i>
+							</a>&nbsp;
+							Datos del paciente
+						</h5>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Fecha Ingreso *</label>
@@ -98,29 +101,21 @@ $status     = $rowPac["status"];
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-12">
-							<label>Motivo de ingreso</label>
-							<textarea name="motivo" id="motivo" class="form-control" rows="2"><?php echo $motivo; ?></textarea>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
 							<label>Observaciones</label>
 							<textarea name="observaciones" id="observaciones" class="form-control" rows="2"><?php echo $observaciones; ?></textarea>
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Alergias</label>&nbsp;  
-							<input type="radio" name="alergias" value="Mariscos" <?php if($alergias=="Mariscos"){ echo "checked"; } ?>> Mariscos&nbsp; 
-							<input type="radio" name="alergias" value="Gluten" <?php if($alergias=="Gluten"){ echo "checked"; } ?>> Gluten&nbsp; 
-							<input type="radio" name="alergias" value="Lactosa" <?php if($alergias=="Lactosa"){ echo "checked"; } ?>> Lactosa&nbsp; 
-							<input type="radio" name="alergias" value="NO" <?php if($alergias=="NO" || empty($alergias)){ echo "checked"; } ?>> Ninguna&nbsp; 
+						<div class="form-group col-md-4">
+							<label>Alergias</label><br>  
+							<input type="checkbox" name="alergias[]" value="Mariscos" <?php if($alergias=="Mariscos"){ echo "checked"; } ?>> Mariscos&nbsp; <br>
+							<input type="checkbox" name="alergias[]" value="Gluten" <?php if($alergias=="Gluten"){ echo "checked"; } ?>> Gluten&nbsp;<br> 
+							<input type="checkbox" name="alergias[]" value="Lactosa" <?php if($alergias=="Lactosa"){ echo "checked"; } ?>> Lactosa&nbsp;<br> 
+							<input type="checkbox" name="alergias[]" value="NO" <?php if($alergias=="NO" || empty($alergias)){ echo "checked"; } ?>> Ninguna&nbsp; 
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Status</label>&nbsp;  
-							<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; } ?>> Activo&nbsp; 
+						<div class="form-group col-md-4">
+							<label>Status</label><br>  
+							<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; <br>
 							<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
 						</div>
 					</div>
