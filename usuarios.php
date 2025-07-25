@@ -7,17 +7,8 @@ $areaLg = "USUARIOS";  // valida roles del usuario
 include("header.php");
 ?>
 <style>
-	body {
-	  background: #eee;
-	  }
-	.logout {
-        position: fixed;
-    }
 	.content-text {
 		margin: 160px 21px 0 21px;
-	}
-	header {
-		height: 160px;
 	}
 </style>
 

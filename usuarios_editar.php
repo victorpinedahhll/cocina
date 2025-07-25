@@ -37,11 +37,11 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             <input type="hidden" name="acceso" value="editar">
             <input type="hidden" name="id"     value="<?php echo $id; ?>">
             <div class="row">
+                <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <h5 class="pl-4 mb-4 mt-5"><a href="Javascript:history.back();" style="color: #82909d;"><i class="fa fa-caret-left"></i>&nbsp; regresar</a></h5>
-                    <div class="row content-text" style="margin-top: 15px;">
+                    <div class="row content-text" style="margin-top: 45px;">
                         <div class="col-md-12">
-                            <h3>Editar usuario</h3>
+                            <h3><a href="usuarios.php" style="color: #82909d;"><i class="fa fa-caret-left"></i></a>&nbsp; Editar usuario</h3>
                             <div id="errores" style="color: red; margin-top: 10px;"></div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -94,10 +94,9 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="row">
-                        <div class="col-md-12 pl-5 pt-3">
-                            
+                        <div class="col-md-12 pl-5">
                         <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
                             <div id="checkboxes">
                                 <div class="grupo pt-3" data-area="ENFERMERIA">
@@ -122,8 +121,11 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
 
                                 <div class="grupo pt-3" data-area="ADMIN">
                                     <b>Administración</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios<br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
+                                    <?php if(1==2){ ?>
+                                    <br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
+                                    <?php } ?>
                                 </div>
                         </div>
                     </div>

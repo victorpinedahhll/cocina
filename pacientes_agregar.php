@@ -33,7 +33,7 @@ $status     = $sessadd["status"];
 	<div class="col-md-12 content-box position-relative">
 
 		<div style="width: 90%; margin: 175px auto 50px auto;">
-			<form id="form-prueba" action="pacientes_grabar.php" method="POST" autocomplete="off">
+			<form id="formUsuario" action="pacientes_grabar.php" method="POST" autocomplete="off">
 			<input type="hidden" name="id" id="idsol" value="<?php echo $idPac; ?>">
 			<div class="row">
 				<div class="col-md-2"></div>
@@ -52,7 +52,7 @@ $status     = $sessadd["status"];
 							</div>
 							<div class="form-group col-md-6">
 								<label>Médico tratante *</label>
-								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()" required="required">
+								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()">
 									<option value="0">Elija uno</option>
 									<?php
 									$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
@@ -67,7 +67,7 @@ $status     = $sessadd["status"];
 								<div id="otrobox" style="display: none;">
 									<div class="row">
 										<div class="col-md-12">
-											<input type="text" class="form-control mt-3" name="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
+											<input type="text" class="form-control mt-3" name="otromed" id="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
 										</div>
 									</div>
 								</div>
@@ -76,7 +76,7 @@ $status     = $sessadd["status"];
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Primer Nombre *</label>
-								<input type="text" name="pnombre" id="pnombre" class="form-control" required="required" value="<?php echo $pnombre; ?>">
+								<input type="text" name="pnombre" id="pnombre" class="form-control" value="<?php echo $pnombre; ?>">
 							</div>
 							<div class="form-group col-md-6">
 								<label>Segundo Nombre</label>
@@ -86,7 +86,7 @@ $status     = $sessadd["status"];
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Primer Apellido *</label>
-								<input type="text" name="papellido" id="papellido" class="form-control" required="required" value="<?php echo $papellido; ?>">
+								<input type="text" name="papellido" id="papellido" class="form-control" value="<?php echo $papellido; ?>">
 							</div>
 							<div class="form-group col-md-6">
 								<label>Segundo Apellido</label>
@@ -97,16 +97,24 @@ $status     = $sessadd["status"];
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<label>Observaciones</label>
-								<textarea name="observaciones" id="observaciones" class="form-control" rows="2"><?php echo $observaciones; ?></textarea>
+								<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<label>Alergias</label><br>  
-								<input type="checkbox" name="alergias[]" value="Mariscos" <?php if($alergias=="Mariscos"){ echo "checked"; } ?>> Mariscos&nbsp; <br>
-								<input type="checkbox" name="alergias[]" value="Gluten" <?php if($alergias=="Gluten"){ echo "checked"; } ?>> Gluten&nbsp;<br> 
-								<input type="checkbox" name="alergias[]" value="Lactosa" <?php if($alergias=="Lactosa"){ echo "checked"; } ?>> Lactosa&nbsp;<br> 
-								<input type="checkbox" name="alergias[]" value="NO" <?php if($alergias=="NO" || empty($alergias)){ echo "checked"; } ?>> Ninguna&nbsp; 
+								<label>Alergias</label> 
+								<?php
+								if(1==2){ 
+								$qryA = "SELECT * FROM _alergias WHERE _status = 'A' ORDER by _nombre";
+								$resA = $conexion->query($qryA);
+								while ($rowA = $resA->fetch_assoc()){
+								?>
+								<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>" <?php if($alergias==$rowA["_nombre"]){ echo "checked"; } ?>> <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
+								<?php } ?>
+								<input type="checkbox" name="alergias[]" value="NO" <?php if($alergias=="NO"){ echo "checked"; } ?>> Ninguna&nbsp; <br>
+								<?php }else{ ?>
+								<textarea name="alergias" id="alergias" class="form-control" rows="3"><?php echo $alergias; ?></textarea>
+								<?php } ?>
 							</div>
 							<div class="form-group col-md-4">
 								<label>Status</label><br>  
@@ -141,6 +149,49 @@ $status     = $sessadd["status"];
 			$("#otrobox").css("display", "none");
 		};
 	};
+
+	// valida campos obligatorios
+	$('#formUsuario').submit(function(e) {
+		e.preventDefault(); // evita el envío si hay errores
+
+		let errores = [];
+
+		let codigop    = $('#pcodigo').val().trim();
+		let prnombre   = $('#pnombre').val().trim();
+		let prapellido = $('#papellido').val().trim();
+		let medico     = $('#medico').val().trim();
+
+		// Limpia errores anteriores
+		$('#errores').html('');
+		$('input').css('border', '');
+
+		if (codigop === '') {
+			errores.push('El campo Código Paciente es obligatorio');
+			$('#pcodigo').css('border', '1px solid red');
+		}
+
+		if (prnombre === '') {
+			errores.push('El campo Primer Nombre es obligatorio');
+			$('#pnombre').css('border', '1px solid red');
+		}
+
+		if (prapellido === '') {
+			errores.push('El campo Primer Apellido es obligatorio');
+			$('#papellido').css('border', '1px solid red');
+		}
+
+		if (medico === '') {
+			errores.push('El campo Médico Tratante es obligatorio');
+			$('#medico').css('border', '1px solid red');
+		}
+
+		if (errores.length > 0) {
+			$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
+		} else {
+			// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
+			this.submit(); // o hacer el submit manual
+		}
+	});
 
 </script>
 

@@ -1,5 +1,5 @@
 <?php
-$titulo = "Orden Médica Editar";
+$titulo = "Editar Orden Médica";
 $nologg = "SI";
 $page   = "ordenes";   // identifica pagina para scripts, etc
 $areaLg = "ORDENES"; // valida roles del usuario
@@ -36,7 +36,8 @@ $status     = $rowPac["status"];
 	<div class="col-md-12 content-box position-relative">
 
 		<div style="width: 90%; margin: 175px auto 50px auto;">
-			<form id="form-prueba" action="ordenes_medicas_grabar.php" method="POST" autocomplete="off">
+			<form id="formUsuario" action="ordenes_medicas_grabar.php" method="POST" autocomplete="off">
+			<input type="hidden" name="acceso" value="editar">
 			<input type="hidden" name="id" id="idsol" value="<?php echo $idPac; ?>">
 			<div class="row">
 				<div class="col-md-2"></div>
@@ -46,7 +47,7 @@ $status     = $rowPac["status"];
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Fecha Ingreso *</label>
-								<input type="date" name="fingreso" id="fingreso" class="form-control" required="required" value="<?php echo $fechain; ?>">
+								<input type="text" class="form-control" value="<?php echo formatearFechaEs($fechain); ?>" style="font-weight: bold;" disabled>
 							</div>
 							<div class="form-group col-md-6">
 								<label>Código</label>
@@ -209,16 +210,13 @@ $status     = $rowPac["status"];
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label>Observaciones</label>
-							<textarea name="observaciones" id="observaciones" class="form-control" rows="2"><?php echo $observaciones; ?></textarea>
+							<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-12">
-							<label>Alergias</label>&nbsp;  
-							<input type="radio" name="alergias" value="Mariscos" <?php if($alergias=="Mariscos"){ echo "checked"; } ?>> Mariscos&nbsp; 
-							<input type="radio" name="alergias" value="Gluten" <?php if($alergias=="Gluten"){ echo "checked"; } ?>> Gluten&nbsp; 
-							<input type="radio" name="alergias" value="Lactosa" <?php if($alergias=="Lactosa"){ echo "checked"; } ?>> Lactosa&nbsp; 
-							<input type="radio" name="alergias" value="NO" <?php if($alergias=="NO" || empty($alergias)){ echo "checked"; } ?>> Ninguna&nbsp; 
+							<label>Alergias</label>
+							<textarea class="form-control" rows="2" disabled><?php echo $observaciones; ?></textarea>
 						</div>
 					</div>
 					<div class="form-row">
@@ -254,6 +252,61 @@ $status     = $rowPac["status"];
 			$("#otrobox").css("display", "none");
 		};
 	};
+
+	// valida campos obligatorios
+	$('#formUsuario').submit(function(e) {
+		e.preventDefault(); // evita el envío si hay errores
+
+		let errores = [];
+
+		let codigop    = $('#pcodigo').val().trim();
+		let dieta      = $('#dieta').val().trim();
+		let prnombre   = $('#pnombre').val().trim();
+		let prapellido = $('#papellido').val().trim();
+		let habitacion = $('#habitacion').val().trim();
+		let medico     = $('#medico').val().trim();
+
+		// Limpia errores anteriores
+		$('#errores').html('');
+		$('input').css('border', '');
+
+		if (dieta === '') {
+			errores.push('El campo Tipo de Dieta es obligatorio');
+			$('#dieta').css('border', '1px solid red');
+		}
+
+		if (codigop === '') {
+			errores.push('El campo Código Paciente es obligatorio');
+			$('#pcodigo').css('border', '1px solid red');
+		}
+
+		if (prnombre === '') {
+			errores.push('El campo Primer Nombre es obligatorio');
+			$('#pnombre').css('border', '1px solid red');
+		}
+
+		if (prapellido === '') {
+			errores.push('El campo Primer Apellido es obligatorio');
+			$('#papellido').css('border', '1px solid red');
+		}
+
+		if (habitacion === '') {
+			errores.push('El campo Habitación es obligatorio');
+			$('#habitacion').css('border', '1px solid red');
+		}
+
+		if (medico === '') {
+			errores.push('El campo Médico Tratante es obligatorio');
+			$('#medico').css('border', '1px solid red');
+		}
+
+		if (errores.length > 0) {
+			$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
+		} else {
+			// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
+			this.submit(); // o hacer el submit manual
+		}
+	});
 
 </script>
 

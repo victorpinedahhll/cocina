@@ -15,7 +15,7 @@ include("header.php");
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
 
-		<div class="container" style="margin-top: 175px;">
+		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box-admin-opt pt-3">

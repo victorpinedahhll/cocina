@@ -17,7 +17,7 @@ include("header.php");
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
 		
-		<div class="container" style="margin-top: 175px;">
+		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box-admin-opt pt-3">
@@ -25,13 +25,16 @@ include("header.php");
 							<div class="col-md-2">
 								Fecha Ingreso
 							</div>
+							<div class="col-md-2">
+								Código Paciente
+							</div>
 							<div class="col-md-3">
 								Nombre Paciente
 							</div>
-							<div class="col-md-3 hidden-max-991">
+							<div class="col-md-2 hidden-max-991">
 								Habitación
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								Médico Tratante
 							</div>
 						</div>
@@ -65,15 +68,18 @@ include("header.php");
 								echo $diaP."/".$mesN."/".$anoP; ?>
 								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
+							<div class="col-md-2">
+								<?php echo $rowPac["codigo"]; ?>
+							</div>
 							<div class="col-md-3">
 								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
 									<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
 								</a>
 							</div>
-							<div class="col-md-3 hidden-max-991">
+							<div class="col-md-2 hidden-max-991">
 								<?php echo $rowPac["habitacion"]; ?>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
 						</div>

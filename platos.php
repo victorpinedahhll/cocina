@@ -50,7 +50,7 @@ $couAg = $rowAg["cuantosag"];
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
 
-		<div class="container" style="margin-top: 175px;">
+		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12 box-admin-opt">
 					<div class="row bg-secondary text-light py-1" style="border-radius: 4px;">

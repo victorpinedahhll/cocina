@@ -17,11 +17,11 @@ $postuseradd = $_SESSION["formadduser"];
 			<form action="usuarios_grabar.php" method="POST" id="formRegistro">
             <input type="hidden" name="acceso" value="agregar">
             <div class="row">
+                <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <h5 class="pl-4 mb-4 mt-5"><a href="Javascript:history.back();" style="color: #82909d;"><i class="fa fa-caret-left"></i>&nbsp; regresar</a></h5>
-                    <div class="row content-text" style="margin-top: 15px;">
+                    <div class="row content-text" style="margin-top: 45px;">
                         <div class="col-md-12">
-                            <h3>Nuevo usuario</h3>
+                            <h3><a href="usuarios.php" style="color: #82909d;"><i class="fa fa-caret-left"></i></a>&nbsp; Nuevo usuario</h3>
                             <div id="errores" style="color: red; margin-top: 10px;"></div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -36,7 +36,7 @@ $postuseradd = $_SESSION["formadduser"];
                                     <select name="nivel" id="areaSelect" class="form-control">
                                         <option value="ENFERMERIA" <?php if($postuseradd["nivel"]=="ENFERMERIA"){ ?>selected<?php }else{ ?>selected<?php } ?>>Enfermería</option>
                                         <option value="COCINA" <?php if($postuseradd["nivel"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="AUXILIAR" <?php if($postuseradd["nivel"]=="AUXILIAR"){ ?>selected<?php }else{ ?>selected<?php } ?>>Auxiliar de Cocina</option>
+                                        <option value="AUXILIAR" <?php if($postuseradd["nivel"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Cocina</option>
                                         <option value="ADMIN" <?php if($postuseradd["nivel"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
                                     </select>
                                     <?php } ?>
@@ -67,9 +67,9 @@ $postuseradd = $_SESSION["formadduser"];
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="row">
-                        <div class="col-md-12 pl-5 pt-3">
+                        <div class="col-md-12 pl-5">
                             
                         <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
 
@@ -96,8 +96,11 @@ $postuseradd = $_SESSION["formadduser"];
 
                                 <div class="grupo pt-3" data-area="ADMIN">
                                     <b>Administración</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios<br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios
+                                    <?php if(1==2){ ?>
+                                    <br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS">&nbsp; Alergias
+                                    <?php } ?>
                                 </div>
                         </div>
                     </div>

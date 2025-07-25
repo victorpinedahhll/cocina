@@ -32,10 +32,11 @@ $rsEdit  = $conexion->query($qryEdit);
 	}
 </style>
 <div class="row pt-0 pl-5 pr-5 mb-4">
-	<div class="col-md-12 content-box position-relative" style="margin-top: 150px;">
+	<div class="col-md-2"></div>
+	<div class="col-md-8 content-box position-relative" style="margin-top: 150px;">
 		
 		<div class="row content-text mb-5">
-			<div class="col-md-9">
+			<div class="col-md-12">
 				<?php
 				if ($rsEdit->num_rows > 0 && isset($_SESSION['logincook'])) {
 					$rowEdit = $rsEdit->fetch_assoc();
@@ -52,12 +53,12 @@ $rsEdit  = $conexion->query($qryEdit);
 					<input type="hidden" name="idr" value="<?php echo $idRes; ?>">
 					
 					<div class="form-row">
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label>Usuario</label><br>
 							<h2><b><?php echo $usuario; ?></b></h2>
 						</div>
 						<?php if($_GET["ch"]=="SI"){ ?>
-						<div class="form-group col-md-4" data-appear-animation="fadeOut" data-appear-animation-delay="1100" data-appear-animation-duration="2s">
+						<div class="form-group col-md-6" data-appear-animation="fadeOut" data-appear-animation-delay="1100" data-appear-animation-duration="2s">
 							<button class="btn btn-success" style="font-size: 12pt;">
 								<b>Tus datos han sido actualizados</b>
 							</button>
@@ -65,21 +66,21 @@ $rsEdit  = $conexion->query($qryEdit);
 						<?php } ?>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-6">
 							<label>Nombre</label>
 							<input type="text" name="nombre" class="form-control" value="<?php echo $nombre; ?>" required="required">
 						</div>
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-6">
 							<label>Email</label>
 							<input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-6">
 							<label>Contraseña</label>
 							<input type="text" name="clave1" class="form-control">
 						</div>
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-6">
 							<label>Contraseña confirmar</label>
 							<input type="text" name="clave2" class="form-control">
 						</div>
