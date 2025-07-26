@@ -1,29 +1,30 @@
 <?php
 $titulo = "Pedido a Pacientes";
 $nologg = "SI";
-$page   = "pacientes";
+$page   = "pedidos";
 $areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 
 $idPac  = $_GET["id"];
-$qryPac = "SELECT * FROM _ordenes_medicas WHERE status='A' and id='$idPac'";
+$qryPac = "SELECT *, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS dieta FROM _ordenes_medicas a WHERE status='A' and id='$idPac'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 
-$fechain = $rowPac["fecha_ingreso"];
-$pnombre = $rowPac["pnombre"];
-$snombre = $rowPac["snombre"];
-$papellido = $rowPac["papellido"];
-$sapellido = $rowPac["sapellido"];
-$habitacion = $rowPac["habitacion"];
-$medico  = $rowPac["cod_medico"];
+$fechain        = $rowPac["fecha_ingreso"];
+$pnombre        = $rowPac["pnombre"];
+$snombre        = $rowPac["snombre"];
+$papellido      = $rowPac["papellido"];
+$sapellido      = $rowPac["sapellido"];
+$dieta          = $rowPac["dieta"];
+$habitacion     = $rowPac["habitacion"];
+$medico         = $rowPac["cod_medico"];
 $medicotratante = $rowPac["medico_tratante"];
-$observaciones = $rowPac["observaciones"];
-$alergias = $rowPac["alergias"];
-$status  = $rowPac["status"];
-$codigo  = $rowPac["codigo"];
-$motivo  = $rowPac["motivo_ingreso"];
+$observaciones  = $rowPac["observaciones"];
+$alergias       = $rowPac["alergias"];
+$status         = $rowPac["status"];
+$codigo         = $rowPac["codigo"];
+$motivo         = $rowPac["motivo_ingreso"];
 
 $fecHora = strtotime($fechain);
 $diaEnv  = date("d",$fecHora);
@@ -42,7 +43,7 @@ if($mesEnv=="10"){ $mesElej = "oct"; }
 if($mesEnv=="11"){ $mesElej = "nov"; }
 if($mesEnv=="12"){ $mesElej = "dic"; }
 
-$dateEmail = $diaEnv." / ".$mesElej." / ".$anoEnv;
+$dateEmail = $diaEnv."/".$mesElej."/".$anoEnv;
 
 if($_GET['idtp'] > "0"){
 	$idplato = $_GET["idtp"];
@@ -118,7 +119,85 @@ if($_GET["van"]=="1"){
 <div class="row pt-0 mb-4">
 	<div class="col-md-12 content-box position-relative">
 
-		<div style="width: 90%; margin: 175px auto 50px auto;">
+		<div style="width: 96%; margin: 175px auto 50px auto;">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box-admin-opt px-3 pt-2 pb-0 mb-3" style="background: #ffffff; color: #3e3e3e; padding-bottom: 0px !important; box-shadow: 5px 10px 10px -10px #333333;">
+						<ul class="form-ul">
+							<li class="pt-2" style="width: 12%; line-height: 13pt;">
+								<label style="font-size: 14pt;">Orden # <?php echo $idPac; ?></label><br>
+								<?php echo $dateEmail; ?>
+							</li>
+							<li class="pt-2 pl-0" style="width: 20%; line-height: 13pt;">
+								<label>Nombre Paciente</label><br>
+								<?php echo $pnombre; ?> <?php echo $snombre; ?> <?php echo $papellido; ?> <?php echo $sapellido; ?>
+							</li>
+							<li class="pt-2" style="width: 20%; line-height: 13pt;">
+								<label>Habitacion/Cama *</label><br>
+								<?php echo $habitacion; ?>
+							</li>
+							<li class="pt-2" style="width: 18%; line-height: 13pt;">
+								<label>Tipo de Dieta</label><br>
+								<?php echo $dieta; ?>
+							</li>
+							<li style="width: 25%;">
+								<label>Auxiliar de Enfermería:</label>
+								<form action="pedidos_asignar.php" method="POST">
+								<div class="row">
+									<div class="col-md-9">
+										<select name="auxiliar" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;">
+											<option value="">elegir uno</option>
+											<?php 
+											$qryX = "SELECT * FROM _usuarios_admin WHERE nivel_wua67 = 'AUXILIAR' AND status_wua32 = 1";
+											$resX = $conexion->query($qryX);
+											while ($rowX = $resX->fetch_assoc()){
+											?>
+											<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									<div class="col-md-3 pl-0">
+										<input type="submit" value="asignar" class="btn btn-sm btn-secondary">
+									</div>
+								</div>
+								</form>
+							</li>
+							<li class="text-right" style="width: 5%;">
+								<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
+									<i class="fa fa-plus"></i>
+								</button>
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header" style="background: #002d59; color: #ffffff;">
+								        <h5 class="modal-title text-light" id="exampleModalLabel"><b>Código paciente:</b> <?php echo $codigo; ?></h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body text-dark pb-5 text-left">
+								     	<b>Médico tratante *</b><br>
+										<?php echo $medicotratante; ?><br><br>
+									  	<b>Motivo ingreso</b><br>
+								        <?php echo $motivo; ?>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<?php if($alergias!="NO"){ ?>
+			<div class="row mt-1 mb-3 mx-1 blink_me">
+				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
+					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $alergias; ?></b></h5>
+				</div>
+			</div>
+			<?php } ?>
+
 			<form id="form-prueba" action="pacientes_form.php" method="POST" autocomplete="off">
 			<?php
 			if(empty($_SESSION['keyun'])){
@@ -146,73 +225,6 @@ if($_GET["van"]=="1"){
 			<input type="hidden" name="habitacion" value="<?php echo $habitacion; ?>">
 			<input type="hidden" name="medico"     value="<?php echo $medico; ?>">
 			<input type="hidden" name="motivo"     value="<?php echo $motivo; ?>">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="box-admin-opt p-3 pb-0 mb-3" style="background: #ffffff; color: #3e3e3e; padding-bottom: 0px !important; box-shadow: 5px 10px 10px -10px #333333;">
-						<div class="form-row">
-							<div class="form-group col">
-								<label>Nombre Paciente</label><br>
-								<?php echo $pnombre; ?> <?php echo $snombre; ?> <?php echo $papellido; ?> <?php echo $sapellido; ?>
-							</div>
-							<div class="form-group col">
-								<label>Habitacion/Cama *</label><br>
-								<?php echo $habitacion; ?>
-							</div>
-							<div class="form-group col">
-								<label>Médico tratante *</label><br>
-								<?php
-								$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
-								$rsM2 = $conexion2->query($qryM2);
-								$rowM2 = $rsM2->fetch_assoc();
-								?>
-								<?php echo $rowM2["primer_apellido_med29"]; ?> <?php if(!empty($rowM2["segundo_apellido_med37"])){ echo $rowM2["segundo_apellido_med37"]; } ?>, <?php echo $rowM2["primer_nombre_med18"]; ?> <?php if(!empty($rowM2["segundo_nombre_med22"])){ echo $rowM2["segundo_nombre_med22"]; } ?>
-							</div>
-							<div class="form-group col">
-								<label>Fecha Ingreso</label><br>
-								<?php echo $dateEmail; ?>
-							</div>
-							<div class="form-group col">
-								<label>Alergias:</label><br>
-								<select name="alergias" id="alergias" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;">
-									<option value="">Ninguna</option>
-									<option value="Mariscos" <?php if($alergias=="Mariscos"){ echo "selected"; } ?>>Mariscos</option>
-									<option value="Gluten" <?php if($alergias=="Gluten"){ echo "selected"; } ?>>Gluten</option>
-									<option value="Lactosa" <?php if($alergias=="Lactosa"){ echo "selected"; } ?>>Lactosa</option>
-								</select>
-							</div>
-							<div class="form-group col-1 text-right">
-								<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
-									<i class="fa fa-plus"></i>
-								</button>
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header" style="background: #002d59; color: #ffffff;">
-								        <h5 class="modal-title text-light" id="exampleModalLabel"><b>Código paciente:</b> <?php echo $codigo; ?></h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body text-dark pb-5 text-left">
-								      	<b>Motivo ingreso</b><br>
-								        <?php echo $motivo; ?>
-								      </div>
-								    </div>
-								  </div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<?php if($alergias!="NO"){ ?>
-			<div class="row mt-1 mb-3 mx-1 blink_me">
-				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
-					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $alergias; ?></b></h5>
-				</div>
-			</div>
-			<?php } ?>
 			<div class="row">
 				<div class="col-md-8">
 					<div class="box-admin-opt h-100">

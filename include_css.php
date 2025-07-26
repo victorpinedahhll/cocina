@@ -63,11 +63,14 @@ header {
   font-size: 10pt;
 }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
-  color: #002d59 !important;
-  background-color: #e6e6e6;
+  color: #ffffff !important;
+  background: #002d59;
   border-bottom: 1px solid #C0C0C0;
-  font-weight: normal !important;
   font-size: 10pt;
+  /* text-shadow: 0px 1px 1px #3e3e3e; */
+}
+.navbar-nav .nav-link.active {
+  font-weight: bold !important;
 }
 .logo-home {
   padding: 10px 0px 30px 0;
@@ -439,8 +442,6 @@ input:focus {
   padding-bottom: 7px;
   font-size: 13pt;
 }
-
-
 .bg-cuatro {
     background: #17a2b8;
 }
@@ -459,6 +460,16 @@ input:focus {
     color: #fff;
     padding: 5px 10px;
     border-radius: 30px;
+}
+.form-ul {
+  list-style-type: none;
+  overflow: hidden;
+  width: 100%;
+  padding-left: 0px;
+  padding-bottom: 12px;
+}
+.form-ul li {
+  float: left;
 }
 .movil-menu {
     display: none;
@@ -801,6 +812,28 @@ h5 {
   border-radius: 4px;
   box-shadow: 0px 10px 15px #000;
 }
+
+.box-menu {
+  background: #e6e6e6;
+  font-size: 11pt;
+  color: #3e3e3e;
+  padding: 7px 0px !important;
+  border-radius: 4px;
+  text-shadow: 0px 1px 1px #fff;
+  border-right: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
+  /* box-shadow: 5px 10px 10px -10px #C0C0C0; */
+}
+
+.box-items {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px !important;
+  box-shadow: 5px 10px 10px -10px #C0C0C0;
+  margin-bottom: 7px;
+  font-size: 11pt;
+}
+
 .title-menu {
   font-family: 'Sansita Swashed';
   font-size: 22pt;

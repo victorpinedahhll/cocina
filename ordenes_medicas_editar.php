@@ -7,7 +7,7 @@ $areaLg = "ORDENES"; // valida roles del usuario
 include("header.php");
 
 $idPac  = $_GET["id"];
-$qryPac = "SELECT * FROM _ordenes_medicas WHERE id='$idPac'";
+$qryPac = "SELECT *, (SELECT alergias FROM _pacientes p WHERE p.codigo=o.codigo) AS alergias FROM _ordenes_medicas o WHERE id='$idPac'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 
@@ -16,6 +16,7 @@ $pnombre    = $rowPac["pnombre"];
 $snombre    = $rowPac["snombre"];
 $papellido  = $rowPac["papellido"];
 $sapellido  = $rowPac["sapellido"];
+$dieta      = $rowPac["dieta"];
 $habitacion = $rowPac["habitacion"];
 $pcodigo    = $rowPac["codigo"];
 $cama       = $rowPac["cama"];
@@ -42,22 +43,46 @@ $status     = $rowPac["status"];
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<div class="box-admin-opt">
-						<h5 class="pt-0 mt-0 text-secondary">Datos del paciente</h5>
+					<div class="row box-menu mx-1 mb-3">
+						<div class="col-md-6 py-2">
+							<h5 class="text-secondary m-0 p-0">
+								<a href="ordenes_medicas.php">
+									<i class="fa fa-angle-left"></i>
+								</a>&nbsp;
+								Información del paciente
+							</h5>
+						</div>
+						<div class="col-md-6 py-2 text-right">
+							Fecha ingreso: <b><?php echo formatearFechaEs($fechain); ?></b>
+						</div>
+					</div>
+
+					<div class="box-items">
+						<div id="errores" style="color: red; margin-top: 10px;"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Fecha Ingreso *</label>
-								<input type="text" class="form-control" value="<?php echo formatearFechaEs($fechain); ?>" style="font-weight: bold;" disabled>
+								<label class="label-codigo">Código Paciente *</label>
+								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
 							</div>
 							<div class="form-group col-md-6">
-								<label>Código</label>
-								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
+								<label class="label-dieta">Tipo de Dieta *</label>
+								<select name="dieta" id="dieta" class="form-control">
+									<option value="">elija una</option>
+									<?php 
+									$qryD = "SELECT * FROM _tipo_dieta WHERE status = 'A'";
+									$resD = $pdo->prepare($qryD);
+									$resD->execute();
+									while ($rowD = $resD->fetch(PDO::FETCH_ASSOC)){
+									?>
+									<option value="<?php echo $rowD["id"]; ?>" <?php if($rowD["id"]==$dieta){ echo "selected"; } ?>><?php echo $rowD["nombre"]; ?></option>
+									<?php } ?>
+								</select>
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Primer Nombre *</label>
-								<input type="text" name="pnombre" id="pnombre" class="form-control" required="required" value="<?php echo $pnombre; ?>">
+								<label class="label-pnombre">Primer Nombre *</label>
+								<input type="text" name="pnombre" id="pnombre" class="form-control" value="<?php echo $pnombre; ?>">
 							</div>
 							<div class="form-group col-md-6">
 								<label>Segundo Nombre</label>
@@ -66,8 +91,8 @@ $status     = $rowPac["status"];
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Primer Apellido *</label>
-								<input type="text" name="papellido" id="papellido" class="form-control" required="required" value="<?php echo $papellido; ?>">
+								<label class="label-papellido">Primer Apellido *</label>
+								<input type="text" name="papellido" id="papellido" class="form-control" value="<?php echo $papellido; ?>">
 							</div>
 							<div class="form-group col-md-6">
 								<label>Segundo Apellido</label>
@@ -76,9 +101,31 @@ $status     = $rowPac["status"];
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Habitacion/Cama *</label>
-								<select name="habitacion" class="form-control">
-									<option value="0">Elija una</option>
+								<label class="label-medico">Médico tratante *</label>
+								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()">
+									<option value="0">Elija uno</option>
+									<?php
+									$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
+									$rsM2 = $conexion2->query($qryM2);
+									while ($rowM2 = $rsM2->fetch_assoc()){
+									?>
+									<option value="<?php echo $rowM2["cod_med12"]; ?>" <?php if($rowM2["cod_med12"]==$codmedico){ echo "selected"; } ?>><?php echo $rowM2["primer_apellido_med29"]; ?> <?php if(!empty($rowM2["segundo_apellido_med37"])){ echo $rowM2["segundo_apellido_med37"]; } ?>, <?php echo $rowM2["primer_nombre_med18"]; ?> <?php if(!empty($rowM2["segundo_nombre_med22"])){ echo $rowM2["segundo_nombre_med22"]; } ?></option>
+									<?php } ?>
+									<option value="999999" <?php if($rowM2["medico_tratante"]=="999999"){ echo "selected"; } ?>>OTRO</option>
+								</select>
+
+								<div id="otrobox" style="display: none;">
+									<div class="row">
+										<div class="col-md-12">
+											<input type="text" class="form-control mt-3" name="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label class="label-habitacion">Habitacion/Cama *</label>
+								<select name="habitacion" id="habitacion" class="form-control">
+									<option value="">Elija una</option>
 									<option value="PEDIATRIA-1 CAMA 1" <?php if($habitacion=="PEDIATRIA-1 CAMA 1"){ echo "selected"; } ?>>PEDIATRIA-1 &nbsp;&nbsp;(cama 1)</option>
 									<option value="PEDIATRIA-2 CAMA 1" <?php if($habitacion=="PEDIATRIA-2 CAMA 1"){ echo "selected"; } ?>>PEDIATRIA-2 &nbsp;&nbsp;(cama 1)</option>
 									<option value="PEDIATRIA-3 CAMA 1" <?php if($habitacion=="PEDIATRIA-3 CAMA 1"){ echo "selected"; } ?>>PEDIATRIA-3 &nbsp;&nbsp;(cama 1)</option>
@@ -178,58 +225,38 @@ $status     = $rowPac["status"];
 									<option value="AISLAMIENTO-12 CAMA 2" <?php if($habitacion=="AISLAMIENTO-12 CAMA 2"){ echo "selected"; } ?>>AISLAMIENTO-12 &nbsp;&nbsp;(cama 2)</option>
 								</select>
 							</div>
-							<div class="form-group col-md-6">
-								<label>Médico tratante *</label>
-								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()" required="required">
-									<option value="0">Elija uno</option>
-									<?php
-									$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
-									$rsM2 = $conexion2->query($qryM2);
-									while ($rowM2 = $rsM2->fetch_assoc()){
-									?>
-									<option value="<?php echo $rowM2["cod_med12"]; ?>" <?php if($rowM2["cod_med12"]==$codmedico){ echo "selected"; } ?>><?php echo $rowM2["primer_apellido_med29"]; ?> <?php if(!empty($rowM2["segundo_apellido_med37"])){ echo $rowM2["segundo_apellido_med37"]; } ?>, <?php echo $rowM2["primer_nombre_med18"]; ?> <?php if(!empty($rowM2["segundo_nombre_med22"])){ echo $rowM2["segundo_nombre_med22"]; } ?></option>
-									<?php } ?>
-									<option value="999999" <?php if($rowM2["medico_tratante"]=="999999"){ echo "selected"; } ?>>OTRO</option>
-								</select>
+						</div>
 
-								<div id="otrobox" style="display: none;">
-								<div class="row">
-									<div class="col-md-12">
-										<input type="text" class="form-control mt-3" name="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
-									</div>
-								</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Motivo de ingreso</label>
+								<textarea name="motivo" id="motivo" class="form-control" rows="2"><?php echo $motivo; ?></textarea>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Motivo de ingreso</label>
-							<textarea name="motivo" id="motivo" class="form-control" rows="2"><?php echo $motivo; ?></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Observaciones</label>
+								<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Observaciones</label>
-							<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Alergias</label>
+								<textarea class="form-control" rows="2" disabled><?php echo $alergias; ?></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Alergias</label>
-							<textarea class="form-control" rows="2" disabled><?php echo $observaciones; ?></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Status</label>&nbsp;  
+								<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; } ?>> Activo&nbsp; 
+								<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Status</label>&nbsp;  
-							<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; } ?>> Activo&nbsp; 
-							<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
-						</div>
-					</div>
-					<div class="form-row mt-3">
-						<div class="form-group col-md-4"></div>
-						<div class="form-group col-md-4">
-							<input type="submit" name="submitedit" class="form-control btn btn-secondary text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; margin-top: 0px;">
+						<div class="form-row mt-3">
+							<div class="form-group col-md-4"></div>
+							<div class="form-group col-md-4">
+								<input type="submit" name="submitedit" class="form-control btn btn-secondary text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; margin-top: 0px;">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -239,6 +266,7 @@ $status     = $rowPac["status"];
 	</div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	// Testing Jquery
 	console.log('jquery is working!');
@@ -254,58 +282,80 @@ $status     = $rowPac["status"];
 	};
 
 	// valida campos obligatorios
-	$('#formUsuario').submit(function(e) {
-		e.preventDefault(); // evita el envío si hay errores
+	$(document).ready(function() {
+		$('#formUsuario').submit(function(e) {
+			
+			e.preventDefault(); // evita el envío si hay errores
 
-		let errores = [];
+			let errores = [];
 
-		let codigop    = $('#pcodigo').val().trim();
-		let dieta      = $('#dieta').val().trim();
-		let prnombre   = $('#pnombre').val().trim();
-		let prapellido = $('#papellido').val().trim();
-		let habitacion = $('#habitacion').val().trim();
-		let medico     = $('#medico').val().trim();
+			let omcodigo     = $('#pcodigo').val().trim();
+			// console.log('pcodigo:', omcodigo);
 
-		// Limpia errores anteriores
-		$('#errores').html('');
-		$('input').css('border', '');
+			let omdieta      = $('#dieta').val().trim();
+			// console.log('dieta:', omdieta);
 
-		if (dieta === '') {
-			errores.push('El campo Tipo de Dieta es obligatorio');
-			$('#dieta').css('border', '1px solid red');
-		}
+			let ompnombre    = $('#pnombre').val().trim();
+			// console.log('pnombre:', ompnombre);
 
-		if (codigop === '') {
-			errores.push('El campo Código Paciente es obligatorio');
-			$('#pcodigo').css('border', '1px solid red');
-		}
+			let ompapellido  = $('#papellido').val().trim();
+			// console.log('papellido:', ompapellido);
 
-		if (prnombre === '') {
-			errores.push('El campo Primer Nombre es obligatorio');
-			$('#pnombre').css('border', '1px solid red');
-		}
+			let omhabitacion = $('#habitacion').val().trim();
+			// console.log('habitacion:', omhabitacion);
 
-		if (prapellido === '') {
-			errores.push('El campo Primer Apellido es obligatorio');
-			$('#papellido').css('border', '1px solid red');
-		}
+			let ommedico     = $('#medico').val().trim();
+			// console.log('medico:', ommedico);
 
-		if (habitacion === '') {
-			errores.push('El campo Habitación es obligatorio');
-			$('#habitacion').css('border', '1px solid red');
-		}
+			// Limpia errores anteriores
+			$('#errores').html('');
+			$('input').css('border', '');
 
-		if (medico === '') {
-			errores.push('El campo Médico Tratante es obligatorio');
-			$('#medico').css('border', '1px solid red');
-		}
+			if (omcodigo === '') {
+				errores.push('El campo Código Paciente es obligatorio');
+				$('#pcodigo').css('border', '1px solid red');
+				$('.label-codigo').css('color', 'red');
+			}
 
-		if (errores.length > 0) {
-			$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
-		} else {
-			// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
-			this.submit(); // o hacer el submit manual
-		}
+			if (omdieta === '') {
+				errores.push('El campo Tipo de Dieta es obligatorio');
+				$('#dieta').css('border', '1px solid red');
+				$('.label-dieta').css('color', 'red');
+			}
+
+			if (ompnombre === '') {
+				errores.push('El campo Primer Nombre es obligatorio');
+				$('#pnombre').css('border', '1px solid red');
+				$('.label-pnombre').css('color', 'red');
+			}
+
+			if (ompapellido === '') {
+				errores.push('El campo Primer Apellido es obligatorio');
+				$('#papellido').css('border', '1px solid red');
+				$('.label-papellido').css('color', 'red');
+			}
+
+			if (omhabitacion === '') {
+				errores.push('El campo Habitación es obligatorio');
+				$('#habitacion').css('border', '1px solid red');
+				$('.label-habitacion').css('color', 'red');
+			}
+
+			if (ommedico === '') {
+				errores.push('El campo Médico Tratante es obligatorio');
+				$('#medico').css('border', '1px solid red');
+				$('.label-medico').css('color', 'red');
+			}
+
+			if (errores.length > 0) {
+				$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
+			} else {
+				// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
+				// console.log("Enviando formulario...");
+				this.submit(); // o hacer el submit manual
+			}
+
+		});
 	});
 
 </script>

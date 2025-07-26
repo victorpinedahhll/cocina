@@ -34,6 +34,7 @@ $status     = $rowPac["status"];
 
 		<div style="width: 90%; margin: 175px auto 50px auto;">
 			<form id="formUsuario" action="pacientes_grabar.php" method="POST" autocomplete="off">
+			<input type="hidden" name="acceso" value="editar">
 			<input type="hidden" name="id" id="idsol" value="<?php echo $idPac; ?>">
 			<div class="row">
 				<div class="col-md-2"></div>
@@ -45,15 +46,16 @@ $status     = $rowPac["status"];
 							</a>&nbsp;
 							Datos del paciente
 						</h5>
+						<div id="errores" style="color: red; margin-top: 10px;"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Código Paciente *</label>
+								<label class="label-codigo">Código Paciente *</label>
 								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
 							</div>
 							<div class="form-group col-md-6">
-								<label>Médico tratante *</label>
+								<label class="label-medico">Médico tratante *</label>
 								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()">
-									<option value="0">Elija uno</option>
+									<option value="">Elija uno</option>
 									<?php
 									$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
 									$rsM2 = $conexion2->query($qryM2);
@@ -75,7 +77,7 @@ $status     = $rowPac["status"];
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Primer Nombre *</label>
+								<label class="label-pnombre">Primer Nombre *</label>
 								<input type="text" name="pnombre" id="pnombre" class="form-control" value="<?php echo $pnombre; ?>">
 							</div>
 							<div class="form-group col-md-6">
@@ -85,7 +87,7 @@ $status     = $rowPac["status"];
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Primer Apellido *</label>
+								<label class="label-papellido">Primer Apellido *</label>
 								<input type="text" name="papellido" id="papellido" class="form-control" value="<?php echo $papellido; ?>">
 							</div>
 							<div class="form-group col-md-6">
@@ -126,6 +128,7 @@ $status     = $rowPac["status"];
 	</div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	// Testing Jquery
 	console.log('jquery is working!');
@@ -141,46 +144,62 @@ $status     = $rowPac["status"];
 	};
 
 	// valida campos obligatorios
-	$('#formUsuario').submit(function(e) {
-		e.preventDefault(); // evita el envío si hay errores
+	$(document).ready(function() {
+		$('#formUsuario').submit(function(e) {
+			
+			e.preventDefault(); // evita el envío si hay errores
 
-		let errores = [];
+			let errores = [];
 
-		let codigop    = $('#pcodigo').val().trim();
-		let prnombre   = $('#pnombre').val().trim();
-		let prapellido = $('#papellido').val().trim();
-		let medico     = $('#medico').val().trim();
+			let omcodigo     = $('#pcodigo').val().trim();
+			// console.log('pcodigo:', omcodigo);
 
-		// Limpia errores anteriores
-		$('#errores').html('');
-		$('input').css('border', '');
+			let ompnombre    = $('#pnombre').val().trim();
+			// console.log('pnombre:', ompnombre);
 
-		if (codigop === '') {
-			errores.push('El campo Código Paciente es obligatorio');
-			$('#pcodigo').css('border', '1px solid red');
-		}
+			let ompapellido  = $('#papellido').val().trim();
+			// console.log('papellido:', ompapellido);
 
-		if (prnombre === '') {
-			errores.push('El campo Primer Nombre es obligatorio');
-			$('#pnombre').css('border', '1px solid red');
-		}
+			let ommedico     = $('#medico').val().trim();
+			// console.log('medico:', ommedico);
 
-		if (prapellido === '') {
-			errores.push('El campo Primer Apellido es obligatorio');
-			$('#papellido').css('border', '1px solid red');
-		}
+			// Limpia errores anteriores
+			$('#errores').html('');
+			$('input').css('border', '');
 
-		if (medico === '') {
-			errores.push('El campo Médico Tratante es obligatorio');
-			$('#medico').css('border', '1px solid red');
-		}
+			if (omcodigo === '') {
+				errores.push('El campo Código Paciente es obligatorio');
+				$('#pcodigo').css('border', '1px solid red');
+				$('.label-codigo').css('color', 'red');
+			}
 
-		if (errores.length > 0) {
-			$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
-		} else {
-			// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
-			this.submit(); // o hacer el submit manual
-		}
+			if (ompnombre === '') {
+				errores.push('El campo Primer Nombre es obligatorio');
+				$('#pnombre').css('border', '1px solid red');
+				$('.label-pnombre').css('color', 'red');
+			}
+
+			if (ompapellido === '') {
+				errores.push('El campo Primer Apellido es obligatorio');
+				$('#papellido').css('border', '1px solid red');
+				$('.label-papellido').css('color', 'red');
+			}
+
+			if (ommedico === '') {
+				errores.push('El campo Médico Tratante es obligatorio');
+				$('#medico').css('border', '1px solid red');
+				$('.label-medico').css('color', 'red');
+			}
+
+			if (errores.length > 0) {
+				$('#errores').html('<ul><li>' + errores.join('</li><li>') + '</li></ul>');
+			} else {
+				// Si todo está bien, podrías enviar con AJAX o permitir el envío normal
+				// console.log("Enviando formulario...");
+				this.submit(); // o hacer el submit manual
+			}
+
+		});
 	});
 
 </script>

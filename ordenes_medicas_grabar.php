@@ -14,6 +14,7 @@ include("parametros_generales.php");
 $pcodigo       = $_POST['pcodigo'];
 $pnombre       = $_POST['pnombre'];
 $snombre       = $_POST['snombre'];
+$dieta         = $_POST["dieta"];
 $papellido     = $_POST['papellido'];
 $sapellido     = $_POST['sapellido'];
 $habitacion    = $_POST['habitacion'];
@@ -49,7 +50,7 @@ if($_POST['acceso']=="agregar"){
 
 	$_SESSION["sessordenadd"] = $_POST;
 
- 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
+ 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
  	$result = $conexion->query($qry);
 	if($result){
 		unset($_SESSION["sessordenadd"]);
@@ -69,7 +70,7 @@ if($_POST['acceso']=="editar"){
 	$idpaciente    = $_POST['idpaciente'];
 	$status        = $_POST['status'];
 
-	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', usuario='$nmsession' WHERE id='$id'";
+	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', dieta='$dieta', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', usuario='$nmsession' WHERE id='$id'";
 	$conexion->query($qry);
 
 	$conexion->close();

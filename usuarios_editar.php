@@ -39,56 +39,71 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <div class="row content-text" style="margin-top: 45px;">
+                    <div class="row" style="margin-top: 45px;">
                         <div class="col-md-12">
-                            <h3><a href="usuarios.php" style="color: #82909d;"><i class="fa fa-caret-left"></i></a>&nbsp; Editar usuario</h3>
-                            <div id="errores" style="color: red; margin-top: 10px;"></div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Usuario *</label>
-                                    <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $row["usuario_us13"]; ?>">
+                            <div class="row box-menu mx-1 mb-3">
+                                <div class="col-md-6 py-2">
+                                    <h5 class="text-secondary m-0 p-0">
+                                        <a href="usuarios.php" style="color: #002d59;">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>&nbsp;
+                                        Editar Usuario
+                                    </h5>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Nivel</label>
-                                    <?php if($idsession=="1" && 1==2){ ?>
-                                    <h5>Webmaster</h5>
-                                    <?php }else{ ?>
-                                    <select name="nivel" id="areaSelect" class="form-control">
-                                        <option value="">elija nivel</option>
-                                        <option value="ENFERMERIA" <?php if($row["nivel_wua67"]=="ENFERMERIA"){ ?>selected<?php } ?>>Enfermería</option>
-                                        <option value="AUXILIAR" <?php if($row["nivel_wua67"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Cocina</option>
-                                        <option value="COCINA" <?php if($row["nivel_wua67"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="ADMIN" <?php if($row["nivel_wua67"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
-                                    </select>
-                                    <?php } ?>
+                                <div class="col-md-6 py-2 text-right">
+                                    
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Nombre *</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $row["nombre_us07"]; ?>">
+                    
+                            <div class="box-items">
+                                <div id="errores" style="color: red; margin-top: 10px;"></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Usuario *</label>
+                                        <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $row["usuario_us13"]; ?>">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nivel</label>
+                                        <?php if($idsession=="1" && 1==2){ ?>
+                                        <h5>Webmaster</h5>
+                                        <?php }else{ ?>
+                                        <select name="nivel" id="areaSelect" class="form-control">
+                                            <option value="">elija nivel</option>
+                                            <option value="ENFERMERIA" <?php if($row["nivel_wua67"]=="ENFERMERIA"){ ?>selected<?php } ?>>Enfermería</option>
+                                            <option value="COCINA" <?php if($row["nivel_wua67"]=="COCINA"){ ?>selected<?php } ?>>Supervisor de Cocina</option>
+                                            <option value="AUXILIAR" <?php if($row["nivel_wua67"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Nutrición</option>
+                                            <option value="ADMIN" <?php if($row["nivel_wua67"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
+                                        </select>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" value="<?php echo $row["email_wua25"]; ?>">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Nombre *</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $row["nombre_us07"]; ?>">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Contraseña</label>
-                                    <input type="password" class="form-control" name="pass1" id="password">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $row["email_wua25"]; ?>">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Confirmar contraseña</label>
-                                    <input type="password" class="form-control" name="pass2" id="confirmar">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Contraseña</label>
+                                        <input type="password" class="form-control" name="pass1" id="password">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Confirmar contraseña</label>
+                                        <input type="password" class="form-control" name="pass2" id="confirmar">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Estado</label> &nbsp;
-                                    <input type="radio" name="status" value="1" <?php if( $row["status_wua32"]=="1" ){ echo "checked"; } ?>> Activo &nbsp; <input type="radio" name="status" value="0" <?php if( $row["status_wua32"]=="0" ){ echo "checked"; } ?>> Inactivo
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Estado</label> &nbsp;
+                                        <input type="radio" name="status" value="1" <?php if( $row["status_wua32"]=="1" ){ echo "checked"; } ?>> Activo &nbsp; <input type="radio" name="status" value="0" <?php if( $row["status_wua32"]=="0" ){ echo "checked"; } ?>> Inactivo
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,14 +120,10 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES" <?php if(!empty($row["ORDENES"]) && $row["ORDENES"]=="ORDENES"){ echo "checked"; } ?>>&nbsp; Ordenes Médicas
                                 </div>
 
-                                <div class="grupo pt-3" data-area="AUXILIAR">
-                                    <b>Auxiliar de Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes
-                                </div>
-
                                 <div class="grupo pt-3" data-area="COCINA">
                                     <b>Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TIPO_MENU" <?php if(!empty($row["TIPO_MENU"]) && $row["TIPO_MENU"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU" <?php if(!empty($row["TIPO_MENU"]) && $row["TIPO_MENU"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($row["TIPO_DIETA"]) && $row["TIPO_DIETA"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>

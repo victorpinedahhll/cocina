@@ -37,8 +37,22 @@ $status     = $sessadd["status"];
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<div class="box-admin-opt">
-						<h5 class="pt-0 mt-0 pl-2 text-secondary">Información del paciente</h5>
+					<div class="row box-menu mx-1 mb-3">
+						<div class="col-md-6 py-2">
+							<h5 class="text-secondary m-0 p-0">
+								<a href="ordenes_medicas.php">
+									<i class="fa fa-angle-left"></i>
+								</a>&nbsp;
+								Información del paciente
+							</h5>
+						</div>
+						<div class="col-md-6 py-2 text-right">
+							
+						</div>
+					</div>
+
+					<div class="box-items">
+						<div id="errores" style="color: red; margin-top: 10px;"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Código Paciente *</label>
@@ -297,31 +311,37 @@ $status     = $sessadd["status"];
 		if (dieta === '') {
 			errores.push('El campo Tipo de Dieta es obligatorio');
 			$('#dieta').css('border', '1px solid red');
+			$('.label-dieta').css('color', 'red');
 		}
 
 		if (codigop === '') {
 			errores.push('El campo Código Paciente es obligatorio');
 			$('#pcodigo').css('border', '1px solid red');
+			$('.label-codigo').css('color', 'red');
 		}
 
 		if (prnombre === '') {
 			errores.push('El campo Primer Nombre es obligatorio');
 			$('#pnombre').css('border', '1px solid red');
+			$('.label-pnombre').css('color', 'red');
 		}
 
 		if (prapellido === '') {
 			errores.push('El campo Primer Apellido es obligatorio');
 			$('#papellido').css('border', '1px solid red');
+			$('.label-papellido').css('color', 'red');
 		}
 
 		if (habitacion === '') {
 			errores.push('El campo Habitación es obligatorio');
 			$('#habitacion').css('border', '1px solid red');
+			$('.label-habitacion').css('color', 'red');
 		}
 
 		if (medico === '') {
 			errores.push('El campo Médico Tratante es obligatorio');
 			$('#medico').css('border', '1px solid red');
+			$('.label-medico').css('color', 'red');
 		}
 
 		if (errores.length > 0) {

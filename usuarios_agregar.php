@@ -19,49 +19,64 @@ $postuseradd = $_SESSION["formadduser"];
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <div class="row content-text" style="margin-top: 45px;">
+                    <div class="row" style="margin-top: 45px;">
                         <div class="col-md-12">
-                            <h3><a href="usuarios.php" style="color: #82909d;"><i class="fa fa-caret-left"></i></a>&nbsp; Nuevo usuario</h3>
-                            <div id="errores" style="color: red; margin-top: 10px;"></div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Usuario *</label>
-                                    <input type="text" class="form-control" name="usuario" id="usuario" <?php if(!empty($postuseradd["usuario"])){ ?>value="<?php echo $postuseradd["usuario"]; ?>"<?php } ?>>
+                            <div class="row box-menu mx-1 mb-3">
+                                <div class="col-md-6 py-2">
+                                    <h5 class="text-secondary m-0 p-0">
+                                        <a href="usuarios.php" style="color: #002d59;">
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>&nbsp;
+                                        Agregar Usuario
+                                    </h5>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Nivel</label>
-                                    <?php if($idsession=="1" && 1==2){ ?>
-                                    <h5>Webmaster</h5>
-                                    <?php }else{ ?>
-                                    <select name="nivel" id="areaSelect" class="form-control">
-                                        <option value="ENFERMERIA" <?php if($postuseradd["nivel"]=="ENFERMERIA"){ ?>selected<?php }else{ ?>selected<?php } ?>>Enfermería</option>
-                                        <option value="COCINA" <?php if($postuseradd["nivel"]=="COCINA"){ ?>selected<?php } ?>>Cocina</option>
-                                        <option value="AUXILIAR" <?php if($postuseradd["nivel"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Cocina</option>
-                                        <option value="ADMIN" <?php if($postuseradd["nivel"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
-                                    </select>
-                                    <?php } ?>
+                                <div class="col-md-6 py-2 text-right">
+                                    
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Nombre *</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" <?php if(!empty($postuseradd["nombre"])){ ?>value="<?php echo $postuseradd["nombre"]; ?>"<?php } ?>>
+                    
+                            <div class="box-items">
+                                <div id="errores" style="color: red; margin-top: 10px;"></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Usuario *</label>
+                                        <input type="text" class="form-control" name="usuario" id="usuario" <?php if(!empty($postuseradd["usuario"])){ ?>value="<?php echo $postuseradd["usuario"]; ?>"<?php } ?>>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nivel</label>
+                                        <?php if($idsession=="1" && 1==2){ ?>
+                                        <h5>Webmaster</h5>
+                                        <?php }else{ ?>
+                                        <select name="nivel" id="areaSelect" class="form-control">
+                                            <option value="ENFERMERIA" <?php if($postuseradd["nivel"]=="ENFERMERIA"){ ?>selected<?php }else{ ?>selected<?php } ?>>Enfermería</option>
+                                            <option value="COCINA" <?php if($postuseradd["nivel"]=="COCINA"){ ?>selected<?php } ?>>Supervisor de Cocina</option>
+                                            <option value="AUXILIAR" <?php if($postuseradd["nivel"]=="AUXILIAR"){ ?>selected<?php } ?>>Auxiliar de Nutrición</option>
+                                            <option value="ADMIN" <?php if($postuseradd["nivel"]=="ADMIN"){ ?>selected<?php } ?>>Administración</option>
+                                        </select>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" <?php if(!empty($postuseradd["email"])){ ?>value="<?php echo $postuseradd["email"]; ?>"<?php } ?>>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Nombre *</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" <?php if(!empty($postuseradd["nombre"])){ ?>value="<?php echo $postuseradd["nombre"]; ?>"<?php } ?>>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Contraseña</label>
-                                    <input type="password" class="form-control" name="pass1" id="password">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" <?php if(!empty($postuseradd["email"])){ ?>value="<?php echo $postuseradd["email"]; ?>"<?php } ?>>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Confirmar contraseña</label>
-                                    <input type="password" class="form-control" name="pass2" id="confirmar">
+                                <div class="form-row pb-4">
+                                    <div class="form-group col-md-6">
+                                        <label>Contraseña</label>
+                                        <input type="password" class="form-control" name="pass1" id="password">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Confirmar contraseña</label>
+                                        <input type="password" class="form-control" name="pass2" id="confirmar">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,14 +95,10 @@ $postuseradd = $_SESSION["formadduser"];
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES">&nbsp; Ordenes Médicas
                                 </div>
 
-                                <div class="grupo pt-3" data-area="AUXILIAR">
-                                    <b>Auxiliar de Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes
-                                </div>
-
                                 <div class="grupo pt-3" data-area="COCINA">
                                     <b>Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TIPO_MENU">&nbsp; Tipos de Menus<br>
+                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" id="TOMA_PEDIDOS" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU">&nbsp; Tipos de Menus<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA">&nbsp; Tipos de Dieta<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS">&nbsp; Platos Menu<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION">&nbsp; Programación de Menus<br>
@@ -128,7 +139,11 @@ $postuseradd = $_SESSION["formadduser"];
             if (areaSeleccionada === "ADMIN") {
                 $('.rol-checkbox').prop('checked', true); // Todos los checkboxes
             } else {
-                $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
+                if (areaSeleccionada === "AUXILIAR") {
+                    $('#TOMA_PEDIDOS').prop('checked', true); // check de pacientes pedidos
+                } else {
+                    $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
+                }
             }
         });
 

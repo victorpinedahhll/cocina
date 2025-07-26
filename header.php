@@ -6,10 +6,8 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require("security.php");
 require("security_adv.php");
 require("_private/_access.php");
-// if($nologg != "NO"){
-    include("logged.php");
-    include("parametros_generales.php");
-// }
+include("logged.php");
+include("parametros_generales.php");
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -51,7 +49,7 @@ require("_private/_access.php");
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <?php if($page=="pacientes" || $page=="pacientesart" || $page=="solicitud"){ ?>
+    <?php if($page=="pedidos" || $page=="pacientesart" || $page=="solicitud"){ ?>
     <script>
         fetchTasks();
 
