@@ -75,30 +75,31 @@ include("header.php");
 							$resOM = $conexion->query($qryEC);
 
 							// reviso si existe un pedido en proceso para la orden medica para colocar estado de En Proceso
-							$veriOkPP = "SI";
+							$veriOkPP = "NO";
 							$qryPP = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM'";
 							$resPP = $conexion->query($qryPP);
 							if($resPP->num_rows > 0){
-								$rowPP = $resPP->fetch_assoc();
-								if( substr($rowPP["keyunico"],0,9) == "solicitud" ){
-									$veriOkPP = "NO";
+								while ($rowPP = $resPP->fetch_assoc()){
+									if( substr($rowPP["keyunico"],0,9) !== "solicitud" ){
+										$veriOkPP = "SI";
+										break;
+									}
 								}
 							}
-							echo $veriOkPP;
 
 							$bgitem = "#ffffff";
 
 							// entregada
 							if($entregado){
 								$bgitem = "#d9ead3";
-							
-							// en proceso
-							}elseif($veriOkPP == "NO"){
-								$bgitem = "#e1f0ed";
 
 							// en cocina
 							}elseif($resOM->num_rows > 0){
 								$bgitem = "#efe4d6";
+							
+							// en proceso
+							}elseif($veriOkPP == "SI"){
+								$bgitem = "#e1f0ed";
 
 							// cancelada
 							}elseif($cancelado){

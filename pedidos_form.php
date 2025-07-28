@@ -98,8 +98,11 @@ header("Content-Type: text/html;charset=UTF-8");
  	$maxid  = $rowMax["maxid"];
  	$maxid  = "solicitud".$maxid;
 
+	// elimino el <br> para agregar el nombre del plato en descripcion
+	$descripcion_filtrada = str_replace('<br>','',$pruebasList);
+
 	// ingreso estatus del pedido modificando el keyunico original por el numero de solicitud asignada
- 	$sql = "UPDATE _pacientes_menu_enlace SET keyunico='$maxid' WHERE idpaciente='$idpac' and paciente='$paciente' and keyunico='$key'";
+ 	$sql = "UPDATE _pacientes_menu_enlace SET descripcion = '$descripcion_filtrada', keyunico = '$maxid' WHERE idpaciente='$idpac' and paciente='$paciente' and keyunico='$key'";
  	$conexion->query($sql);
 
  	$fecHora = strtotime($datenowfull);
