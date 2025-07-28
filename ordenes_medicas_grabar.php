@@ -12,6 +12,35 @@ include("logged.php");
 include("parametros_generales.php");
 
 $pcodigo       = $_POST['pcodigo'];
+
+// envio alerta de no poder crear orden medica si aun existe otra en proceso
+$qryVO = "
+	SELECT * 
+	FROM _ordenes_medicas a 
+	WHERE
+		a.codigo IN (
+			SELECT codigo_pac 
+			FROM _pacientes_menu_enlace b 
+			WHERE 
+				b.codigo_pac='$pcodigo' 
+				AND b.keyunico NOT LIKE 'solicitud%'
+		)
+		OR 
+		a.codigo IN (
+			SELECT c.codigo 
+			FROM _pacientes_solicitudes c 
+			WHERE 
+				c.codigo='$pcodigo' 
+				AND c.status = 0 
+		)
+
+";
+$resVO = $conexion->query($qryVO);
+if($resVO->num_rows > 0){
+	echo "<script>alert('Lo sentimos, no es posible agregar una orden médica cuando existe una en proceso');document.location='ordenes_medicas.php';</script>";
+	exit;
+}
+
 $pnombre       = $_POST['pnombre'];
 $snombre       = $_POST['snombre'];
 $dieta         = $_POST["dieta"];
