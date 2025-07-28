@@ -11,6 +11,7 @@ $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
 		, (SELECT alergias FROM _pacientes p WHERE p.codigo=a.codigo) AS nalergias 
+		, (SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00=a.auxiliar_nutricion) AS nauxiliar 
 	FROM _ordenes_medicas a 
 	WHERE status='A' AND id='$idPac'
 	";
@@ -163,6 +164,7 @@ if($_GET["van"]=="1"){
 							</li>
 							<li style="width: 25%;">
 								<label>Auxiliar de Enfermería:</label>
+								<?php if ($nvsession == "COCINA"){ ?>
 								<form action="pedidos_asignar.php" method="POST">
 								<input type="hidden" name="asignar" value="SI">
 								<input type="hidden" name="id"      value="<?php echo $idPac; ?>">
@@ -175,12 +177,19 @@ if($_GET["van"]=="1"){
 											SELECT * 
 											FROM _usuarios_admin a 
 											WHERE 
-												status_wua32 = 1 
-												AND nivel_wua67 = 'AUXILIAR' 
-												AND id_us00 IN (
-													SELECT _usuario_id 
-													FROM _usuarios_roles u 
-													WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+												(
+													status_wua32 = 1 
+													AND nivel_wua67 = 'AUXILIAR' 
+													AND id_us00 IN (
+														SELECT _usuario_id 
+														FROM _usuarios_roles u 
+														WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+													)
+												)
+												OR id_us00 IN (
+													SELECT auxiliar_nutricion 
+													FROM _ordenes_medicas  
+													WHERE auxiliar_nutricion IS NOT NULL
 												)
 											";
 											$resX = $conexion->query($qryX);
@@ -195,6 +204,9 @@ if($_GET["van"]=="1"){
 									</div>
 								</div>
 								</form>
+								<?php }else{ ?>
+									<br><?php echo $rowPac["nauxiliar"]; ?>
+								<?php } ?>
 							</li>
 							<li class="text-right pt-3" style="width: 5%;">
 								<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" style="background: #002d59; color: #fff;">
