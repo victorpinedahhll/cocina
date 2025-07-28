@@ -53,7 +53,11 @@ include("header.php");
 								Pedido a
 							</div>
 						</div>
-						<?php 
+						<?php
+						$qryNV = "";
+						if($nvsession=="AUXILIAR"){
+							$qryNV = "AND auxiliar_nutricion = '$idsession'";
+						} 
 						//$qryPac = "SELECT * FROM _ordenes_medicas a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
 						$qryPac = "
 							SELECT *
@@ -64,7 +68,8 @@ include("header.php");
 									SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00 = a.auxiliar_nutricion
 								) AS auxiliarn 
 							FROM _ordenes_medicas a 
-							WHERE status='A' ORDER by fecha_ingreso";
+							WHERE status='A' $qryNV 
+							ORDER by fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
 

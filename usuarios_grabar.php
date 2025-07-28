@@ -113,6 +113,11 @@ if ( $_POST["acceso"]=="agregar" ) {
 
     }
 
+    $stmt = null;
+    $pdo  = null;
+
+    header("Location: usuarios.php");
+
 }
 
 //  edito usuario
@@ -185,10 +190,18 @@ if ( $_POST["acceso"]=="editar" ) {
 
     }
 
+    if ($nivel !== $nvsession){
+        $stmt = null;
+        $pdo  = null;
+
+        header("Location: logout.php");
+        exit;
+    }
+
+    $stmt = null;
+    $pdo  = null;
+
+    header("Location: usuarios.php");
+
 }
-
-$stmt = null;
-$pdo  = null;
-
-header("Location: usuarios.php");
 ?>

@@ -62,15 +62,47 @@ include("header.php");
 							ORDER by status,fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
+
+							$idOM  = $rowPac["id"];
+
+							// reviso si existe solicitud para la orden medica para colocar estado de enviado a cocina
+							$qryEC = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM'";
+							$resOM = $conexion->query($qryEC);
+
+							// reviso si existe un pedido en proceso para la orden medica para colocar estado de En Proceso
+							$veriOkPP = "NO";
+							$qryPP = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM'";
+							$resPP = $conexion->query($qryPP);
+							if($resPP->num_rows > 0){
+								while ($rowPP = $resPP->fetch_assoc()){
+									if( substr($rowPP["keyunico"],0,9) !== "solicitud" ){
+										$veriOkPP = "SI";
+										break;
+									}
+								}
+							}
+
 							$bgitem = "#ffffff";
-							if($rowPac["auxiliar_nutricion"] > 0){
-								$bgitem = "#e1f0ed";
-							}elseif($entregado){
+
+							// entregada
+							if($entregado){
 								$bgitem = "#d9ead3";
-							}elseif($encocina){
+
+							// en cocina
+							}elseif($resOM->num_rows > 0){
 								$bgitem = "#efe4d6";
+							
+							// en proceso
+							}elseif($veriOkPP == "SI"){
+								$bgitem = "#e1f0ed";
+
+							// cancelada
 							}elseif($cancelado){
 								$bgitem = "#f4cccc";
+
+							// asigna auxiliar de cocina
+							}elseif($rowPac["auxiliar_nutricion"] > 0){
+								$bgitem = "#e1f0ed";
 							}
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
