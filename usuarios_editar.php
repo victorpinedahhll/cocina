@@ -39,9 +39,9 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <div class="row" style="margin-top: 45px;">
+                    <div class="row" style="margin-top: 40px;">
                         <div class="col-md-12">
-                            <div class="row box-menu mx-1 mb-3">
+                            <div class="row box-menu mx-1 mb-2">
                                 <div class="col-md-6 py-2">
                                     <h5 class="text-secondary m-0 p-0">
                                         <a href="usuarios.php" style="color: #002d59;">
@@ -63,7 +63,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $row["usuario_us13"]; ?>">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Nivel</label>
+                                        <label>Nivel del Usuario</label>
                                         <?php if($idsession=="1" && 1==2){ ?>
                                         <h5>Webmaster</h5>
                                         <?php }else{ ?>
@@ -113,37 +113,37 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="row">
                         <div class="col-md-12 pl-5">
                         <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
-                            <div id="checkboxes">
-                                <div class="grupo pt-3" data-area="ENFERMERIA">
-                                    <b>Enfermería</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES" <?php if(!empty($row["PACIENTES"]) && $row["PACIENTES"]=="PACIENTES"){ echo "checked"; } ?>>&nbsp; Pacientes<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES" <?php if(!empty($row["ORDENES"]) && $row["ORDENES"]=="ORDENES"){ echo "checked"; } ?>>&nbsp; Ordenes Médicas
-                                </div>
+                        <div id="checkboxes">
+                            <div class="grupo pt-3" data-area="ENFERMERIA">
+                                <b>Enfermería</b><br>
+                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES" <?php if(!empty($row["PACIENTES"]) && $row["PACIENTES"]=="PACIENTES"){ echo "checked"; } ?>>&nbsp; Pacientes<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES" <?php if(!empty($row["ORDENES"]) && $row["ORDENES"]=="ORDENES"){ echo "checked"; } ?>>&nbsp; Ordenes Médicas
+                            </div>
 
-                                <div class="grupo pt-3" data-area="COCINA">
-                                    <b>Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU" <?php if(!empty($row["TIPO_MENU"]) && $row["TIPO_MENU"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($row["TIPO_DIETA"]) && $row["TIPO_DIETA"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos
-                                </div>
+                            <div class="grupo pt-3" data-area="COCINA">
+                                <b>Cocina</b><br>
+                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TOMA_PEDIDOS" id="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU" <?php if(!empty($row["TIPO_MENU"]) && $row["TIPO_MENU"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($row["TIPO_DIETA"]) && $row["TIPO_DIETA"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos
+                            </div>
 
-                                <div class="grupo pt-3" data-area="ADMIN">
-                                    <b>Administración</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
-                                    <?php if(1==2){ ?>
-                                    <br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
-                                    <?php } ?>
-                                </div>
+                            <div class="grupo pt-3" data-area="ADMIN">
+                                <b>Administración</b><br>
+                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
+                                <?php if(1==2){ ?>
+                                <br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-row mt-4 mb-4 pl-4">
                         <div class="form-group col-md-5">
-                            <input type="submit" class="btn btn-secondary px-4" name="formsubmit" value="Salvar cambios" style="font-size: 12pt !important; color: #fff;">
+                            <input type="submit" class="btn btn-cocina px-4" name="formsubmit" value="Salvar cambios" style="font-size: 12pt !important; color: #fff;">
                         </div>
                     </div>
                 </div>
@@ -154,23 +154,28 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
 </div>
 
 <script>
-    // $(document).ready(function () {
-    //     $('#areaSelect').on('change', function () {
-    //         const areaSeleccionada = $(this).val();
+    $(document).ready(function () {
+        $('#areaSelect').on('change', function () {
+            const areaSeleccionada = $(this).val();
 
-    //         // Desmarcar todos primero
-    //         $('.rol-checkbox').prop('checked', false);
+            // Desmarcar todos primero
+            $('.rol-checkbox').prop('checked', false);
 
-    //         if (areaSeleccionada === "ADMIN") {
-    //             $('.rol-checkbox').prop('checked', true); // Todos los checkboxes
-    //         } else {
-    //             $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
-    //         }
-    //     });
+            if (areaSeleccionada === "ADMIN") {
+                $('.rol-checkbox').prop('checked', true); // Todos los checkboxes
+            } else if (areaSeleccionada === "AUXILIAR") {
+                $('#TOMA_PEDIDOS').prop('checked', true); // check de pacientes pedidos
+            } else {
+                $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
+            }
+        });
 
-    //     // Ejecutar selección inicial (por defecto "enfermeria")
-    //     $('#areaSelect').trigger('change');
-    // });
+        // ✅ Solo ejecutar cambio automático si no hay roles seleccionados desde PHP
+        if ($('.rol-checkbox:checked').length === 0) {
+            $('#areaSelect').trigger('change');
+        }
+    });
+
 
 </script>
 

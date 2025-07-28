@@ -2,6 +2,7 @@
 $titulo = "Solicitudes Cocina";
 $nologg = "SI";
 $page   = "solicitud";
+$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 

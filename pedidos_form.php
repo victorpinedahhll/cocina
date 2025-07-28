@@ -3,14 +3,14 @@ session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 header("Content-Type: text/html;charset=UTF-8");
 
- if(isset($_SESSION['keyun'])){
+ if( !empty($_POST["key"]) ){
 
  	require("security.php");
 	require("_private/_access.php");
 	include("parametros_generales.php");
 
 	$fingreso      = $_POST['fingreso'];
-	$paciente      = $_POST['paciente'];
+	$idpac         = $_POST['idpac'];
  	$pnombre       = $_POST['pnombre'];
  	$snombre       = $_POST['snombre'];
  	$papellido     = $_POST['papellido'];
@@ -22,16 +22,14 @@ header("Content-Type: text/html;charset=UTF-8");
  	$otromed       = $_POST['otromed'];
  	$observaciones = $_POST['observaciones'];
  	$motivo        = $_POST['motivo'];
+	$paciente      = $_POST['paciente'];
  	$key           = $_POST['key'];
- 	if(!empty($_SESSION['keyun'])){
- 		$key       = $_SESSION['keyun'];
- 	}
 
  	$nameM  = "";
  	$nameO  = "";
  	if($medico > "0" && $medico!="999999"){
 		// Obtengo datos del medico tratante
-		$qryM   = "SELECT primer_nombre_med18,segundo_nombre_med22,primer_apellido_med29,segundo_apellido_med37,email_med20 FROM web_medicos WHERE cod_med12='$medico'";
+		$qryM   = "SELECT * FROM web_medicos WHERE cod_med12='$medico'";
 		$rsM    = $conexion2->query($qryM);
 		$rowM   = $rsM->fetch_assoc();
 		//$nameM  = $rowM["primer_nombre_med18"]." ".$rowM["segundo_nombre_med22"]." ".$rowM["primer_apellido_med29"]." ".$rowM["segundo_apellido_med37"];
@@ -41,7 +39,7 @@ header("Content-Type: text/html;charset=UTF-8");
 		$nameO  = $otromed;
 	}
 
- 	$qry = "INSERT INTO `_pacientes_solicitudes`(`id`, `id_paciente`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `medico_tratante`, `medico_nombre`, `medico_otro`, `observaciones`, `motivo`, `status`, `usuario`, `actualizacion`, `fecha_ingreso`) VALUES ('0','$paciente','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$codigo','$medico','$nameM','$otromed','$observaciones','$motivo','0','$ussession','$datenowfull','$datenowfull')";
+ 	$qry = "INSERT INTO `_pacientes_solicitudes`(`id`, `orden_medica`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `medico_tratante`, `medico_nombre`, `medico_otro`, `observaciones`, `motivo`, `paciente`, `status`, `usuario`, `actualizacion`, `fecha_ingreso`) VALUES ('0','$idpac','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$codigo','$medico','$nameM','$otromed','$observaciones','$motivo','$paciente','0','$ussession','$datenowfull','$datenowfull')";
  	$conexion->query($qry);
 
 	$pruebasList = "";
@@ -100,7 +98,8 @@ header("Content-Type: text/html;charset=UTF-8");
  	$maxid  = $rowMax["maxid"];
  	$maxid  = "solicitud".$maxid;
 
- 	$sql = "UPDATE _pacientes_menu_enlace SET keyunico='$maxid' WHERE idpaciente='$paciente' and keyunico='$key'";
+	// ingreso estatus del pedido modificando el keyunico original por el numero de solicitud asignada
+ 	$sql = "UPDATE _pacientes_menu_enlace SET keyunico='$maxid' WHERE idpaciente='$idpac' and paciente='$paciente' and keyunico='$key'";
  	$conexion->query($sql);
 
  	$fecHora = strtotime($datenowfull);
@@ -128,7 +127,12 @@ header("Content-Type: text/html;charset=UTF-8");
  	//$para = "jeremias.baten@herrerallerandi.com";
  	$para = "imupgrade@gmail.com";
 
-	$_SESSION['keyun'] = "";
+	if($_POST["paciente"]=="SI"){
+		unset($_SESSION["keyun$idpac"]);
+	}
+	if($_POST["paciente"]=="NO"){
+		unset($_SESSION["keyunvisit$idpac"]);
+	}
 
  	$asunto     = "Solicitud de cocina ingresada";
 
@@ -154,15 +158,8 @@ header("Content-Type: text/html;charset=UTF-8");
 	$contenidoMail.="<a href='https://www.herrerallerandi.com' style='color: #fff; text-decoration: none; font-size: 16pt; font-weight: bold;'>www.herrerallerandi.com</a></div>\n";
 	$contenidoMail.="</div>\n";
 
-	$cabeceras  = "MIME-Version: 1.0\n";
-	$cabeceras .= "Content-type: text/html; charset=UTF-8\n";
-	$cabeceras .= "FROM: Hospital Herrera Llerandi <healthinfo@herrerallerandi.com>\n";
-	$cabeceras .= "Bcc: <imupgrade@gmail.com>\n";
-
-	mail($para, $asunto, $contenidoMail, $cabeceras);
-
  	echo "Solicitud ingresada";
 
- 	header ("Location: solicitudes.php?send=S&id=$maxid");
+ 	header ("Location: pedidos_pacientes.php");
  }
  ?>

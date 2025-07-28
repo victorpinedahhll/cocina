@@ -55,7 +55,7 @@ $rsEdit  = $conexion->query($qryEdit);
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label>Usuario</label><br>
-							<h2><b><?php echo $usuario; ?></b></h2>
+							<h3><b><?php echo $usuario; ?></b></h3>
 						</div>
 						<?php if($_GET["ch"]=="SI"){ ?>
 						<div class="form-group col-md-6" data-appear-animation="fadeOut" data-appear-animation-delay="1100" data-appear-animation-duration="2s">
@@ -87,7 +87,7 @@ $rsEdit  = $conexion->query($qryEdit);
 					</div>
 					<div class="form-row mt-4 mb-5">
 						<div class="col-md-4">
-							<input type="submit" name="submitform" value="Grabar Cambios" class="btn btn-secondary" style="font-weight: bold;">
+							<input type="submit" name="submitform" value="Grabar Cambios" class="btn btn-cocina" style="font-weight: bold;">
 						</div>
 					</div>
 					</form>

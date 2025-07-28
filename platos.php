@@ -52,8 +52,8 @@ $couAg = $rowAg["cuantosag"];
 
 		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
-				<div class="col-md-12 box-admin-opt">
-					<div class="row bg-secondary text-light py-1" style="border-radius: 4px;">
+				<div class="col-md-12">
+					<div class="row box-menu mb-2">
 						<div class="col-4"><b>Nombre</b></div>
 						<div class="col-3"><b>Tipo Menu</b></div>
 						<div class="col-3"><b>Tipo Dieta</b></div>
@@ -74,7 +74,7 @@ $couAg = $rowAg["cuantosag"];
 							$bgf = "background: #fbe4e4;";
 						}
 						?>
-						<div class="row py-2 <?php if ($van%2==0){ echo "bg-muted"; } ?>" style="<?php echo $bgf; ?>; border: 1px solid #eee; border-top: 0px;">
+						<div class="row box-items py-2 <?php if ($van%2==0){ echo "bg-muted"; } ?>" style="<?php echo $bgf; ?>; border: 1px solid #eee; border-top: 0px;">
 							<?php
 							$idTip   = $rowR["id"];
 							$qryMO  = "SELECT count(*) as counmo FROM _menus_opciones WHERE idmenu='$idTip' and status!='E'";
@@ -161,7 +161,7 @@ $couAg = $rowAg["cuantosag"];
 										<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
 										<div class="row">
 											<div class="col-md-8">
-												<h5 class="mt-0 mb-3 pl-2 text-info"><b>Eliminar Plato</b></h5>
+												<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Eliminar Plato</b></h5>
 											</div>
 										</div>
 										<div class="form-row">
@@ -171,7 +171,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformDel" class="form-control btn btn-info text-light" value="Si, eliminar">
+												<input type="submit" name="submitformDel" class="form-control btn btn-cocina" value="Si, eliminar">
 											</div>
 										</div>
 										</form>
@@ -279,7 +279,7 @@ $couAg = $rowAg["cuantosag"];
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<input type="submit" name="submitformAdd" class="form-control btn btn-secondary text-light" value="agregar">
+									<input type="submit" name="submitformAdd" class="form-control btn btn-cocina text-light" value="agregar">
 								</div>
 							</div>
 							</form>
@@ -303,7 +303,7 @@ $couAg = $rowAg["cuantosag"];
 									<input type="text" name="busqueda" class="form-control">
 								</div>
 								<div class="col-3 p-0">
-									<input type="submit" class="btn btn-secondary form-control" name="filtro" value="buscar" style="font-weight: bold;">
+									<input type="submit" class="btn btn-cocina form-control" name="filtro" value="buscar" style="font-weight: bold;">
 								</div>
 							</div>
 							</form>

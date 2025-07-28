@@ -46,7 +46,7 @@ $status     = $rowPac["status"];
 					<div class="row box-menu mx-1 mb-3">
 						<div class="col-md-6 py-2">
 							<h5 class="text-secondary m-0 p-0">
-								<a href="ordenes_medicas.php">
+								<a href="ordenes_medicas.php" style="color: #002d59;">
 									<i class="fa fa-angle-left"></i>
 								</a>&nbsp;
 								Información del paciente
@@ -255,7 +255,7 @@ $status     = $rowPac["status"];
 						<div class="form-row mt-3">
 							<div class="form-group col-md-4"></div>
 							<div class="form-group col-md-4">
-								<input type="submit" name="submitedit" class="form-control btn btn-secondary text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; margin-top: 0px;">
+								<input type="submit" name="submitedit" class="form-control btn text-light" value="grabar cambios" style="font-weight: bold; font-size: 14pt; margin-top: 0px; background: #002d59;">
 							</div>
 						</div>
 					</div>

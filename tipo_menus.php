@@ -51,9 +51,9 @@ $couAg = $rowAg["cuantosag"];
 	<div class="col-md-12 content-box position-relative">
 
 		<div class="container" style="margin-top: 175px;">
-			<div class="row">
-				<div class="col-md-6 box-admin-opt">
-					<div class="row bg-secondary text-light py-1" style="border-radius: 4px;">
+			<div class="row mt-3">
+				<div class="col-md-7 pr-5">
+					<div class="row box-menu mb-2">
 						<div class="col-8"><b>Nombre</b></div>
 						<div class="col-3 text-center"><b>Status</b></div>
 						<div class="col-1 text-center">&nbsp;</div>
@@ -72,7 +72,7 @@ $couAg = $rowAg["cuantosag"];
 							$bgf = "background: #fbe4e4;";
 						}
 						?>
-						<div class="row py-2 <?php if ($van%2==0){ echo "bg-muted"; } ?>" style="<?php echo $bgf; ?>; border: 1px solid #eee; border-top: 0px;">
+						<div class="row box-items py-2 <?php if ($van%2==0){ echo "bg-muted"; } ?>" style="<?php echo $bgf; ?>; border: 1px solid #eee; border-top: 0px;">
 							<div class="col-8">
 								<a href="#" data-toggle="modal" data-target="#boxEdit<?php echo $rowR["id"];?>">
 									<?php echo $rowR["nombre"];?>
@@ -133,7 +133,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
+												<input type="submit" name="submitformEdit" class="form-control btn btn-cocina text-light" value="grabar cambios">
 											</div>
 										</div>
 										</form>
@@ -165,7 +165,7 @@ $couAg = $rowAg["cuantosag"];
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<input type="submit" name="submitformDel" class="form-control btn btn-secondary text-light" value="Si, eliminar">
+												<input type="submit" name="submitformDel" class="form-control btn btn-cocina text-light" value="Si, eliminar">
 											</div>
 										</div>
 										</form>
@@ -208,37 +208,39 @@ $couAg = $rowAg["cuantosag"];
 				    <?php } ?>
 
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-4 box-admin-opt">
+				
+				<div class="col-md-4">
 					<form action="tipo_menus_grabar.php" method="POST" accept-charset="utf-8">
 					<input type="hidden" name="acc" value="add">
-					<div class="row">
-						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-secondary"><b>Agregar Tipo Menu</b></h5>
+					<div class="row box-menu mx-0 mb-2">
+						<div class="col-md-12 text-center">
+							<h5 class="m-0 py-1 text-secondary"><b>Agregar Tipo Menu</b></h5>
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Nombre *</label>
-							<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required">
+					<div class="box-items p-0 m-0">
+						<div class="form-row mt-2">
+							<div class="form-group col-md-12">
+								<label>Nombre *</label>
+								<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required">
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Descripción</label>
-							<textarea name="descripcion" class="form-control" rows="2"></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Descripción</label>
+								<textarea name="descripcion" class="form-control" rows="2"></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Status</label>&nbsp;&nbsp; 
-							<input type="radio" name="status" value="A" checked> Activo&nbsp; 
-							<input type="radio" name="status" value="I"> Inactivo
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Status</label>&nbsp;&nbsp; 
+								<input type="radio" name="status" value="A" checked> Activo&nbsp; 
+								<input type="radio" name="status" value="I"> Inactivo
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<input type="submit" name="submitformAdd" class="form-control btn btn-secondary text-light" value="agregar">
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<input type="submit" name="submitformAdd" class="form-control btn btn-cocina text-light" value="agregar">
+							</div>
 						</div>
 					</div>
 					</form>
@@ -260,7 +262,7 @@ $couAg = $rowAg["cuantosag"];
 									<input type="text" name="busqueda" class="form-control">
 								</div>
 								<div class="col-3 p-0">
-									<input type="submit" class="btn btn-secondary form-control" name="filtro" value="buscar" style="font-weight: bold;">
+									<input type="submit" class="btn btn-cocina form-control" name="filtro" value="buscar" style="font-weight: bold;">
 								</div>
 							</div>
 							</form>

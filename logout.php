@@ -17,7 +17,9 @@ session_start();
 	$_SESSION['clientenamecook'] = "";
 	$_SESSION['nivelcook']       = "";
 	$_SESSION['nivelcooktemp']   = "";
-	session_destroy();
+	// se desactivo session_destroy() pues elimina el session de pedidos pacientes
+	// y ese se tiene que mantener hasta que se envie la solicitud
+	// session_destroy(); 
 	header("Location: index.php");
 
 // }

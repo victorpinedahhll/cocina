@@ -18,21 +18,33 @@ include("header.php");
 		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box-admin-opt pt-3">
-						<div class="row bg-secondary text-light" style="height: 27px; font-weight: bold;">
+					<style>
+					.colores {
+						margin: 0px 0 7px 0;
+						font-size: 10pt;
+					}
+					</style>
+					<div class="colores">
+						<b>Identificador:</b>&nbsp; 
+						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="pt-2">
+						<div class="row box-menu mb-2">
 							<div class="col-md-2">
 								Fecha Ingreso
 							</div>
 							<div class="col-md-2">
-								Código Paciente
-							</div>
-							<div class="col-md-3">
 								Nombre Paciente
+							</div>
+							<div class="col-md-2">
+								Tipo Dieta
 							</div>
 							<div class="col-md-2">
 								Habitación
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								Médico Tratante
 							</div>
 							<div class="col-md-1">
@@ -40,18 +52,27 @@ include("header.php");
 							</div>
 						</div>
 						<?php 
-						$qryPac = "SELECT * FROM _pacientes_solicitudes WHERE status > '0' ORDER by fecha_ingreso";
+						$qryPac = "
+						SELECT *, (
+								SELECT nombre FROM _tipo_dieta d WHERE d.id = a.dieta
+							) AS tdieta 
+						FROM _pacientes_solicitudes a 
+						ORDER by fecha_ingreso
+						";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
-							$bgcolor = "transparent";
-							if($rowPac["status"]=="1"){
-								$bgcolor = "#faf6cb";
-							}elseif($rowPac["status"]=="2"){
-								$bgcolor = "#d9fbd8";
+							$bgitem = "#ffffff";
+							if($entregado){
+								$bgitem = "#d9ead3";
+							}elseif($cancelado){
+								$bgitem = "#f4cccc";
 							}
 						?>
-						<div class="row py-2" style="background: <?php echo $bgcolor; ?>">
-							<div class="col-md-2">
+						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
+							<div class="col-md-2 pt-1 pl-1">
+								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+									Orden # <?php echo $rowPac["id"]; ?>
+								</a><br>
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
 								$diaP  = date("d",$fecha);
@@ -72,29 +93,23 @@ include("header.php");
 								if($mesP=="12"){ $mesN = "Dic"; }
 
 								echo $diaP."/".$mesN."/".$anoP; ?>
+								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
-							<div class="col-md-2">
-								<?php echo $rowPac["codigo"]; ?>
+							<div class="col-md-2 pt-2 pl-1" style="line-height: 14pt;">
+								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
+								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
-							<div class="col-md-3">
-								<a href="pacientes_formulario_ver.php?sol=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
-									<?php echo $rowPac["pnombre"]; ?> <?php echo $rowPac["papellido"]; ?>
-								</a>
+							<div class="col-md-2 pt-2">
+								<?php echo $rowPac["tdieta"]; ?>
 							</div>
-							<div class="col-md-2 hidden-max-991">
+							<div class="col-md-2 pt-2">
 								<?php echo $rowPac["habitacion"]; ?>
 							</div>
-							<div class="col-md-2">
-								Dr. <?php
-								if($rowPac["medico_tratante"]!="999999"){
-									echo $rowPac["medico_nombre"];
-								}elseif($rowPac["medico_tratante"]=="999999"){
-									echo $rowPac["medico_otro"];
-								}
-								?>
+							<div class="col-md-3 pt-2">
+								<?php echo $rowPac["medico_nombre"]; ?>
 							</div>
-							<div class="col-md-1">
-								<a href="#" onClick="window.open('solicitudes_imprimir.php?sol=<?php echo $rowPac["id"];?>','mywindow','width=700,height=800,scrollbars=no,status=yes')"><i class="fa fa-print btn btn-warning"></i></a>
+							<div class="col-md-1 pt-2">
+								<a href="#" onClick="window.open('solicitudes_imprimir.php?sol=<?php echo $rowPac["id"];?>','mywindow','width=700,height=800,scrollbars=no,status=yes')"><i class="fa fa-print btn" style="background: #e6e6e6; color: #3e3e3e;"></i></a>
 							</div>
 						</div>
 						<?php } ?>

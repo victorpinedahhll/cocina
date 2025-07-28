@@ -24,58 +24,60 @@ $rowR = $rsAg->fetch_assoc();
 
 		<div class="container" style="margin-top: 175px;">
 			<div class="row">
-				<div class="col-md-8 box-admin-opt">
+				<div class="col-md-8">
 					<form action="programaciones_grabar.php" method="POST" accept-charset="utf-8">
 					<input type="hidden" name="acc" value="edit">
 					<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
-					<div class="row">
+					<div class="row box-menu mx-0 mb-2">
 						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-secondary"><b><a href="programaciones.php" class="text-secondary">< Editar Programación</a></b></h5>
+							<h5 class="m-0 my-2 text-secondary"><b><a href="programaciones.php" class="p-3" style="color: #002d59;"><i class="fa fa-angle-left"></i></a> Editar Programación</b></h5>
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Nombre *</label>
-							<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required" style="font-weight: bold; font-size: 18pt;">
+					<div class="box-items">
+						<div class="form-row mt-2">
+							<div class="form-group col-md-12">
+								<label>Nombre *</label>
+								<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required" style="font-weight: bold; font-size: 18pt;">
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6 pb-2" style="border-right: 1px dotted #808080;">
-							<label>Fecha Inicio</label>
-							<input type="date" name="inicio" class="form-control" value="<?php echo $rowR["inicio"]; ?>">
+						<div class="form-row">
+							<div class="form-group col-md-6 pb-2" style="border-right: 1px dotted #808080;">
+								<label>Fecha Inicio</label>
+								<input type="date" name="inicio" class="form-control" value="<?php echo $rowR["inicio"]; ?>">
+							</div>
+							<div class="form-group col-md-6">
+								<label>Fecha Final</label>
+								<input type="date" name="final" class="form-control" value="<?php echo $rowR["final"]; ?>">
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<label>Fecha Final</label>
-							<input type="date" name="final" class="form-control" value="<?php echo $rowR["final"]; ?>">
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Descripción</label>
+								<textarea name="descripcion" class="form-control" rows="2"><?php echo $rowR["descripcion"];?></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Descripción</label>
-							<textarea name="descripcion" class="form-control" rows="2"><?php echo $rowR["descripcion"];?></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Status</label>&nbsp;&nbsp; 
+								<input type="radio" name="status" value="A" <?php if($rowR["status"]=="A"){ echo "checked"; } ?>> Activo&nbsp; 
+								<input type="radio" name="status" value="I" <?php if($rowR["status"]=="I"){ echo "checked"; } ?>> Inactivo
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Status</label>&nbsp;&nbsp; 
-							<input type="radio" name="status" value="A" <?php if($rowR["status"]=="A"){ echo "checked"; } ?>> Activo&nbsp; 
-							<input type="radio" name="status" value="I" <?php if($rowR["status"]=="I"){ echo "checked"; } ?>> Inactivo
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="submit" name="submitformEdit" class="form-control btn btn-cocina text-light" value="grabar cambios">
+							</div>
 						</div>
 					</div>
 					</form>
 				</div>
 				<div class="col-md-4">
 					<div class="box-admin-opt">
-						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100">
-							agregar plato
+						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100 py-2">
+							<b>agregar plato</b>
 						</a>
 
-						<h6 class="text-dark mt-3 mb-3 text-center"><b>Platos seleccionados</b></h6>
+						<h6 class="text-dark mt-4 mb-3 text-center"><b>Platos seleccionados</b></h6>
 						
 						<?php 
 						$qryOp = "SELECT *, (select nombre from _menus b where b.id=a.idmenu) as nmmenu FROM _menus_progra_enlace a WHERE idprogra='$id'";
@@ -124,7 +126,7 @@ $rowR = $rsAg->fetch_assoc();
 											</div>
 											<div class="form-row">
 												<div class="form-group col-md-6">
-													<input type="submit" name="submitformDel" class="form-control btn btn-secondary text-light" value="Si, eliminar">
+													<input type="submit" name="submitformDel" class="form-control btn btn-cocina text-light" value="Si, eliminar">
 												</div>
 											</div>
 											</form>
@@ -171,7 +173,7 @@ $rowR = $rsAg->fetch_assoc();
 							<div class="form-row mt-4">
 								<div class="form-group col-md-3"></div>
 								<div class="form-group col-md-6">
-									<input type="submit" name="submitform" class="form-control btn btn-secondary text-light" value="agregar">
+									<input type="submit" name="submitform" class="form-control btn btn-cocina text-light" value="agregar">
 								</div>
 							</div>
 							</form>

@@ -18,31 +18,38 @@ include("header.php");
 		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box-admin-opt pt-3">
-						<div class="row bg-secondary mb-3 py-1 text-light" style="font-weight: bold;">
+					
+						<div class="row box-menu mb-2">
 							<div class="col-md-2">
 								Fecha Ingreso
 							</div>
 							<div class="col-md-1">
 								Código
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								Nombre Paciente
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								Médico Tratante
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								Alergias
+							</div>
+							<div class="col-md-1 text-center">
+								Estado
 							</div>
 						</div>
 						<?php 
 						//$qryPac = "SELECT * FROM _pacientes a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
-						$qryPac = "SELECT * FROM _pacientes a WHERE status='A' ORDER by fecha_ingreso";
+						$qryPac = "SELECT * FROM _pacientes a ORDER by fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
+							$bgcolor = "#ffffff";
+							if($rowPac["status"]=="I"){
+								$bgcolor = "#fbe4e4";
+							}
 						?>
-						<div class="row py-2">
+						<div class="row box-items py-2" style="background-color: <?php echo $bgcolor; ?>;">
 							<div class="col-md-2">
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
@@ -65,23 +72,27 @@ include("header.php");
 
 								echo $diaP."/".$mesN."/".$anoP; ?>
 							</div>
-							<div class="col-md-1">
+							<div class="col-md-1 pl-0">
 								<?php echo $rowPac["codigo"]; ?>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2 pl-0">
 								<a href="pacientes_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
 									<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
 								</a>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<?php echo $rowPac["alergias"]; ?>
+							</div>
+							<div class="col-md-1 text-center">
+								<?php 
+								if($rowPac["status"]=="I"){ echo "Inactivo"; }else{ echo "Activo"; } ?>
 							</div>
 						</div>
 						<?php } ?>
-					</div>
+					
 				</div>
 			</div>
 		</div>

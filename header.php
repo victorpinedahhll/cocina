@@ -56,7 +56,7 @@ include("parametros_generales.php");
         // Fetching Tasks
         function fetchTasks() {
           $.ajax({
-            url: 'platos_elegidos.php?sol=<?php echo $_GET["sol"]; ?>',
+            url: 'platos_elegidos.php?sol=<?php echo $_GET["sol"]; ?>&id=<?php echo $_GET["id"]; ?>&paciente=<?php echo $_REQUEST["paciente"]; ?>',
             type: 'GET',
             success: function(response) {
               const tasks = JSON.parse(response);

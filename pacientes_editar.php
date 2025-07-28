@@ -39,86 +39,92 @@ $status     = $rowPac["status"];
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<div class="box-admin-opt">
-						<h5 class="pt-0 mt-0 text-secondary">
-							<a href="pacientes.php">
-								<i class="fa fa-angle-left"></i>
-							</a>&nbsp;
-							Datos del paciente
-						</h5>
-						<div id="errores" style="color: red; margin-top: 10px;"></div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label class="label-codigo">Código Paciente *</label>
-								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
-							</div>
-							<div class="form-group col-md-6">
-								<label class="label-medico">Médico tratante *</label>
-								<select name="medico" id="medico" class="form-control" onChange="cambia_medico()">
-									<option value="">Elija uno</option>
-									<?php
-									$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
-									$rsM2 = $conexion2->query($qryM2);
-									while ($rowM2 = $rsM2->fetch_assoc()){
-									?>
-									<option value="<?php echo $rowM2["cod_med12"]; ?>" <?php if($rowM2["cod_med12"]==$codmedico){ echo "selected"; } ?>><?php echo $rowM2["primer_apellido_med29"]; ?> <?php if(!empty($rowM2["segundo_apellido_med37"])){ echo $rowM2["segundo_apellido_med37"]; } ?>, <?php echo $rowM2["primer_nombre_med18"]; ?> <?php if(!empty($rowM2["segundo_nombre_med22"])){ echo $rowM2["segundo_nombre_med22"]; } ?></option>
-									<?php } ?>
-									<option value="999999" <?php if($rowM2["medico_tratante"]=="999999"){ echo "selected"; } ?>>OTRO</option>
-								</select>
+					<div class="row box-menu">
+						<div class="col-md-12">
+							<h5 class="p-0 m-0 my-2 text-secondary">
+								<a href="pacientes.php" style="color: #002d59;">
+									<i class="fa fa-angle-left"></i>
+								</a>&nbsp;
+								Datos del paciente
+							</h5>
+						</div>
+					</div>
+					<div class="row box-items mt-2">
+						<div class="col-md-12">
+							<div id="errores" style="color: red; margin-top: 10px;"></div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label class="label-codigo">Código Paciente *</label>
+									<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
+								</div>
+								<div class="form-group col-md-6">
+									<label class="label-medico">Médico tratante *</label>
+									<select name="medico" id="medico" class="form-control" onChange="cambia_medico()">
+										<option value="">Elija uno</option>
+										<?php
+										$qryM2 = "SELECT * FROM web_medicos WHERE status_med37='A' and  colegiado_med35  > '0' ORDER by primer_apellido_med29,primer_nombre_med18";
+										$rsM2 = $conexion2->query($qryM2);
+										while ($rowM2 = $rsM2->fetch_assoc()){
+										?>
+										<option value="<?php echo $rowM2["cod_med12"]; ?>" <?php if($rowM2["cod_med12"]==$codmedico){ echo "selected"; } ?>><?php echo $rowM2["primer_apellido_med29"]; ?> <?php if(!empty($rowM2["segundo_apellido_med37"])){ echo $rowM2["segundo_apellido_med37"]; } ?>, <?php echo $rowM2["primer_nombre_med18"]; ?> <?php if(!empty($rowM2["segundo_nombre_med22"])){ echo $rowM2["segundo_nombre_med22"]; } ?></option>
+										<?php } ?>
+										<option value="999999" <?php if($rowM2["medico_tratante"]=="999999"){ echo "selected"; } ?>>OTRO</option>
+									</select>
 
-								<div id="otrobox" style="display: none;">
-									<div class="row">
-										<div class="col-md-12">
-											<input type="text" class="form-control mt-3" name="otromed" id="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
+									<div id="otrobox" style="display: none;">
+										<div class="row">
+											<div class="col-md-12">
+												<input type="text" class="form-control mt-3" name="otromed" id="otromed" placeholder="nombre médico" value="<?php echo $rowM2["medico_otro"]; ?>">
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label class="label-pnombre">Primer Nombre *</label>
-								<input type="text" name="pnombre" id="pnombre" class="form-control" value="<?php echo $pnombre; ?>">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label class="label-pnombre">Primer Nombre *</label>
+									<input type="text" name="pnombre" id="pnombre" class="form-control" value="<?php echo $pnombre; ?>">
+								</div>
+								<div class="form-group col-md-6">
+									<label>Segundo Nombre</label>
+									<input type="text" name="snombre" id="snombre" class="form-control" value="<?php echo $snombre; ?>">
+								</div>
 							</div>
-							<div class="form-group col-md-6">
-								<label>Segundo Nombre</label>
-								<input type="text" name="snombre" id="snombre" class="form-control" value="<?php echo $snombre; ?>">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label class="label-papellido">Primer Apellido *</label>
+									<input type="text" name="papellido" id="papellido" class="form-control" value="<?php echo $papellido; ?>">
+								</div>
+								<div class="form-group col-md-6">
+									<label>Segundo Apellido</label>
+									<input type="text" name="sapellido" id="sapellido" class="form-control" value="<?php echo $sapellido; ?>">
+								</div>
 							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label class="label-papellido">Primer Apellido *</label>
-								<input type="text" name="papellido" id="papellido" class="form-control" value="<?php echo $papellido; ?>">
-							</div>
-							<div class="form-group col-md-6">
-								<label>Segundo Apellido</label>
-								<input type="text" name="sapellido" id="sapellido" class="form-control" value="<?php echo $sapellido; ?>">
-							</div>
-						</div>
 
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label>Observaciones</label>
-								<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label>Observaciones</label>
+									<textarea name="observaciones" id="observaciones" class="form-control" rows="4"><?php echo $observaciones; ?></textarea>
+								</div>
 							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label>Alergias</label><br>  
-								<textarea name="alergias" id="alergias" class="form-control" rows="3"><?php echo $alergias; ?></textarea>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label>Alergias</label><br>  
+									<textarea name="alergias" id="alergias" class="form-control" rows="3"><?php echo $alergias; ?></textarea>
+								</div>
 							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<label>Status</label><br>  
-								<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; 
-								<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
+							<div class="form-row">
+								<div class="form-group col-md-4">
+									<label>Status</label><br>  
+									<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; 
+									<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
+								</div>
 							</div>
-						</div>
-						<div class="form-row mt-3">
-							<div class="form-group col-md-4"></div>
-							<div class="form-group col-md-4">
-								<input type="submit" name="submitedit" class="form-control btn btn-secondary text-light" value="grabar cambios" style="font-weight: bold; font-size: 18pt; margin-top: 0px;">
+							<div class="form-row mt-3">
+								<div class="form-group col-md-4"></div>
+								<div class="form-group col-md-4">
+									<input type="submit" name="submitedit" class="form-control btn btn-cocina text-light" value="grabar cambios" style="font-weight: bold; font-size: 14pt; margin-top: 0px;">
+								</div>
 							</div>
 						</div>
 					</div>

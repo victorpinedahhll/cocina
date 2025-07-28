@@ -24,78 +24,80 @@ $rowR = $rsAg->fetch_assoc();
 
 		<div class="container" style="margin-top: 175px;">
 			<div class="row">
-				<div class="col-md-7 box-admin-opt">
+				<div class="col-md-7">
 					<form action="platos_grabar.php" method="POST" accept-charset="utf-8">
 					<input type="hidden" name="acc" value="edit">
 					<input type="hidden" name="id"  value="<?php echo $rowR["id"];?>">
-					<div class="row">
-						<div class="col-md-8">
-							<h5 class="mt-0 mb-3 pl-2 text-info"><b><a href="platos.php" class="text-secondary"><&nbsp; Editar Plato</a></b></h5>
+					<div class="row box-menu mx-0 mb-2">
+						<div class="col-md-12">
+							<h5 class="m-0 my-2 text-secondary"><b><a href="platos.php" class="p-3" style="color: #002d59;"><i class="fa fa-angle-left"></i></a> Editar Plato</b></h5>
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Nombre *</label>
-							<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required" style="font-weight: bold; font-size: 18pt;">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12 pb-2">
-							<label>Tipo Menu</label>
-							<div class="row">
-							<?php
-							$qryTM = "SELECT *, (select idtipo from _menu_tipo_enlace b where b.idtipo=a.id and idmenu='$id') as idtipo FROM _tipo_menu a WHERE status='A' ORDER by id";
-							$rsTM  = $conexion->query($qryTM);
-							while ($rowTM = $rsTM->fetch_assoc()){
-							?>
-								<div class="col-md-5">
-									<input type="checkbox" name="tmen_<?php echo $rowTM["id"]; ?>" value="<?php echo $rowTM["id"]; ?>" <?php if($rowTM["id"]==$rowTM["idtipo"]){ echo "checked"; } ?>>&nbsp; <?php echo $rowTM["nombre"]; ?>
-								</div>
-							<?php } ?>
+					<div class="box-items">
+						<div class="form-row mt-2">
+							<div class="form-group col-md-12">
+								<label>Nombre *</label>
+								<input type="text" name="nombre" class="form-control" value="<?php echo $rowR["nombre"];?>" required="required" style="font-weight: bold; font-size: 18pt;">
 							</div>
 						</div>
-						<div class="form-group col-md-12">
-							<label>Tipo Dieta</label>
-							<div class="row">
-							<?php
-							$qryTM = "SELECT *, (select iddieta from _menu_dieta_enlace b where b.iddieta=a.id and idmenu='$id') as iddieta FROM _tipo_dieta a WHERE status='A' ORDER by id";
-							$rsTM  = $conexion->query($qryTM);
-							while ($rowTM = $rsTM->fetch_assoc()){
-							?>
-								<div class="col-md-5">
-									<input type="checkbox" name="tdie_<?php echo $rowTM["id"]; ?>" value="<?php echo $rowTM["id"]; ?>" <?php if($rowTM["id"]==$rowTM["iddieta"]){ echo "checked"; } ?>>&nbsp; <?php echo $rowTM["nombre"]; ?>
+						<div class="form-row">
+							<div class="form-group col-md-12 pb-2">
+								<label>Tipo Menu</label>
+								<div class="row">
+								<?php
+								$qryTM = "SELECT *, (select idtipo from _menu_tipo_enlace b where b.idtipo=a.id and idmenu='$id') as idtipo FROM _tipo_menu a WHERE status='A' ORDER by id";
+								$rsTM  = $conexion->query($qryTM);
+								while ($rowTM = $rsTM->fetch_assoc()){
+								?>
+									<div class="col-md-5">
+										<input type="checkbox" name="tmen_<?php echo $rowTM["id"]; ?>" value="<?php echo $rowTM["id"]; ?>" <?php if($rowTM["id"]==$rowTM["idtipo"]){ echo "checked"; } ?>>&nbsp; <?php echo $rowTM["nombre"]; ?>
+									</div>
+								<?php } ?>
 								</div>
-							<?php } ?>
+							</div>
+							<div class="form-group col-md-12">
+								<label>Tipo Dieta</label>
+								<div class="row">
+								<?php
+								$qryTM = "SELECT *, (select iddieta from _menu_dieta_enlace b where b.iddieta=a.id and idmenu='$id') as iddieta FROM _tipo_dieta a WHERE status='A' ORDER by id";
+								$rsTM  = $conexion->query($qryTM);
+								while ($rowTM = $rsTM->fetch_assoc()){
+								?>
+									<div class="col-md-5">
+										<input type="checkbox" name="tdie_<?php echo $rowTM["id"]; ?>" value="<?php echo $rowTM["id"]; ?>" <?php if($rowTM["id"]==$rowTM["iddieta"]){ echo "checked"; } ?>>&nbsp; <?php echo $rowTM["nombre"]; ?>
+									</div>
+								<?php } ?>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Descripción</label>
-							<textarea name="descripcion" class="form-control" rows="2"><?php echo $rowR["descripcion"];?></textarea>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Descripción</label>
+								<textarea name="descripcion" class="form-control" rows="2"><?php echo $rowR["descripcion"];?></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label>Status</label>&nbsp;&nbsp; 
-							<input type="radio" name="status" value="A" <?php if($rowR["status"]=="A"){ echo "checked"; } ?>> Activo&nbsp; 
-							<input type="radio" name="status" value="I" <?php if($rowR["status"]=="I"){ echo "checked"; } ?>> Inactivo
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label>Status</label>&nbsp;&nbsp; 
+								<input type="radio" name="status" value="A" <?php if($rowR["status"]=="A"){ echo "checked"; } ?>> Activo&nbsp; 
+								<input type="radio" name="status" value="I" <?php if($rowR["status"]=="I"){ echo "checked"; } ?>> Inactivo
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<input type="submit" name="submitformEdit" class="form-control btn btn-secondary text-light" value="grabar cambios">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="submit" name="submitformEdit" class="form-control btn btn-cocina text-light" value="grabar cambios">
+							</div>
 						</div>
 					</div>
 					</form>
 				</div>
 				<div class="col-md-5">
-					<div class="box-admin-opt">
-						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100">
-							agregar opción
+					<div class="box-admin-opt pt-3">
+						<a href="#" data-toggle="modal" data-target="#boxAdd" class="btn btn-outline-secondary w-100 py-2">
+							<b>agregar opción</b>
 						</a>
 
-						<h6 class="text-dark mt-3 mb-3 text-center"><b>Opciones disponibles</b></h6>
+						<h6 class="text-dark mt-4 mb-3 text-center"><b>Opciones disponibles</b></h6>
 
 						<div class="row bg-muted text-dark" style="border-radius: 4px; height: 27px;">
 							<div class="col-7"><b>Nombre</b></div>

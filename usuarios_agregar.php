@@ -19,9 +19,9 @@ $postuseradd = $_SESSION["formadduser"];
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <div class="row" style="margin-top: 45px;">
+                    <div class="row" style="margin-top: 40px;">
                         <div class="col-md-12">
-                            <div class="row box-menu mx-1 mb-3">
+                            <div class="row box-menu mx-1 mb-2">
                                 <div class="col-md-6 py-2">
                                     <h5 class="text-secondary m-0 p-0">
                                         <a href="usuarios.php" style="color: #002d59;">
@@ -43,7 +43,7 @@ $postuseradd = $_SESSION["formadduser"];
                                         <input type="text" class="form-control" name="usuario" id="usuario" <?php if(!empty($postuseradd["usuario"])){ ?>value="<?php echo $postuseradd["usuario"]; ?>"<?php } ?>>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Nivel</label>
+                                        <label>Nivel del Usuario</label>
                                         <?php if($idsession=="1" && 1==2){ ?>
                                         <h5>Webmaster</h5>
                                         <?php }else{ ?>
@@ -118,7 +118,7 @@ $postuseradd = $_SESSION["formadduser"];
 
                     <div class="form-row mt-4 mb-4 pl-4">
                         <div class="form-group col-md-5">
-                            <input type="submit" class="btn btn-secondary px-4" name="formsubmit" value="Agregar usuario" style="font-size: 12pt !important; color: #fff;">
+                            <input type="submit" class="btn btn-cocina px-4" name="formsubmit" value="Agregar usuario" style="font-size: 12pt !important; color: #fff;">
                         </div>
                     </div>
                 </div>

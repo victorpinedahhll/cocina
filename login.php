@@ -46,11 +46,11 @@ if(isset($_POST["submitlogin"]) && $row > 0 && password_verify($password, $row["
 		exit;
 	}elseif($row["nivel_wua67"]=="ENFERMERIA"){
 		$_SESSION['nivelcooktemp'] = "E";
-		header("Location: pacientes_activos.php");
+		header("Location: _ordenes_medicas.php");
 		exit;
 	}elseif($row["nivel_wua67"]=="AUXILIAR"){
 		$_SESSION['nivelcooktemp'] = "U";
-		header("Location: pacientes.php");
+		header("Location: pedidos_pacientes.php");
 		exit;
 	}
 	

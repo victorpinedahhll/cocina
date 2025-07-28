@@ -18,21 +18,20 @@ include("header.php");
 		<div class="px-5" style="margin-top: 170px;">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box-admin-opt pt-3">
-						<div class="row bg-secondary text-light mb-3" style="height: 27px; font-weight: bold;">
-							<div class="col-md-2">
+					<div class="row box-menu mb-2">
+						<div class="col-md-2">
 								Usuario
-							</div>
-                            <div class="col-md-3">
-								Nombre
-							</div>
-							<div class="col-md-4">
-								Email
-							</div>
-							<div class="col-md-2">
-								
-							</div>
 						</div>
+						<div class="col-md-3">
+							Nombre
+						</div>
+						<div class="col-md-4">
+							Email
+						</div>
+						<div class="col-md-2">
+							
+						</div>
+					</div>
 						<?php
 						$van = 0;
 						if($idsession==="1"){
@@ -61,14 +60,14 @@ include("header.php");
 						while ($rowus = $stmt->fetch(PDO::FETCH_ASSOC)){
 							$van = $van + 1;
 						?>
-						<div class="row pb-2 pt-2 mb-0 <?php if ($van%2==0){ echo "bg-muted"; } ?>" <?php if($rowus["status_wua32"]=="0"){ ?>style="background: #fbe4e4;<?php } ?>">
-						    <div class="col-md-2">
+						<div class="row box-items py-2 <?php if ($van%2==0){ echo "bg-muted"; } ?>" <?php if($rowus["status_wua32"]=="0"){ ?>style="background: #fbe4e4;<?php } ?>">
+						    <div class="col-md-2 pt-1">
 								<?php echo $rowus["usuario_us13"]; ?>
 							</div>	
-                            <div class="col-md-3">
+                            <div class="col-md-3 pt-1">
 								<?php echo $rowus["nombre_us07"]; ?>
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-5 pt-1">
 								<?php echo $rowus["email_wua25"]; ?>
 							</div>
 							<div class="col-md-1 col-3 text-center">

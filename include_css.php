@@ -832,6 +832,7 @@ h5 {
   box-shadow: 5px 10px 10px -10px #C0C0C0;
   margin-bottom: 7px;
   font-size: 11pt;
+  border: 1px solid #f4f4f4;
 }
 
 .title-menu {
@@ -869,6 +870,16 @@ h5 {
   }
 }
 
+.platos-historial p {
+  border-bottom: 1px solid #C0C0C0;
+  margin: 0px;
+  padding: 7px 0px;
+}
+
+.btn-cocina {
+  background: #002d59;
+  color: #fff;
+}
 .blink_me {
   animation: blink-custom 3s infinite ease-in-out;
   opacity: 1;

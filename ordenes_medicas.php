@@ -29,8 +29,9 @@ include("header.php");
 					<div class="colores">
 						<b>Identificador:</b>&nbsp; 
 						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Sin Asignar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #e0e0e0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Finalizado</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #e1f0ed; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #efe4d6; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Enviado a Cocina</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
@@ -61,9 +62,22 @@ include("header.php");
 							ORDER by status,fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
+							$bgitem = "#ffffff";
+							if($rowPac["auxiliar_nutricion"] > 0){
+								$bgitem = "#e1f0ed";
+							}elseif($entregado){
+								$bgitem = "#d9ead3";
+							}elseif($encocina){
+								$bgitem = "#efe4d6";
+							}elseif($cancelado){
+								$bgitem = "#f4cccc";
+							}
 						?>
-						<div class="row box-items" <?php if($rowPac["status"]=="I"){ ?>style="background: #fbe0e2;"<?php } ?>>
-							<div class="col-md-2 pt-2">
+						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
+							<div class="col-md-2 pt-1 pl-1">
+								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+									Orden # <?php echo $rowPac["id"]; ?>
+								</a><br>
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
 								$diaP  = date("d",$fecha);
@@ -86,10 +100,8 @@ include("header.php");
 								echo $diaP."/".$mesN."/".$anoP; ?>
 								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
-							<div class="col-md-3" style="line-height: 14pt;">
-								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
-									<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
-								</a><br>
+							<div class="col-md-3 pt-2 pl-1" style="line-height: 14pt;">
+								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
 							<div class="col-md-2 pt-2">

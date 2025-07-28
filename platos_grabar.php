@@ -13,7 +13,7 @@ $nombre = trim($_POST['nombre']);
 $descri = $_POST['descripcion'];
 $status = $_POST['status'];
 
-if (isset($_POST['submitformAdd']) && isset($_SESSION['logincook']) && $nvsessiontemp=="A") {
+if (isset($_POST['submitformAdd']) && isset($_SESSION['logincook'])) {
 
 	$qry = "INSERT INTO `_menus`(`id`, `nombre`, `descripcion`, `imagen`, `status`) VALUES ('0','$nombre','$descri','0','$status')";
 
@@ -36,9 +36,14 @@ if (isset($_POST['submitformAdd']) && isset($_SESSION['logincook']) && $nvsessio
 		}
 	}
 
+	$conexion->close();
+
+	header("Location: platos.php");
+	exit;
+
 }
 
-if (isset($_POST['submitformEdit']) && isset($_SESSION['logincook']) && $nvsessiontemp=="A") {
+if (isset($_POST['submitformEdit']) && isset($_SESSION['logincook'])) {
 
 	$id  = $_POST['id'];
 	$qry = "UPDATE `_menus` SET nombre='$nombre', descripcion='$descri', status='$status' WHERE id='$id'";
@@ -63,16 +68,24 @@ if (isset($_POST['submitformEdit']) && isset($_SESSION['logincook']) && $nvsessi
 		}
 	}
 
+	$conexion->close();
+
+	header("Location: platos.php");
+	exit;
+
 }
 
-if (isset($_POST['submitformDel']) && isset($_SESSION['logincook']) && $nvsessiontemp=="A") {
+if (isset($_POST['submitformDel']) && isset($_SESSION['logincook'])) {
 
 	$id  = $_POST['id'];
 	$qry = "UPDATE `_menus` SET status='E' WHERE id='$id'";
 
+	$conexion->close();
+
+	header("Location: platos.php");
+	exit;
+
 }
 
-$conexion->query($qry);
 
-header("Location: platos.php");
 ?>

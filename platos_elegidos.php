@@ -1,12 +1,17 @@
 <?php
 session_start();
 
-$keyun = $_SESSION['keyun'];
+$pacval  = $_REQUEST["paciente"];
+$idpac   = $_GET["id"];
+
+$keyun = $_SESSION["keyun$idpac"];
+if($pacval=="NO"){
+  $keyun = $_SESSION["keyunvisit$idpac"];
+}
+
 if($_GET["sol"] > "0"){
   $keyun = "solicitud".$_GET["sol"];
 }
-
-//$keyun = $_GET['keyun'];
 
 if(!empty($keyun)){
 
@@ -44,9 +49,9 @@ if(!empty($keyun)){
   $query.= ", (select nombre from _menus_subopciones2 t where t.id in (select idopcion3 from _menus_subopciones4 z where z.idopcion3=t.id and z.id=p.idopcion and z.idmenu=p.idmenu)) as tmsub6";
   $query.= ", (select nombre from _menus_subopciones3 x where x.id in (select idopcion4 from _menus_subopciones4 z where z.idopcion4=x.id and z.id=p.idopcion and z.idmenu=p.idmenu)) as ttmsub6";
   $query.= ", (select nombre from _menus_subopciones4 z where z.id=p.idopcion and z.idmenu=p.idmenu) as sssmenu6";
-
   $query.= ", (select nombre from _programaciones c where c.id=p.idopcion) as nprogra ";
-  $query.= "FROM _pacientes_menu_enlace p WHERE p.keyunico='$keyun' ORDER by id";
+  $query.= "FROM _pacientes_menu_enlace p WHERE p.keyunico='$keyun' and idpaciente='$idpac' and p.paciente='$pacval' ORDER by id";
+  // echo  $query."<br><br>";
   $result = $conexion->query($query);
 
   $json = array();
@@ -59,7 +64,8 @@ if(!empty($keyun)){
           'id'      => $row['id'],
           'idprogra' => $row['idopcion'],
           'name'    => $row['nmmenu']." ".$row['nmopt'],
-          'nprogra' => $row['nprogra']
+          'nprogra' => $row['nprogra'],
+          'paciente' => $pacval
         );
     }
 
@@ -70,7 +76,8 @@ if(!empty($keyun)){
           'id'      => $row['id'],
           'idprogra' => $row['idopcion'],
           'name'    => $row['menut3']." ".$row['nmsubmenu']." ".$row["nmsub"],
-          'nprogra' => $row['nprogra']
+          'nprogra' => $row['nprogra'],
+          'paciente' => $pacval
         );
     }
 
@@ -81,7 +88,8 @@ if(!empty($keyun)){
           'id'      => $row['id'],
           'idprogra' => $row['idopcion'],
           'name'    => $row['menut4']." ".$row["submenu4"]." ".$row['ssubmenu4']." ".$row['tmsub'],
-          'nprogra' => $row['nprogra']
+          'nprogra' => $row['nprogra'],
+          'paciente' => $pacval
         );
     }
 
@@ -92,7 +100,8 @@ if(!empty($keyun)){
           'id'      => $row['id'],
           'idprogra' => $row['idopcion'],
           'name'    => $row['menut4']." ".$row["submenu4"]." ".$row['ssubmenu4']." ".$row['tmsub5']." ".$row["sssmenu5"],
-          'nprogra' => $row['nprogra']
+          'nprogra' => $row['nprogra'],
+          'paciente' => $pacval
         );
     }
 
@@ -103,7 +112,8 @@ if(!empty($keyun)){
           'id'      => $row['id'],
           'idprogra' => $row['idopcion'],
           'name'    => $row['menut6']." ".$row["submenu6"]." ".$row['ssubmenu6']." ".$row['tmsub6']." ".$row["ttmsub6"]." ".$row["sssmenu6"],
-          'nprogra' => $row['nprogra']
+          'nprogra' => $row['nprogra'],
+          'paciente' => $pacval
         );
     }
 
