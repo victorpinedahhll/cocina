@@ -224,7 +224,7 @@ if($_GET["van"]=="1"){
                         <div class="box-items platos-historial w-100 h-100" style="background: #fff url('images/fondo-portlet-platos.jpg') no-repeat bottom right; background-size: cover; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; min-height: 210px; position: relative;">
                             <?php
                             $key_sol = "solicitud".$rowH["id"];
-                            $id_pac  = $rowH["id_paciente"];
+                            $id_pac  = $rowH["orden_medica"];
 
                             $query = "SELECT *";
         
@@ -257,7 +257,7 @@ if($_GET["van"]=="1"){
                             $query.= ", (select nombre from _menus_subopciones4 z where z.id=p.idopcion and z.idmenu=p.idmenu) as sssmenu6";
                             $query.= ", (select nombre from _programaciones c where c.id=p.idopcion) as nprogra ";
                             $query.= "FROM _pacientes_menu_enlace p WHERE p.keyunico='$key_sol' and idpaciente='$id_pac' ORDER by id";
-                            // echo  $query."<br><br>";
+                            $query."<br><br>";
                             $result = $conexion->query($query);
                             while($row = $result->fetch_assoc()) { 
                                 if($row["tipo"]=="2"){
