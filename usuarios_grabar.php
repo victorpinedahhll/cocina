@@ -1,8 +1,8 @@
 <?php
 session_start();
-// error_reporting(E_ERROR | E_WARNING | E_PARSE);
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 
 $areaLg = "USUARIOS";  // valida roles del usuario
 
@@ -46,12 +46,17 @@ if ( $_GET["st"] >= "0" ) {
     $stmt = $pdo->prepare($qry);
     $stmt->execute([$st,$id]);
 
+    $stmt = null;
+    $pdo  = null;
+
+    header("Location: usuarios.php");
+
 }
 
 //  nuevo usuario
 if ( $_POST["acceso"]=="agregar" ) {
     
-    // valido que el usuario no exista
+    // valido que el nombre de usuario no exista
     $qry = "SELECT * FROM _usuarios_admin WHERE usuario_us13 = ?";
     $stmt = $pdo->prepare($qry);
     $stmt->execute([$usuario]);
@@ -126,7 +131,7 @@ if ( $_POST["acceso"]=="editar" ) {
     $id     = post_int('id');
     $status = post_int('status');
 
-    // valido que el usuario no exista
+    // valido que el nombre de usuario no exista
     $qry = "SELECT * FROM _usuarios_admin WHERE usuario_us13 = ? AND id_us00 != ?";
     $stmt = $pdo->prepare($qry);
     $stmt->execute([$usuario,$id]);
@@ -190,7 +195,8 @@ if ( $_POST["acceso"]=="editar" ) {
 
     }
 
-    if ($nivel !== $nvsession){
+    // elimino la session si el usuario logeado cambio de nivel
+    if ($usuario == $ussession && $nivel !== $nvsession){
         $stmt = null;
         $pdo  = null;
 

@@ -36,6 +36,7 @@ if($pacval=="NO"){
  	$rs2   = $conexion->query($sql);
 
  	if($rs2->num_rows <= 0){
+		// NOTA: la descripcion de los platos en esta tabla se agregan cuando se pasa el pedido a cocina
 	 	$qry = "INSERT INTO `_pacientes_menu_enlace`(`id`, `codigo_pac`, `idpaciente`, `idmenu`, `idopcion`, `tipo`, `paciente`, `keyunico`, `usuario`, `actualizacion`) VALUES ('0','$codPac','$idPac','$idMen','$idPro','$tipo','$pacval','$keyUn','$ussession','$datenowfull')";
 	 	$conexion->query($qry);
 

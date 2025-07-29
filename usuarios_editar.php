@@ -128,7 +128,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["ALERGIAS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
                             </div>
 
                             <div class="grupo pt-3" data-area="ADMIN">
