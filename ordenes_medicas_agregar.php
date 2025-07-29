@@ -141,6 +141,18 @@ $status     = $sessadd["status"];
 								<textarea name="observaciones" id="observaciones" class="form-control" rows="2"><?php echo $observaciones; ?></textarea>
 							</div>
 						</div>
+						<div class="form-row" id="boxalergias">
+							<div class="form-group col-md-4">
+								<label>Alergias</label><br>
+								<?php
+								$qryA = "SELECT * FROM _alergias WHERE _status = 'A' ORDER by _nombre";
+								$resA = $conexion->query($qryA);
+								while ($rowA = $resA->fetch_assoc()){
+								?>
+								<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>">&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
+								<?php } ?>
+							</div>
+						</div>
 						<div class="form-row mt-3">
 							<div class="form-group col-md-4"></div>
 							<div class="form-group col-md-4">
@@ -191,6 +203,7 @@ $status     = $sessadd["status"];
 						$("#sapellido").val(response.sapellido);
 						$("#medico").val(response.medico);
 						$("#otromed").val(response.otromed);
+						$("#boxalergias").css("display", "none");
 					} 
 				},
 				error: function() {

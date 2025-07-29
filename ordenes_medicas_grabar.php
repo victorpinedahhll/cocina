@@ -85,12 +85,31 @@ if($_POST['acceso']=="agregar"){
 
 	$_SESSION["sessordenadd"] = $_POST;
 
-	// ingreso a tabla pacientes si no existe
+	// reviso tabla pacientes si no existe
 	$qryVal = "SELECT codigo FROM _pacientes WHERE codigo = '$pcodigo'";
 	$resVal = $conexion->query($qryVal);
 	if($resVal->numb_rows <= 0){
+
+		// inserto los datos en la tabla pacientes
 		$qryPac = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','A','$nmsession','$datenow')";
 		$conexion->query($qryPac);
+
+		// ingreso las alergias del paciente
+		$rolesSeleccionados = $_POST['alergias'];
+
+		foreach ($rolesSeleccionados as $rol) {
+
+			$qryA = "SELECT _id FROM _alergias WHERE _nombre = '$rol'";
+			$resA = $conexion->query($qryA);
+			$rowA = $resA->fetch_assoc();
+			$nalergia = $rowA["_id"];
+
+			$qryRol = "INSERT INTO `_pacientes_alergias`(`_id`, `_paciente_cod`, `_alergia_id`, `_alergia`, `_usuario`) VALUES (?, ?, ?, ?, ?)";
+			$stmt   = $pdo->prepare($qryRol);
+			$stmt->execute(['0',$pcodigo,$nalergia,$rol,$ussession]);
+
+		}
+
 	}
 
  	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
