@@ -108,19 +108,35 @@ $status     = $rowPac["status"];
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-12">
-									<label>Alergias</label><br>  
-									<textarea name="alergias" id="alergias" class="form-control" rows="3"><?php echo $alergias; ?></textarea>
+								<div class="form-group col-md-4">
+									<label>Alergias</label><br>
+									<?php
+									$qryA = "
+										SELECT *
+											, (
+												SELECT _alergia_id 
+												FROM _pacientes_alergias p 
+												WHERE 
+													p._alergia_id=a._id 
+													AND p._paciente_cod = '$pcodigo'
+											) AS idalergia 
+										FROM _alergias a 
+										WHERE _status = 'A' 
+										ORDER by _nombre
+									";
+									$resA = $conexion->query($qryA);
+									while ($rowA = $resA->fetch_assoc()){
+									?>
+									<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>" <?php if($rowA["_id"]==$rowA["idalergia"]){ echo "checked"; } ?>>&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
+									<?php } ?>
 								</div>
-							</div>
-							<div class="form-row">
 								<div class="form-group col-md-4">
 									<label>Status</label><br>  
-									<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; 
+									<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; <br>
 									<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
 								</div>
 							</div>
-							<div class="form-row mt-3">
+							<div class="form-row mt-4">
 								<div class="form-group col-md-4"></div>
 								<div class="form-group col-md-4">
 									<input type="submit" name="submitedit" class="form-control btn btn-cocina text-light" value="grabar cambios" style="font-weight: bold; font-size: 14pt; margin-top: 0px;">

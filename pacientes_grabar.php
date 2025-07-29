@@ -1,6 +1,10 @@
 <?php 
 session_start();
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+// error_reporting(E_ERROR | E_WARNING | E_PARSE);
+/** Error reporting */
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 
 header("Content-Type: text/html;charset=UTF-8");
 
@@ -23,7 +27,6 @@ $sapellido     = $_POST['sapellido'];
 $medico        = $_POST['medico'];
 $otromed       = $_POST['otromed'];
 $observaciones = $_POST['observaciones'];
-$alergias       = $_POST['alergias'];
 $status        = $_POST['status'];
 
 if($medico > 0 && $medico != "999999"){
@@ -51,10 +54,27 @@ if($_POST['acceso']=="agregar"){
 
 	$_SESSION["sessadd"] = $_POST;
 
- 	$qry = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `alergias`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','$alergias','$status','$nmsession')";
+ 	$qry = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','$status','$nmsession')";
  	$result = $conexion->query($qry);
 	if($result){
+		
 		unset($_SESSION["sessadd"]);
+
+		// ingreso los roles del usuario
+        $rolesSeleccionados = $_POST['alergias'];
+
+        foreach ($rolesSeleccionados as $rol) {
+
+			$qryA = "SELECT _id FROM _alergias WHERE _id = '$rol'";
+			$resA = $conexion->query($qryA);
+			$rowA = $resA->fetch_assoc();
+			$nalergia = $rowA["_id"];
+
+            $qryRol = "INSERT INTO `_pacientes_alergias`(`_id`, `_paciente_cod`, `_alergia_id`, `_alergia`, `_usuario`) VALUES (?, ?, ?, ?, ?)";
+            $stmt   = $pdo->prepare($qryRol);
+            $stmt->execute(['0',$pcodigo,$nalergia,$rol,$ussession]);
+
+        }
 	}
 
 	$conexion->close();
@@ -67,8 +87,27 @@ if($_POST['acceso']=="agregar"){
 
 if($_POST['acceso']=="editar"){
 
-	$qry = "UPDATE `_pacientes` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', observaciones='$observaciones', alergias='$alergias', status='$status', usuario='$nmsession', actualizacion='$datenowfull' WHERE id='$id'";
+	$qry = "UPDATE `_pacientes` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', observaciones='$observaciones', status='$status', usuario='$nmsession', actualizacion='$datenowfull' WHERE id='$id'";
 	$conexion->query($qry);
+
+	$qryD = "DELETE FROM `_pacientes_alergias` WHERE _paciente_cod='$pcodigo'";
+	$conexion->query($qryD);
+
+	// ingreso los roles del usuario
+	$rolesSeleccionados = $_POST['alergias'];
+
+	foreach ($rolesSeleccionados as $rol) {
+
+		$qryA = "SELECT _id FROM _alergias WHERE _nombre = '$rol'";
+		$resA = $conexion->query($qryA);
+		$rowA = $resA->fetch_assoc();
+		$nalergia = $rowA["_id"];
+
+		$qryRol = "INSERT INTO `_pacientes_alergias`(`_id`, `_paciente_cod`, `_alergia_id`, `_alergia`, `_usuario`) VALUES (?, ?, ?, ?, ?)";
+		$stmt   = $pdo->prepare($qryRol);
+		$stmt->execute(['0',$pcodigo,$nalergia,$rol,$ussession]);
+
+	}
 
 	$conexion->close();
 	$conexion2->close();

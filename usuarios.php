@@ -17,18 +17,18 @@ include("header.php");
 
 		<div class="px-5" style="margin-top: 170px;">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="row box-menu mb-2">
-						<div class="col-md-2">
+				<div class="col-md-12" >
+					<div class="row box-menu mb-2" style="background-color: #1366E0 !important;">
+						<div class="col-md-2" style="color: white !important;">
 								Usuario
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" style="color: white;">
 							Nombre
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4" style="color: white !important;">
 							Email
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-2" style="color: white !important;">
 							
 						</div>
 					</div>
@@ -78,18 +78,18 @@ include("header.php");
 								}
 								?>
 								<?php if($rowus["status_wua32"]=="1"){ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm mt-2 mt-md-0" <?php echo $colinac; ?>>
-                                    desactivar
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=0" class="btn btn-sm mt-2 mt-md-0" style="border: 0px;" <?php echo $colinac; ?>>
+                                    <i class="fa fa-times"></i>
 								</a>
 								<?php }else{ ?>
-								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm px-3 mt-2 mt-md-0" <?php echo $colinac; ?>>
-                                    activar
+								<a href="usuarios_grabar.php?us=<?php echo $rowus["id_us00"];?>&st=1" class="btn btn-sm px-3 mt-2 mt-md-0" style="border: 0px;" <?php echo $colinac; ?>>
+                                    <i class="fa fa-check"></i>
 								</a>
 								<?php } ?>
 							</div>
 							<div class="col-md-1 col-3 text-center">
-								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4 mt-2 mt-md-0" <?php echo $colinac; ?>>
-                                    editar
+								<a href="usuarios_editar.php?us=<?php echo $rowus["id_us00"];?>" class="btn btn-sm px-4 mt-2 mt-md-0" style="border: 0px;" <?php echo $colinac; ?>>
+                                    <i class="fa fa-edit"></i>
 								</a>
 							</div>
 						</div>

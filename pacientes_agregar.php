@@ -108,30 +108,23 @@ $status     = $sessadd["status"];
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-12">
-									<label>Alergias</label> 
+								<div class="form-group col-md-4">
+									<label>Alergias</label><br>
 									<?php
-									if(1==2){ 
 									$qryA = "SELECT * FROM _alergias WHERE _status = 'A' ORDER by _nombre";
 									$resA = $conexion->query($qryA);
 									while ($rowA = $resA->fetch_assoc()){
 									?>
-									<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>" <?php if($alergias==$rowA["_nombre"]){ echo "checked"; } ?>> <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
-									<?php } ?>
-									<input type="checkbox" name="alergias[]" value="NO" <?php if($alergias=="NO"){ echo "checked"; } ?>> Ninguna&nbsp; <br>
-									<?php }else{ ?>
-									<textarea name="alergias" id="alergias" class="form-control" rows="3"><?php echo $alergias; ?></textarea>
+									<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>">&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
 									<?php } ?>
 								</div>
-							</div>
-							<div class="form-row">
 								<div class="form-group col-md-4">
 									<label>Status</label><br>  
-									<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; 
+									<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; }else{ echo "checked"; } ?>> Activo&nbsp; <br>
 									<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
 								</div>
 							</div>
-							<div class="form-row mt-3">
+							<div class="form-row mt-4">
 								<div class="form-group col-md-4"></div>
 								<div class="form-group col-md-4">
 									<input type="submit" name="submitadd" class="form-control btn btn-cocina text-light" value="agregar paciente" style="font-weight: bold; font-size: 14pt; margin-top: 0px;">

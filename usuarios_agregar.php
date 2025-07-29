@@ -102,16 +102,13 @@ $postuseradd = $_SESSION["formadduser"];
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA">&nbsp; Tipos de Dieta<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS">&nbsp; Platos Menu<br>
                                     <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION">&nbsp; Programación de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS">&nbsp; Pedidos
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS">&nbsp; Pedidos<br>
+                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS">&nbsp; Alergias
                                 </div>
 
                                 <div class="grupo pt-3" data-area="ADMIN">
                                     <b>Administración</b><br>
                                     <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios
-                                    <?php if(1==2){ ?>
-                                    <br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS">&nbsp; Alergias
-                                    <?php } ?>
                                 </div>
                         </div>
                     </div>

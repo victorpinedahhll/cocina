@@ -127,16 +127,13 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($row["TIPO_DIETA"]) && $row["TIPO_DIETA"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
                                 <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos<br>
+                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
                             </div>
 
                             <div class="grupo pt-3" data-area="ADMIN">
                                 <b>Administración</b><br>
                                 <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
-                                <?php if(1==2){ ?>
-                                <br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["USUARIOS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
-                                <?php } ?>
                             </div>
                         </div>
                     </div>

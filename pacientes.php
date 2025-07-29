@@ -84,7 +84,18 @@ include("header.php");
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
 							<div class="col-md-3">
-								<?php echo $rowPac["alergias"]; ?>
+								<?php
+								$cod_pac = $rowPac["codigo"]; 
+								$qryAl = "SELECT _alergia FROM _pacientes_alergias WHERE _paciente_cod = '$cod_pac'";
+								$resAl = $conexion->query($qryAl);
+								if($resAl->num_rows > 0){
+									while ($rowAl = $resAl->fetch_assoc()){
+										echo $rowAl["_alergia"].", "; 
+									}
+								}else{
+									echo "Ninguna";
+								}
+								?>
 							</div>
 							<div class="col-md-1 text-center">
 								<?php 
