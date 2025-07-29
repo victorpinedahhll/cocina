@@ -13,11 +13,12 @@ if ( $_POST["asignar"]=="SI" ) {
 
 	$auxiliar = $_POST['auxiliar'];
     $id       = $_POST['id'];
+	$paciente = $_POST['paciente'];
 
 	$qry = "UPDATE _ordenes_medicas SET auxiliar_nutricion='$auxiliar' WHERE id='$id'";
 	$conexion->query($qry);
 
-	header ("Location: pedidos_formulario.php?id=$id");
+	header ("Location: pedidos_formulario.php?id=$id&paciente=$paciente");
 
 }
 ?>

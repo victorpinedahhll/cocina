@@ -149,37 +149,22 @@ if($_GET["van"]=="1"){
 								</div>
 							</li>
 							<li style="width: 25%;">
-								<label>Auxiliar de Enfermería:</label>
+								
 								<div class="row">
-									<div class="col-md-9">
-										<select name="auxiliar" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;" disabled>
-											<option value="">elegir uno</option>
-											<?php 
+									<div class="col-md-9 pt-3" style="line-height: 11pt;">
+										<label>Auxiliar de Nutrición:</label><br>
+										<?php
+										if($auxiliar>0){ 
 											$qryX = "
-											SELECT * 
-											FROM _usuarios_admin a 
-											WHERE 
-												(
-													status_wua32 = 1 
-													AND nivel_wua67 = 'AUXILIAR' 
-													AND id_us00 IN (
-														SELECT _usuario_id 
-														FROM _usuarios_roles u 
-														WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
-													)
-												)
-												OR id_us00 IN (
-													SELECT auxiliar_nutricion 
-													FROM _ordenes_medicas  
-													WHERE auxiliar_nutricion IS NOT NULL
-												)
+												SELECT * 
+												FROM _usuarios_admin 
+												WHERE id_us00 = '$auxiliar'
 											";
 											$resX = $conexion->query($qryX);
-											while ($rowX = $resX->fetch_assoc()){
-											?>
-											<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
-											<?php } ?>
-										</select>
+											$rowX = $resX->fetch_assoc();
+											echo $rowX["nombre_us07"];
+										}
+										?>
 									</div>
 								</div>
 							</li>

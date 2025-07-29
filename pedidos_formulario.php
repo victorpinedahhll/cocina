@@ -14,7 +14,7 @@ $qryPac = "
 		, (SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00=a.auxiliar_nutricion) AS nauxiliar 
 	FROM _ordenes_medicas a 
 	WHERE status='A' AND id='$idPac'
-	";
+";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 
@@ -163,11 +163,12 @@ if($_GET["van"]=="1"){
 								<?php } ?>
 							</li>
 							<li style="width: 25%;">
-								<label>Auxiliar de Enfermería:</label>
-								<?php if ($nvsession == "COCINA"){ ?>
+								<label>Auxiliar de Nutrición:</label>
+								<?php if ($nvsession == "ADMIN" || $nvsession == "COCINA"){ ?>
 								<form action="pedidos_asignar.php" method="POST">
-								<input type="hidden" name="asignar" value="SI">
-								<input type="hidden" name="id"      value="<?php echo $idPac; ?>">
+								<input type="hidden" name="asignar"  value="SI">
+								<input type="hidden" name="id"       value="<?php echo $idPac; ?>">
+								<input type="hidden" name="paciente" value="<?php echo $_GET["paciente"]; ?>">
 								<div class="row">
 									<div class="col-md-9">
 										<select name="auxiliar" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;">
@@ -274,6 +275,7 @@ if($_GET["van"]=="1"){
 				}
 			}
 			?>
+			<?php if(!empty($auxiliar) && $auxiliar > 0){ ?>
 			<form id="form-prueba" action="pedidos_form.php" method="POST" autocomplete="off">
 			<?php
 			$idPaciente = $rowPac["id"];
@@ -288,10 +290,13 @@ if($_GET["van"]=="1"){
 			<input type="hidden" name="snombre"    value="<?php echo $snombre; ?>">
 			<input type="hidden" name="papellido"  value="<?php echo $papellido; ?>">
 			<input type="hidden" name="sapellido"  value="<?php echo $sapellido; ?>">
+			<input type="hidden" name="dieta"      value="<?php echo $dieta; ?>">
 			<input type="hidden" name="habitacion" value="<?php echo $habitacion; ?>">
 			<input type="hidden" name="medico"     value="<?php echo $medico; ?>">
 			<input type="hidden" name="motivo"     value="<?php echo $motivo; ?>">
 			<input type="hidden" name="paciente"   value="<?php echo $_REQUEST["paciente"]; ?>">
+			<input type="hidden" name="auxiliar"   value="<?php echo $auxiliar; ?>">
+			<?php } ?>
 			<div class="row">
 				<div class="col-md-8">
 					<div class="box-admin-opt h-100">
@@ -577,7 +582,7 @@ if($_GET["van"]=="1"){
 						<h5 class="mt-0 mb-2 text-center p-3" style="background: #eee; color: #3e3e3e; border-radius: 4px;"><img src="images/svg/dinner-svgrepo-com-2.svg" height="30">&nbsp; Menú elegido</h5>
 						
 						<div class="table-elegidas px-2" id="tasks" style="min-height: 150px;"></div>
-
+						<?php if(!empty($auxiliar) && $auxiliar > 0){ ?>
 						<div class="row mt-5 pb-4">
 							<div class="col-md-12">
 								<label>Observaciones</label>
@@ -586,10 +591,13 @@ if($_GET["van"]=="1"){
 						</div>
 						
 						<input type="submit" name="submitform" class="form-control btn text-light" value="enviar solicitud a cocina" style="font-weight: bold; font-size: 14pt; background: #002d59; margin-top: 0px;">
+						<?php } ?>
 					</div>
 				</div>
 			</div>
+			<?php if(!empty($auxiliar) && $auxiliar > 0){ ?>
 			</form>
+			<?php } ?>
 		</div>
 	</div>
 </div>
