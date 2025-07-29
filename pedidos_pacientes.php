@@ -67,6 +67,9 @@ include("header.php");
 								, (
 									SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00 = a.auxiliar_nutricion
 								) AS auxiliarn 
+								, (
+									SELECT nombre FROM _habitaciones h WHERE h.id = a.habitacion
+								) AS nhabitacion 
 							FROM _ordenes_medicas a 
 							WHERE status='A' $qryNV 
 							ORDER by fecha_ingreso";
@@ -99,7 +102,7 @@ include("header.php");
 								$bgitem = "#d9ead3";
 
 							// en cocina
-							}elseif($resOM->num_rows > 0){
+							}elseif($resOM->num_rows > 0 && $veriOkPP == "NO"){
 								$bgitem = "#efe4d6";
 							
 							// en proceso
@@ -142,7 +145,7 @@ include("header.php");
 								<span style="font-size: 9pt;"><?php echo $fechaO; ?></span>
 							</div>
 							<div class="col-md-2 pt-1">
-								<?php echo $rowPac["habitacion"]; ?><br>
+								<?php echo $rowPac["nhabitacion"]; ?><br>
 								Dieta: <b><?php echo $rowPac["tdieta"]; ?></b>
 							</div>
 							<div class="col-md-2 pt-1" style="line-height: 14pt;">

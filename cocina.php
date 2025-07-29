@@ -53,18 +53,18 @@ include("header.php");
 						</div>
 						<?php 
 						$qryPac = "
-						SELECT *, (
-								SELECT nombre FROM _tipo_dieta d WHERE d.id = a.dieta
-							) AS tdieta 
-						FROM _pacientes_solicitudes a 
-						ORDER by fecha_ingreso
+							SELECT *, (
+									SELECT nombre FROM _tipo_dieta d WHERE d.id = a.dieta
+								) AS tdieta 
+							FROM _pacientes_solicitudes a 
+							ORDER by fecha_ingreso
 						";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
 							$bgitem = "#ffffff";
-							if($entregado){
+							if($rowPac["status"]=="1"){
 								$bgitem = "#d9ead3";
-							}elseif($cancelado){
+							}elseif($rowPac["status"]=="C"){
 								$bgitem = "#f4cccc";
 							}
 						?>

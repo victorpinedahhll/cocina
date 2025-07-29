@@ -10,7 +10,7 @@ $idPac  = $_GET["id"];
 $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
-		, (SELECT alergias FROM _pacientes p WHERE p.codigo=a.codigo) AS nalergias 
+		, (SELECT nombre FROM _habitaciones h WHERE h.id=a.habitacion) AS nhabitacion 
 		, (SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00=a.auxiliar_nutricion) AS nauxiliar 
 	FROM _ordenes_medicas a 
 	WHERE status='A' AND id='$idPac'
@@ -25,7 +25,7 @@ $papellido      = $rowPac["papellido"];
 $sapellido      = $rowPac["sapellido"];
 $dieta          = $rowPac["dieta"];
 $auxiliar       = $rowPac['auxiliar_nutricion'];
-$habitacion     = $rowPac["habitacion"];
+$habitacion     = $rowPac["nhabitacion"];
 $medico         = $rowPac["cod_medico"];
 $medicotratante = $rowPac["medico_tratante"];
 $observaciones  = $rowPac["observaciones"];
@@ -237,10 +237,17 @@ if($_GET["van"]=="1"){
 					</div>
 				</div>
 			</div>
-			<?php if($rowPac["nalergias"]!="NO"){ ?>
+			<?php
+			$nalergias = []; 
+			$qryA = "SELECT * FROM _pacientes_alergias WHERE _paciente_cod = '$codigo'";
+			$resA = $conexion->query($qryA);
+			while ($rowA = $resA->fetch_assoc()){
+				$nalergias[] = $rowA["_alergia"];
+			}
+			if($resA->num_rows > 0){ ?>
 			<div class="row mt-1 mb-3 mx-1 blink_me">
 				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
-					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $rowPac["nalergias"]; ?></b></h5>
+					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo implode(", ", $nalergias); ?></b></h5>
 				</div>
 			</div>
 			<?php } ?>
@@ -448,7 +455,7 @@ if($_GET["van"]=="1"){
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row["id"]; ?>&tipo=2&idtp=<?php echo $idplato;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row["id"]; ?>&tipo=2&idtp=<?php echo $idplato;?>&codpac=<?php echo $codigo;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row["nombre"]; ?>
 										</a>
 									</div>
@@ -480,7 +487,7 @@ if($_GET["van"]=="1"){
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row2["id"]; ?>&tipo=3&idtp=<?php echo $idplato;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row2["id"]; ?>&tipo=3&idtp=<?php echo $idplato;?>&codpac=<?php echo $codigo;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row2["nombre"]; ?>
 										</a>
 									</div>
@@ -513,7 +520,7 @@ if($_GET["van"]=="1"){
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row3["id"]; ?>&tipo=4&idtp=<?php echo $idplato;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row3["id"]; ?>&tipo=4&idtp=<?php echo $idplato;?>&codpac=<?php echo $codigo;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row3["nombre"]; ?>
 										</a>
 									</div>
@@ -546,7 +553,7 @@ if($_GET["van"]=="1"){
 									</div>
 								<?php }else{ ?>	
 									<div class="col-4 px-2 mt-3 text-center">
-										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row4["id"]; ?>&tipo=5&idtp=<?php echo $idplato;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
+										<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row4["id"]; ?>&tipo=5&idtp=<?php echo $idplato;?>&codpac=<?php echo $codigo;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
 											<?php echo $row4["nombre"]; ?>
 										</a>
 									</div>
@@ -567,7 +574,7 @@ if($_GET["van"]=="1"){
 							while($row5 = $rs5->fetch_assoc()){
 								?>
 								<div class="col-4 px-2 mt-3 text-center">
-									<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row5["id"]; ?>&tipo=6&idtp=<?php echo $idplato;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
+									<a href="platos_add.php?idpac=<?php echo $idPac; ?>&key=<?php echo $keyForm; ?>&idmenu=<?php echo $idM; ?>&idprogra=<?php echo $row5["id"]; ?>&tipo=6&idtp=<?php echo $idplato;?>&codpac=<?php echo $codigo;?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&van=<?php echo $_GET["van"]; ?>" class="btn btn-lg w-100" style="font-size: 14pt; background: #fff; color: #000; border: 1px solid #C0C0C0; box-shadow: 5px 10px 10px -10px #808080; height: 60px; line-height: 16pt; <?php if(strlen($row["nombre"]) < 30){ echo "padding-top: 18px;"; } ?>">
 										<?php echo $row5["nombre"]; ?>
 									</a>
 								</div>

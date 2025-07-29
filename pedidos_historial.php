@@ -10,7 +10,7 @@ $idPac  = $_GET["id"];
 $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
-		, (SELECT alergias FROM _pacientes p WHERE p.codigo=a.codigo) AS nalergias 
+		, (SELECT nombre FROM _habitaciones h WHERE h.id=a.habitacion) AS nhabitacion  
 	FROM _ordenes_medicas a 
 	WHERE status='A' AND id='$idPac'
 	";
@@ -24,7 +24,7 @@ $papellido      = $rowPac["papellido"];
 $sapellido      = $rowPac["sapellido"];
 $dieta          = $rowPac["dieta"];
 $auxiliar       = $rowPac['auxiliar_nutricion'];
-$habitacion     = $rowPac["habitacion"];
+$habitacion     = $rowPac["nhabitacion"];
 $medico         = $rowPac["cod_medico"];
 $medicotratante = $rowPac["medico_tratante"];
 $observaciones  = $rowPac["observaciones"];
@@ -148,33 +148,18 @@ if($_GET["van"]=="1"){
 									<b style="font-size: 15pt;"><?php echo $rowPac["ndieta"]; ?></b>
 								</div>
 							</li>
-							<li style="width: 25%;">
-								<label>Auxiliar de Enfermería:</label>
-								<div class="row">
-									<div class="col-md-9">
-										<select name="auxiliar" class="form-control form-control-sm" style="padding: 4px 8px; background: #ffffff;" disabled>
-											<option value="">elegir uno</option>
-											<?php 
-											$qryX = "
-											SELECT * 
-											FROM _usuarios_admin a 
-											WHERE 
-												status_wua32 = 1 
-												AND nivel_wua67 = 'AUXILIAR' 
-												AND id_us00 IN (
-													SELECT _usuario_id 
-													FROM _usuarios_roles u 
-													WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
-												)
-											";
-											$resX = $conexion->query($qryX);
-											while ($rowX = $resX->fetch_assoc()){
-											?>
-											<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
-											<?php } ?>
-										</select>
-									</div>
-								</div>
+							<li class="pt-2" style="width: 25%; line-height: 12pt;">
+								<label>Auxiliar de Enfermería:</label><br>
+								<?php 
+								$qryX = "
+								SELECT * 
+								FROM _usuarios_admin a 
+								WHERE id_us00 = '$auxiliar'
+								";
+								$resX = $conexion->query($qryX);
+								$rowX = $resX->fetch_assoc();
+								?>
+								<?php echo $rowX["nombre_us07"]; ?>
 							</li>
 							<li class="text-right pt-3" style="width: 5%;">
 								<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" style="background: #002d59; color: #fff;">
@@ -213,7 +198,7 @@ if($_GET["van"]=="1"){
                 $resH = $conexion->query($qryH);
                 while ($rowH = $resH->fetch_assoc()){
                     ?>
-                    <div class="col-md-3 position-relative" style="min-height: 210px;">
+                    <div class="col-md-3 position-relative" style="min-height: 210px; margin-bottom: 50px;">
                         <?php 
 						if($rowH["paciente"]=="SI"){
 							$pacien++;

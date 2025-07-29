@@ -17,6 +17,7 @@ $tipo   = $_GET['tipo'];
 $van    = $_GET['van'];
 $idtp   = $_GET['idtp'];
 $idSol  = $_GET['sol'];
+$codPac = $_GET['codpac'];
 $pacval = $_REQUEST['paciente'];
 
 $keyUn  = $_SESSION["keyun$idPac"];
@@ -35,7 +36,7 @@ if($pacval=="NO"){
  	$rs2   = $conexion->query($sql);
 
  	if($rs2->num_rows <= 0){
-	 	$qry = "INSERT INTO `_pacientes_menu_enlace`(`id`, `idpaciente`, `idmenu`, `idopcion`, `tipo`, `paciente`, `keyunico`, `usuario`, `actualizacion`) VALUES ('0','$idPac','$idMen','$idPro','$tipo','$pacval','$keyUn','$ussession','$datenowfull')";
+	 	$qry = "INSERT INTO `_pacientes_menu_enlace`(`id`, `codigo_pac`, `idpaciente`, `idmenu`, `idopcion`, `tipo`, `paciente`, `keyunico`, `usuario`, `actualizacion`) VALUES ('0','$codPac','$idPac','$idMen','$idPro','$tipo','$pacval','$keyUn','$ussession','$datenowfull')";
 	 	$conexion->query($qry);
 
 	 	echo "se inserto el dato en el enlace";

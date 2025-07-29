@@ -10,7 +10,7 @@ $idPac  = $_GET["id"];
 $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
-		, (SELECT alergias FROM _pacientes p WHERE p.codigo=a.codigo) AS nalergias 
+		, (SELECT nombre FROM _habitaciones h WHERE h.nombre=a.habitacion) AS nhabitacion 
 	FROM _pacientes_solicitudes a 
 	WHERE id='$idPac'
 	";
@@ -197,15 +197,25 @@ if($_GET["van"]=="1"){
 				</div>
 			</div>
 
-			<?php if($rowPac["nalergias"]!="NO"){ ?>
+			<?php 
+			$nalergias = []; 
+			$qryA = "SELECT * FROM _pacientes_alergias WHERE _paciente_cod = '$codigo'";
+			$resA = $conexion->query($qryA);
+			while ($rowA = $resA->fetch_assoc()){
+				$nalergias[] = $rowA["_alergia"];
+			}
+			if($resA->num_rows > 0){ ?>
 			<div class="row mt-1 mb-3 mx-1 blink_me">
 				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
-					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $rowPac["nalergias"]; ?></b></h5>
+					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo implode(", ", $nalergias); ?></b></h5>
 				</div>
 			</div>
 			<?php } ?>
-
-			<div class="row mt-3">
+			<?php if($rowPac["status"]=="0"){ ?>
+			<form action="cocina_grabar.php" method="POST">
+			<input type="hidden" name="id" value="<?php echo $idPac; ?>">
+			<?php } ?>
+			<div class="row mt-3 mb-5 pb-5">
                 <?php
                 $visita = 0; 
 				$van    = 0;
@@ -287,20 +297,24 @@ if($_GET["van"]=="1"){
                     </div>
                 <?php } ?>
 				<div class="col-md-3 position-relative" style="min-height: 200px;">
-					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; font-size: 16pt;">Observaciones del paciente</h4>
+					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Observaciones</h4>
 					<div class="box-items platos-historial w-100 h-100" style="background: #fff; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
-						<?php echo $rowPac["observaciones"]; ?>
+						<?php if(!empty($rowPac["observaciones"])){ echo $rowPac["observaciones"]; ?><br><br><?php } ?>
+						<?php if(!empty($rowPac["observaciones_cocina"])){ ?><p class="text-secondary"><?php echo $rowPac["observaciones_cocina"]; ?></p><?php } ?>
 					</div>
 				</div>
+				<?php if($rowPac["status"]=="0"){ ?>
 				<div class="col-md-3" style="min-height: 300px;">
 					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Observaciones cocina</h4>
 					<div class="box-items platos-historial w-100 h-100" style="background: #fff; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
 						<textarea name="observaciones" class="form-control" rows="7"></textarea>
-						<input type="submit" class="btn btn-lg btn-warning w-100 mt-3" value="entregar pedido">
-						<input type="submit" class="btn btn-lg btn-danger w-100 mt-3" value="cancelar pedido">
+						<input type="submit" name="submitfinal"    class="btn btn-lg btn-warning w-100 mt-3" value="entregar pedido" style="font-weight: bold;">
+						<input type="submit" name="submitcancelar" class="btn btn-lg btn-danger w-100 mt-3" value="cancelar pedido" style="font-weight: bold;">
 					</div>
 				</div>
+				<?php } ?>
             </div>
+			</form>
 		</div>
 	</div>
 </div>

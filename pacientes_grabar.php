@@ -61,20 +61,20 @@ if($_POST['acceso']=="agregar"){
 		unset($_SESSION["sessadd"]);
 
 		// ingreso los roles del usuario
-        $rolesSeleccionados = $_POST['alergias'];
+		$rolesSeleccionados = $_POST['alergias'];
 
-        foreach ($rolesSeleccionados as $rol) {
+		foreach ($rolesSeleccionados as $rol) {
 
-			$qryA = "SELECT _id FROM _alergias WHERE _id = '$rol'";
+			$qryA = "SELECT _id FROM _alergias WHERE _nombre = '$rol'";
 			$resA = $conexion->query($qryA);
 			$rowA = $resA->fetch_assoc();
 			$nalergia = $rowA["_id"];
 
-            $qryRol = "INSERT INTO `_pacientes_alergias`(`_id`, `_paciente_cod`, `_alergia_id`, `_alergia`, `_usuario`) VALUES (?, ?, ?, ?, ?)";
-            $stmt   = $pdo->prepare($qryRol);
-            $stmt->execute(['0',$pcodigo,$nalergia,$rol,$ussession]);
+			$qryRol = "INSERT INTO `_pacientes_alergias`(`_id`, `_paciente_cod`, `_alergia_id`, `_alergia`, `_usuario`) VALUES (?, ?, ?, ?, ?)";
+			$stmt   = $pdo->prepare($qryRol);
+			$stmt->execute(['0',$pcodigo,$nalergia,$rol,$ussession]);
 
-        }
+		}
 	}
 
 	$conexion->close();
