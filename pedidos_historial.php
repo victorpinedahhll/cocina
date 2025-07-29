@@ -10,8 +10,7 @@ $idPac  = $_GET["id"];
 $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
-		, (SELECT nombre FROM _habitaciones h WHERE h.id=a.habitacion) AS nhabitacion  
-	FROM _ordenes_medicas a 
+		, (SELECT nombre FROM _habitaciones h WHERE h.id=a.habitacion) AS nhabitacion 	FROM _ordenes_medicas a 
 	WHERE status='A' AND id='$idPac'
 	";
 $rsPac  = $conexion->query($qryPac);
@@ -203,13 +202,22 @@ if($_GET["van"]=="1"){
 						if($rowH["paciente"]=="SI"){
 							$pacien++;
 						?>
-                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">paciente <?php echo $pacien; ?></span></h4>
+                            <h4 class="text-center mb-0 py-3" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">paciente <?php echo $pacien; ?></span></h4>
                         <?php 
                         }else{
                             $visita++;
                              ?>
-                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">visitante <?php echo $visita; ?></span></h4>
+                            <h4 class="text-center mb-0 py-3" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">visitante <?php echo $visita; ?></span></h4>
                         <?php } ?>
+						<div class="w-100 text-center">
+							<?php if($rowH['status']=="1"){ ?>
+							<h5 class="bg-success text-light m-0 py-2"><b>Entregado Cocina</b></h5>
+							<?php }elseif($rowH['status']=="2"){ ?>
+							<h5 class="bg-warning text-dark m-0 py-2"><b>Entregado a Paciente</b></h5>
+							<?php }else{ ?>
+							<h5 class="m-0 py-2" style="background: #2b6daf; color: #fff;"><b>En proceso cocina</b></h5>
+							<?php } ?>
+						</div>
                         <div class="box-items platos-historial w-100 h-100" style="background: #fff url('images/fondo-portlet-platos.jpg') no-repeat bottom right; background-size: cover; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
                             <?php
                             $key_sol = "solicitud".$rowH["id"];
@@ -245,6 +253,7 @@ if($_GET["van"]=="1"){
                             $query.= ", (select nombre from _menus_subopciones3 x where x.id in (select idopcion4 from _menus_subopciones4 z where z.idopcion4=x.id and z.id=p.idopcion and z.idmenu=p.idmenu)) as ttmsub6";
                             $query.= ", (select nombre from _menus_subopciones4 z where z.id=p.idopcion and z.idmenu=p.idmenu) as sssmenu6";
                             $query.= ", (select nombre from _programaciones c where c.id=p.idopcion) as nprogra ";
+
                             $query.= "FROM _pacientes_menu_enlace p WHERE p.keyunico='$key_sol' and idpaciente='$id_pac' ORDER by id";
                             $query."<br><br>";
                             $result = $conexion->query($query);
@@ -270,13 +279,16 @@ if($_GET["van"]=="1"){
                                 }
                             }
                             ?>
-                            <div class="w-100" style="position: absolute; bottom: 15px; left: 0px;">
-                                <?php if($row['status']=="1"){ ?>
-                                <h5 class="text-success" style="text-align: center !important;"><b>Entregado</b></h5>
-                                <?php }else{ ?>
-                                <h5 style="width: 90%; margin: 0 auto; padding: 7px 0 10px 0; background: #2b6daf; color: #fff; text-align: center !important;"><b>En proceso cocina</b></h5>
+							<div class="w-100" style="position: absolute; bottom: 15px; left: 0px;">
+                                <?php if($rowH['status']=="1"){ ?>
+								<form action="pedidos_auxiliar_entrega.php" method="POST">
+								<input type="hidden" name="id" value="<?php echo $rowH["id"]; ?>">
+								<input type="hidden" name="idPed" value="<?php echo $idPac; ?>">
+                                <input type="submit" value="entregado a paciente" class="btn btn-warning mx-4" style="width: 86%; font-weight: bold; text-shadow: 0px 1px 1px #fff;">
+								</form>
                                 <?php } ?>
                             </div>
+
                         </div>
                     </div>
                 <?php } ?>
