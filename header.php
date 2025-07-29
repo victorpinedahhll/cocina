@@ -50,13 +50,19 @@ include("parametros_generales.php");
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <?php if($page=="pedidos" || $page=="pacientesart" || $page=="solicitud"){ ?>
+    <?php
+    $keyP  = $_SESSION["keyun$idPac"];
+    if($_GET["paciente"]=="NO"){
+      $keyP  = $_SESSION["keyunvisit$idPac"];
+    }  
+    ?>
     <script>
         fetchTasks();
 
         // Fetching Tasks
         function fetchTasks() {
           $.ajax({
-            url: 'platos_elegidos.php?sol=<?php echo $_GET["sol"]; ?>&id=<?php echo $_GET["id"]; ?>&paciente=<?php echo $_REQUEST["paciente"]; ?>',
+            url: 'platos_elegidos.php?sol=<?php echo $_GET["sol"]; ?>&id=<?php echo $_GET["id"]; ?>&paciente=<?php echo $_REQUEST["paciente"]; ?>&keypac=<?php echo $keyP; ?>',
             type: 'GET',
             success: function(response) {
               const tasks = JSON.parse(response);
@@ -102,7 +108,7 @@ include("parametros_generales.php");
   </head>
 
   <body id="page-top">
-    <header>
+    <header  style="background: #002d59;">
     <nav class="navbar navbar-expand-lg logout m-0 px-4 py-0">
       <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,40 +155,40 @@ include("parametros_generales.php");
       </div>
     </nav>
 
-		<div class="row mt-5">
+		<div class="row mt-5" style="background-color: ##002d59;">
 			<div class="col-4 py-2 px-5">
-				<img src="images/logo-trans.png" height="45">
+				<img src="images/logo_v1.svg" height="45">
 			</div>
 			<div class="col-8 pr-5 pt-3 text-right">
         <?php if($page=="ordenes"){ ?>
-        <a href="ordenes_medicas_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
-					<i class="fa fa-plus"></i>&nbsp; agregar orden
+        <a href="ordenes_medicas_agregar.php" class="btn" style="font-weight: bold; background-color: white;">
+					<i class="fa fa-plus"></i>
 				</a>
         <?php } ?>
 
         <?php if($page=="pacientes"){ ?>
-        <a href="pacientes_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold;">
-					<i class="fa fa-plus"></i>&nbsp; agregar paciente
+        <a href="pacientes_agregar.php" class="btn" style="font-weight: bold; background-color: white;">
+					<i class="fa fa-plus"></i>
 				</a>
         <?php } ?>
 
         <?php if($page=="usuarios"){ ?>
-				<a href="usuarios_agregar.php" class="btn btn-outline-secondary">
-          <i class="fa fa-plus"></i>&nbsp; agregar usuario
+				<a href="usuarios_agregar.php" class="btn btn-outline-secondary" style="font-weight: bold; background-color: white;">
+          <i class="fa fa-plus"></i>
         </a>
         <?php } ?>
 
         <?php if($page=="tmenu" || $page=="dieta"){ ?>
-        <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
+        <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch"  style="font-weight: bold; background-color: white; color: black;">
 					<i class="fa fa-search"></i>
 				</a>
         <?php } ?>
 
         <?php if( ($page=="platos" || $page=="progra") && $_GET["id"] <= "0" ){ ?>
-        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold;">
-					agregar
+        <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#boxAdd" style="font-weight: bold; background-color: white;">
+					<i class="fa fa-plus"></i>
 				</a>
-				<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch" style="font-weight: bold;">
+				<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#boxSearch"  style="font-weight: bold; background-color: white; color: black;">
 					<i class="fa fa-search"></i>
 				</a>
         <?php } ?>
@@ -209,10 +215,10 @@ include("parametros_generales.php");
     //   $fontcol = "#3e3e3e";
     // }
     ?>
-		<div class="row mt-3">
-			<div class="col-md-12">
-				<div class="esconder-movil">
-					<div class="mb-3 text-center" style="background: <?php echo $bgcol; ?>; color: <?php echo $fontcol; ?>; height: 42px; font-size: 16pt; padding-top: 4px; font-weight: bold;">
+		<div class="row mt-3" style="background: <?php echo $bgcol; ?>;">
+			<div class="col-md-12" style="background: <?php echo $bgcol; ?>;">
+				<div class="esconder-movil"  style="background: <?php echo $bgcol; ?>;">
+					<div class="mb-3 text-center" style="background: <?php echo $bgcol; ?>;color: <?php echo $fontcol; ?>; height: 42px; font-size: 16pt; padding-top: 4px; font-weight: bold;">
 						<?php echo $titulo;?>
 					</div>
 				</div>
@@ -220,3 +226,5 @@ include("parametros_generales.php");
 		</div>
 		
 		</header>
+		</br>
+		</br>

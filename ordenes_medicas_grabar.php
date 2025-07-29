@@ -46,11 +46,17 @@ $snombre       = $_POST['snombre'];
 $dieta         = $_POST["dieta"];
 $papellido     = $_POST['papellido'];
 $sapellido     = $_POST['sapellido'];
-$habitacion    = $_POST['habitacion'];
+$idhabitacion  = $_POST['habitacion'];
 $medico        = $_POST['medico'];
 $otromed       = $_POST['otromed'];
 $motivo        = $_POST['motivo'];
 $observaciones = $_POST['observaciones'];
+
+$qryHB = "SELECT nombre FROM _habitaciones WHERE id='$idhabitacion'";
+$resHB = $conexion->query($qryHB);
+$rowHB = $resHB->fetch_assoc();
+
+$habitacion = $rowHB["nombre"];
 
 $medicotratante = 0;
 

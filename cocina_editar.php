@@ -1,8 +1,8 @@
 <?php
-$titulo = "Pedidos Historial Paciente";
+$titulo = "Pedidos Cocina Detalle";
 $nologg = "SI";
 $page   = "pedidos";
-$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
+$areaLg = "PEDIDOS";  // valida roles del usuario
 
 include("header.php");
 
@@ -11,8 +11,8 @@ $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
 		, (SELECT alergias FROM _pacientes p WHERE p.codigo=a.codigo) AS nalergias 
-	FROM _ordenes_medicas a 
-	WHERE status='A' AND id='$idPac'
+	FROM _pacientes_solicitudes a 
+	WHERE id='$idPac'
 	";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
@@ -25,12 +25,12 @@ $sapellido      = $rowPac["sapellido"];
 $dieta          = $rowPac["dieta"];
 $auxiliar       = $rowPac['auxiliar_nutricion'];
 $habitacion     = $rowPac["habitacion"];
-$medico         = $rowPac["cod_medico"];
-$medicotratante = $rowPac["medico_tratante"];
+$medico         = $rowPac["medico_tratante"];
+$medicotratante = $rowPac["medico_nombre"];
 $observaciones  = $rowPac["observaciones"];
 $status         = $rowPac["status"];
 $codigo         = $rowPac["codigo"];
-$motivo         = $rowPac["motivo_ingreso"];
+$motivo         = $rowPac["motivo"];
 
 $fecHora = strtotime($fechain);
 $diaEnv  = date("d",$fecHora);
@@ -159,12 +159,19 @@ if($_GET["van"]=="1"){
 											SELECT * 
 											FROM _usuarios_admin a 
 											WHERE 
-												status_wua32 = 1 
-												AND nivel_wua67 = 'AUXILIAR' 
-												AND id_us00 IN (
-													SELECT _usuario_id 
-													FROM _usuarios_roles u 
-													WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+												(
+													status_wua32 = 1 
+													AND nivel_wua67 = 'AUXILIAR' 
+													AND id_us00 IN (
+														SELECT _usuario_id 
+														FROM _usuarios_roles u 
+														WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+													)
+												)
+												OR id_us00 IN (
+													SELECT auxiliar_nutricion 
+													FROM _ordenes_medicas  
+													WHERE auxiliar_nutricion IS NOT NULL
 												)
 											";
 											$resX = $conexion->query($qryX);
@@ -205,25 +212,31 @@ if($_GET["van"]=="1"){
 				</div>
 			</div>
 
+			<?php if($rowPac["nalergias"]!="NO"){ ?>
+			<div class="row mt-1 mb-3 mx-1 blink_me">
+				<div class="col-md-12 py-2 bg-danger text-center" style="border-radius: 7px;">
+					<h5 class="text-light m-0"><b>Alerta</b>, este paciente es alérgico a: <b><?php echo $rowPac["nalergias"]; ?></b></h5>
+				</div>
+			</div>
+			<?php } ?>
+
 			<div class="row mt-3">
                 <?php
                 $visita = 0; 
-				$pacien = 0;
-                $qryH = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = $idPac";
+				$van    = 0;
+                $qryH = "SELECT * FROM _pacientes_solicitudes WHERE id = $idPac";
                 $resH = $conexion->query($qryH);
                 while ($rowH = $resH->fetch_assoc()){
+					$van++;
                     ?>
-                    <div class="col-md-3 position-relative" style="min-height: 210px;">
-                        <?php 
-						if($rowH["paciente"]=="SI"){
-							$pacien++;
-						?>
-                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">paciente <?php echo $pacien; ?></span></h4>
+                    <div class="col-md-3 position-relative" style="min-height: 300px;">
+                        <?php if($rowH["paciente"]=="SI"){?>
+                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Pedido a paciente</h4>
                         <?php 
                         }else{
                             $visita++;
                              ?>
-                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">visitante <?php echo $visita; ?></span></h4>
+                            <h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Pedido a visitante <?php echo $visita; ?></h4>
                         <?php } ?>
                         <div class="box-items platos-historial w-100 h-100" style="background: #fff url('images/fondo-portlet-platos.jpg') no-repeat bottom right; background-size: cover; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
                             <?php
@@ -285,16 +298,23 @@ if($_GET["van"]=="1"){
                                 }
                             }
                             ?>
-                            <div class="w-100" style="position: absolute; bottom: 15px; left: 0px;">
-                                <?php if($row['status']=="1"){ ?>
-                                <h5 class="text-success" style="text-align: center !important;"><b>Entregado</b></h5>
-                                <?php }else{ ?>
-                                <h5 style="width: 90%; margin: 0 auto; padding: 7px 0 10px 0; background: #2b6daf; color: #fff; text-align: center !important;"><b>En proceso cocina</b></h5>
-                                <?php } ?>
-                            </div>
                         </div>
                     </div>
                 <?php } ?>
+				<div class="col-md-3 position-relative" style="min-height: 200px;">
+					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px; font-size: 16pt;">Observaciones del paciente</h4>
+					<div class="box-items platos-historial w-100 h-100" style="background: #fff; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
+						<?php echo $rowPac["observaciones"]; ?>
+					</div>
+				</div>
+				<div class="col-md-3" style="min-height: 300px;">
+					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Observaciones cocina</h4>
+					<div class="box-items platos-historial w-100 h-100" style="background: #fff; padding: 18px 24px !important; font-size: 14pt; font-weight: bold; position: relative;">
+						<textarea name="observaciones" class="form-control" rows="7"></textarea>
+						<input type="submit" class="btn btn-lg btn-warning w-100 mt-3" value="entregar pedido">
+						<input type="submit" class="btn btn-lg btn-danger w-100 mt-3" value="cancelar pedido">
+					</div>
+				</div>
             </div>
 		</div>
 	</div>

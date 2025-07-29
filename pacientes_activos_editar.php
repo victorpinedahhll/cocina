@@ -7,7 +7,7 @@ $areaLg = "INGRESO_PAC"; // valida roles del usuario
 include("header.php");
 
 $idPac  = $_GET["id"];
-$qryPac = "SELECT * FROM _ordenes_medicas o WHERE id='$idPac'";
+$qryPac = "SELECT *, (SELECT alergias FROM _pacientes p WHERE p.codigo=o.codigo) AS alergias FROM _ordenes_medicas o WHERE id='$idPac'";
 $rsPac  = $conexion->query($qryPac);
 $rowPac = $rsPac->fetch_assoc();
 

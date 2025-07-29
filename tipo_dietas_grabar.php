@@ -13,6 +13,13 @@ $nombre = $_POST['nombre'];
 $descri = $_POST['descripcion'];
 $status = $_POST['status'];
 
+if($nvsessiontemp!="A"){
+	echo "<body>";
+	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
+	echo "</body>";
+	exit;
+}
+
 if (isset($_POST['submitformAdd']) && isset($_SESSION['logincook']) && $nvsessiontemp=="A") {
 
 	$qry = "INSERT INTO `_tipo_dieta`(`id`, `nombre`, `descripcion`, `status`) VALUES ('0','$nombre','$descri','$status')";

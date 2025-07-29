@@ -39,7 +39,7 @@ include("header.php");
 								Nombre Paciente
 							</div>
 							<div class="col-md-2">
-								Tipo Dieta
+								Solicitante
 							</div>
 							<div class="col-md-2">
 								Habitación
@@ -69,10 +69,12 @@ include("header.php");
 							}
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
-							<div class="col-md-2 pt-1 pl-1">
-								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
-									Orden # <?php echo $rowPac["id"]; ?>
+							<div class="col-md-2 pt-0 pl-1">
+								Orden # <?php echo $rowPac["orden_medica"]; ?> / 
+								<a href="cocina_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+									Pedido <?php echo $rowPac["id"]; ?>
 								</a><br>
+								<span style="font-size: 9pt;">
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
 								$diaP  = date("d",$fecha);
@@ -93,6 +95,7 @@ include("header.php");
 								if($mesP=="12"){ $mesN = "Dic"; }
 
 								echo $diaP."/".$mesN."/".$anoP; ?>
+								</span>
 								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
 							<div class="col-md-2 pt-2 pl-1" style="line-height: 14pt;">
@@ -100,7 +103,7 @@ include("header.php");
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
 							<div class="col-md-2 pt-2">
-								<?php echo $rowPac["tdieta"]; ?>
+								<?php if($rowPac["paciente"]=="SI"){ echo "Paciente"; }elseif($rowPac["paciente"]=="NO"){ echo "Visitante"; } ?>
 							</div>
 							<div class="col-md-2 pt-2">
 								<?php echo $rowPac["habitacion"]; ?>

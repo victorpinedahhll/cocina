@@ -9,6 +9,13 @@ require("_private/_access.php");
 require("logged.php");
 include("parametros_generales.php");
 
+if($nvsessiontemp!="A"){
+	echo "<body>";
+	echo "<script>alert('Acceso Denegado o a expirado su sesion');document.location='logout.php';</script>";
+	echo "</body>";
+	exit;
+}
+
 $idopc  = $_POST['idopcion'];
 $idmenu = $_POST['idmenu'];
 $nombre = trim($_POST['nombre']);

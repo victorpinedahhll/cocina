@@ -3,6 +3,8 @@ session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 header("Content-Type: text/html;charset=UTF-8");
 
+$areaLg = "TOMA_PEDIDOS";  // valida roles del usuario
+
 require("security.php");
 require("_private/_access.php");
 include("parametros_generales.php");
