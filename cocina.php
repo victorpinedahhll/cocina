@@ -26,28 +26,29 @@ include("header.php");
 					</style>
 					<div class="colores">
 						<b>Identificador:</b>&nbsp; 
-						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=0" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
-						<div class="row box-menu mb-2">
-							<div class="col-md-2">
+						<div class="row box-menu mb-2" style="background: #1366e0;">
+							<div class="col-md-2" style="color: #fff !important;">
 								Fecha Ingreso
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2" style="color: #fff !important;">
 								Nombre Paciente
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2" style="color: #fff !important;">
 								Solicitante
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2" style="color: #fff !important;">
 								Habitación
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3" style="color: #fff !important;">
 								Médico Tratante
 							</div>
-							<div class="col-md-1">
+							<div class="col-md-1" style="color: #fff !important;">
 								&nbsp;
 							</div>
 						</div>
@@ -64,6 +65,8 @@ include("header.php");
 							$bgitem = "#ffffff";
 							if($rowPac["status"]=="1"){
 								$bgitem = "#d9ead3";
+							}elseif($rowPac["status"]=="2"){
+								$bgitem = "#f8f5e5";
 							}elseif($rowPac["status"]=="C"){
 								$bgitem = "#f4cccc";
 							}
@@ -71,7 +74,7 @@ include("header.php");
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
 							<div class="col-md-2 pt-0 pl-1">
 								Orden # <?php echo $rowPac["orden_medica"]; ?> / 
-								<a href="cocina_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+								<a href="cocina_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline; color: #000;">
 									Pedido <?php echo $rowPac["id"]; ?>
 								</a><br>
 								<span style="font-size: 9pt;">
