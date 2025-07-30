@@ -1,7 +1,7 @@
 <?php
 if (isset($_SESSION['logincook'])){
 
-	$excepciones = ["dashboard","perfil"];
+	$excepciones = ["dashboard","perfil","platosadd","platoselegir"];
 	if (!in_array($page, $excepciones)) {
 
 		$idLg   = $_SESSION['clienteidcook'];

@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$page = "platoselegir";
+
 $pacval  = $_REQUEST["paciente"];
 $idpac   = $_GET["id"];
 

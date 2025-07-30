@@ -1,8 +1,8 @@
 <?php 
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-
-$areaLg = "MENUS";  // valida roles del usuario
+$page = "platosadd";
+// $areaLg = "MENUS";  // valida roles del usuario
 
 require("security.php");
 require("security_adv.php");
