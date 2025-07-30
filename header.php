@@ -116,8 +116,8 @@ include("parametros_generales.php");
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item pr-2">
-            <a class="nav-link">Bienvenido <b style="color: #002d59;"><?php echo $ussession; ?></b></a>
+          <li class="nav-item pr-2 pt-1">
+            <a class="nav-user">Bienvenido <b style="color: #002d59;"><?php echo $ussession; ?></b></a>
           </li>
           <?php 
           $qryMe = "

@@ -56,6 +56,12 @@ header {
   background: #fff;
   height: 120px;
 }
+.navbar-nav .nav-user {
+  color: #606060 !important;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #f4f4f4;
+  font-size: 10pt;
+}
 .navbar-nav .nav-link {
   color: #606060 !important;
   border-right: 1px solid #fff;
