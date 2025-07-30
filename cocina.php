@@ -28,7 +28,7 @@ include("header.php");
 						<b>Identificador:</b>&nbsp; 
 						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=0" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
@@ -52,12 +52,27 @@ include("header.php");
 								&nbsp;
 							</div>
 						</div>
-						<?php 
+						<?php
+						$qEst0 = "";
+						$qEst1 = "";
+						$qEst2 = "";
+						$qEstC = "";
+
+						if($_GET["est"]=="0"){
+							$qEst0 = "AND status = '0'";
+						}elseif($_GET["est"]=="1"){
+							$qEst1 = "AND status = '1'";
+						}elseif($_GET["est"]=="2"){
+							$qEst2 = "AND status = '2'";
+						}elseif($_GET["est"]=="C"){
+							$qEstC = "AND status = 'C'";
+						}
 						$qryPac = "
 							SELECT *, (
 									SELECT nombre FROM _tipo_dieta d WHERE d.id = a.dieta
 								) AS tdieta 
 							FROM _pacientes_solicitudes a 
+							WHERE id > 0 $qEst0 $qEst1 $qEst2 $qEstC  
 							ORDER by fecha_ingreso
 						";
 						$rsPac  = $conexion->query($qryPac);

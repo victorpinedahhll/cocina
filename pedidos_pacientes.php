@@ -29,7 +29,8 @@ include("header.php");
 						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Sin Asignar</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #e1f0ed; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #efe4d6; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Enviado a Cocina</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
@@ -57,7 +58,8 @@ include("header.php");
 						$qryNV = "";
 						if($nvsession=="AUXILIAR"){
 							$qryNV = "AND auxiliar_nutricion = '$idsession'";
-						} 
+						}
+
 						//$qryPac = "SELECT * FROM _ordenes_medicas a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
 						$qryPac = "
 							SELECT *
@@ -71,15 +73,23 @@ include("header.php");
 									SELECT nombre FROM _habitaciones h WHERE h.id = a.habitacion
 								) AS nhabitacion 
 							FROM _ordenes_medicas a 
-							WHERE status='A' $qryNV 
+							WHERE status='A' $qryNV $qEst0 $qEst1 $qEst2 $qEst3 $qEstC 
 							ORDER by fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
 
 							$idOM  = $rowPac["id"];
 
+							// reviso si existe solicitud para la orden medica para colocar estado de entregado a paciente
+							$qEstp = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '2'";
+							$rEstp = $conexion->query($qEstp);
+
+							// reviso si existe solicitud para la orden medica para colocar estado de entregado por cocina
+							$qEstc = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '1'";
+							$rEstc = $conexion->query($qEstc);
+
 							// reviso si existe solicitud para la orden medica para colocar estado de enviado a cocina
-							$qryEC = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM'";
+							$qryEC = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '0'";
 							$resOM = $conexion->query($qryEC);
 
 							// reviso si existe un pedido en proceso para la orden medica para colocar estado de En Proceso
@@ -97,8 +107,12 @@ include("header.php");
 
 							$bgitem = "#ffffff";
 
-							// entregada
-							if($entregado){
+							// entregada a paciente
+							if($rEstp->num_rows > 0 && $veriOkPP == "NO"){
+								$bgitem = "#f8f5e5";
+
+							// entregada por cocina
+							}elseif($rEstc->num_rows > 0 && $veriOkPP == "NO"){
 								$bgitem = "#d9ead3";
 
 							// en cocina
