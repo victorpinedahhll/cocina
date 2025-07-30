@@ -210,10 +210,22 @@ if($_GET["van"]=="1"){
                             <h4 class="text-center mb-0 py-3" style="background: #002d59; color: #fff; border-radius: 4px; line-height: 16pt;">Pedido # <?php echo $rowH["id"]; ?><br><span style="font-size: 14pt;">visitante <?php echo $visita; ?></span></h4>
                         <?php } ?>
 						<div class="w-100 text-center">
-							<?php if($rowH['status']=="1"){ ?>
-							<h5 class="bg-success text-light m-0 py-2"><b>Entregado Cocina</b></h5>
-							<?php }elseif($rowH['status']=="2"){ ?>
-							<h5 class="bg-warning text-dark m-0 py-2"><b>Entregado a Paciente</b></h5>
+							<?php
+							// auxiliar toma pedido a paciente y envia a cocina para su preparacion 
+							if($rowH['status']=="0"){ ?>
+							<h5 class="bg-info text-light m-0 py-2"><b>Entregado Cocina</b></h5>
+							<?php 
+							// cocina termina preparacion y avisa a auxiliar para enviar a paciente
+							}elseif($rowH['status']=="1"){ ?>
+							<h5 class="bg-warning text-dark m-0 py-2"><b>Entregado a Auxiliar</b></h5>
+							<?php 
+							// recoge auxiliar de nutricion y entrega a paciente
+							}elseif($rowH['status']=="2"){ ?>
+							<h5 class="bg-success text-light m-0 py-2"><b>Entregado a Paciente</b></h5>
+							<?php 
+							// pedido cancelado
+							}elseif($rowH['status']=="C"){ ?>
+							<h5 class="bg-danger text-light m-0 py-2"><b>Pedido Cancelado</b></h5>
 							<?php }else{ ?>
 							<h5 class="m-0 py-2" style="background: #2b6daf; color: #fff;"><b>En proceso cocina</b></h5>
 							<?php } ?>
