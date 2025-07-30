@@ -80,19 +80,19 @@ include("header.php");
 
 							$idOM  = $rowPac["id"];
 
-							// reviso si existe solicitud para la orden medica para colocar estado de entregado a paciente
+							// reviso si el pedido ya fue entregado a paciente
 							$qEstp = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '2'";
 							$rEstp = $conexion->query($qEstp);
 
-							// reviso si existe solicitud para la orden medica para colocar estado de entregado por cocina
+							// reviso si el pedido ya fue entregado por cocina a auxiliar
 							$qEstc = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '1'";
 							$rEstc = $conexion->query($qEstc);
 
-							// reviso si existe solicitud para la orden medica para colocar estado de enviado a cocina
+							// reviso si el pedido ya fue enviado a cocina
 							$qryEC = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '0'";
 							$resOM = $conexion->query($qryEC);
 
-							// reviso si existe un pedido en proceso para la orden medica para colocar estado de En Proceso
+							// reviso si ya se agregaron platos a una orden medica si enviar a cocina
 							$veriOkPP = "NO";
 							$qryPP = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM'";
 							$resPP = $conexion->query($qryPP);
@@ -105,14 +105,22 @@ include("header.php");
 								}
 							}
 
+							// reviso si la orden medica ya se le asigno un auxiliar de nutricion
+							$qEstOm = "SELECT * FROM _ordenes_medicas WHERE id = '$idOM' AND auxiliar_nutricion IS NULL";
+							$rEstOm = $conexion->query($qEstOm);
+
 							$bgitem = "#ffffff";
 
+							// orden sin asignar auxiliar de nutricion
+							if($rEstOm->num_rows > 0){
+								$bgitem = "#ffffff";
+
 							// entregada a paciente
-							if($rEstp->num_rows > 0 && $veriOkPP == "NO"){
+							}elseif($rEstp->num_rows > 0){
 								$bgitem = "#f8f5e5";
 
-							// entregada por cocina
-							}elseif($rEstc->num_rows > 0 && $veriOkPP == "NO"){
+							// entregada por cocina a auxiliar de nutricion
+							}elseif($rEstc->num_rows > 0){
 								$bgitem = "#d9ead3";
 
 							// en cocina
