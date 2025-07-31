@@ -313,6 +313,20 @@ if($_GET["van"]=="1"){
 					</div>
 				</div>
 				<?php } ?>
+				<div class="col-md-3">
+					<h4 class="text-center py-3 mb-2" style="background: #002d59; color: #fff; border-radius: 4px;">Estado de la Orden</h4>
+					<div class="box-items platos-historial w-100 h-100" style="background: #fff; padding: 14px !important; font-size: 14pt; font-weight: bold; position: relative;">
+						<?php if($rowPac["status"]=="0"){ ?>
+							<h4 class="py-3 px-4 m-0" style="color: #2b6daf; font-weight: bold;">En Proceso</h4>
+						<?php }elseif($rowPac["status"]=="1"){ ?>
+							<h4 class="py-3 px-4 m-0" style="color: #46bb1c; font-weight: bold;">Entregada a Auxiliar</h4>
+						<?php }elseif($rowPac["status"]=="2"){ ?>
+							<h4 class="py-3 px-4 m-0" style="color: #edc30b; font-weight: bold;">Entregada a Paciente</h4>
+						<?php }elseif($rowPac["status"]=="C"){ ?>
+							<h4 class="py-3 px-4 m-0" style="color: #d51427; font-weight: bold;">Cancelada</h4>
+						<?php } ?>
+					</div>
+				</div>
             </div>
 			</form>
 		</div>
