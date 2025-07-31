@@ -25,6 +25,7 @@ $medico     = $rowPac["medico_tratante"];
 $motivo     = $rowPac["motivo_ingreso"];
 $observaciones = $rowPac["observaciones"];
 $status     = $rowPac["status"];
+$auxiliar   = $rowPac["auxiliar_nutricion"];
 ?>
 <style>
 	.content-text {
@@ -149,7 +150,7 @@ $status     = $rowPac["status"];
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-6">
 								<label>Alergias</label><br>
 								<?php 
 								$qryA = "SELECT * FROM _pacientes_alergias WHERE _paciente_cod = '$pcodigo'";
@@ -159,6 +160,37 @@ $status     = $rowPac["status"];
 								}
 								?>
 								
+							</div>
+							<div class="col-md-6">
+								<label>Auxiliar de Nutrición</label>
+								<select name="auxiliar" class="form-control">
+									<option value="">elegir uno</option>
+									<?php 
+									$qryX = "
+									SELECT * 
+									FROM _usuarios_admin a 
+									WHERE 
+										(
+											status_wua32 = 1 
+											AND nivel_wua67 = 'AUXILIAR' 
+											AND id_us00 IN (
+												SELECT _usuario_id 
+												FROM _usuarios_roles u 
+												WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+											)
+										)
+										OR id_us00 IN (
+											SELECT auxiliar_nutricion 
+											FROM _ordenes_medicas  
+											WHERE auxiliar_nutricion IS NOT NULL
+										)
+									";
+									$resX = $conexion->query($qryX);
+									while ($rowX = $resX->fetch_assoc()){
+									?>
+									<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+									<?php } ?>
+								</select>
 							</div>
 						</div>
 						<div class="form-row">

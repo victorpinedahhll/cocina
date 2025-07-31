@@ -141,8 +141,8 @@ $status     = $sessadd["status"];
 								<textarea name="observaciones" id="observaciones" class="form-control" rows="2"><?php echo $observaciones; ?></textarea>
 							</div>
 						</div>
-						<div class="form-row" id="boxalergias">
-							<div class="form-group col-md-4">
+						<div class="form-row">
+							<div class="form-group col-md-6" id="boxalergias">
 								<label>Alergias</label><br>
 								<?php
 								$qryA = "SELECT * FROM _alergias WHERE _status = 'A' ORDER by _nombre";
@@ -151,6 +151,37 @@ $status     = $sessadd["status"];
 								?>
 								<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>">&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
 								<?php } ?>
+							</div>
+							<div class="form-group col-md-6">
+								<label>Auxiliar de Nutrición</label>
+								<select name="auxiliar" class="form-control">
+									<option value="">elegir uno</option>
+									<?php 
+									$qryX = "
+									SELECT * 
+									FROM _usuarios_admin a 
+									WHERE 
+										(
+											status_wua32 = 1 
+											AND nivel_wua67 = 'AUXILIAR' 
+											AND id_us00 IN (
+												SELECT _usuario_id 
+												FROM _usuarios_roles u 
+												WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+											)
+										)
+										OR id_us00 IN (
+											SELECT auxiliar_nutricion 
+											FROM _ordenes_medicas  
+											WHERE auxiliar_nutricion IS NOT NULL
+										)
+									";
+									$resX = $conexion->query($qryX);
+									while ($rowX = $resX->fetch_assoc()){
+									?>
+									<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+									<?php } ?>
+								</select>
 							</div>
 						</div>
 						<div class="form-row mt-3">
