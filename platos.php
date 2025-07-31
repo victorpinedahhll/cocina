@@ -53,12 +53,12 @@ $couAg = $rowAg["cuantosag"];
 		<div class="px-5" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="row box-menu mb-2">
-						<div class="col-4"><b>Nombre</b></div>
-						<div class="col-3"><b>Tipo Menu</b></div>
-						<div class="col-3"><b>Tipo Dieta</b></div>
-						<div class="col-1 text-center"><b>Status</b></div>
-						<div class="col-1 text-center">&nbsp;</div>
+					<div class="row box-menu mb-2" style="background: #1366e0;;">
+						<div class="col-md-3 text-light"><b>Nombre</b></div>
+						<div class="col-md-3 text-light"><b>Tipo Menu</b></div>
+						<div class="col-md-3 text-light"><b>Tipo Dieta</b></div>
+						<div class="col-md-1 text-light text-center"><b>Status</b></div>
+						<div class="col-md-1 text-light text-center">&nbsp;</div>
 					</div>
 					<?php 
 					$van = 0;
@@ -83,11 +83,9 @@ $couAg = $rowAg["cuantosag"];
 							$counMO = $rowMO["counmo"];
 							?>
 							<div class="col-4">
-								<a href="platos_editar.php?id=<?php echo $rowR["id"];?>">
-									<?php echo $rowR["nombre"];?> (<?php echo $counMO; ?>)
-								</a>
+								<?php echo $rowR["nombre"];?> (<?php echo $counMO; ?>)
 							</div>
-							<div class="col-3">
+							<div class="col-md-2">
 								<?php
 								$qryTic = "SELECT count(*) as countip FROM _menu_tipo_enlace WHERE idmenu='$idTip'";
 								$rsTic   = $conexion->query($qryTic);
@@ -109,7 +107,7 @@ $couAg = $rowAg["cuantosag"];
 								}
 								?>
 							</div>
-							<div class="col-3">
+							<div class="col-md-3">
 								<?php
 								$qryTdi = "SELECT count(*) as countdi FROM _menu_dieta_enlace WHERE idmenu='$idTip'";
 								$rsTdi   = $conexion->query($qryTdi);
@@ -130,7 +128,7 @@ $couAg = $rowAg["cuantosag"];
 								}
 								?>
 							</div>
-							<div class="col-1 text-center">
+							<div class="col-md-1 text-center">
 								<?php if($rowR["status"]=="A"){?>
 									Activo
 								<?php }elseif($rowR["status"]=="E"){?>
@@ -139,12 +137,17 @@ $couAg = $rowAg["cuantosag"];
 									Inactivo
 								<?php } ?>
 							</div>
-							<div class="col-1 text-center">
+							<div class="col-1 pt-1 text-center">
 								<?php if($rowR["status"]!="E"){ ?>
 								<a href="#" data-toggle="modal" data-target="#boxDel<?php echo $rowR["id"];?>" class="text-muted" style="font-size: 9pt;">
 									<i class="fa fa-trash"></i>
 								</a>
 								<?php } ?>
+							</div>
+							<div class="col-1 pt-1">
+								<a href="platos_editar.php?id=<?php echo $rowR["id"];?>" class="text-dark">
+									<i class="fa fa-edit"></i>
+								</a>
 							</div>
 						</div>
 
