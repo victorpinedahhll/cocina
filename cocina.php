@@ -26,7 +26,7 @@ include("header.php");
 					</style>
 					<div class="colores">
 						<b>Identificador:</b>&nbsp; 
-						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=0" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #c0dbf0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=0" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
@@ -77,7 +77,7 @@ include("header.php");
 						";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
-							$bgitem = "#ffffff";
+							$bgitem = "#c0dbf0";
 							if($rowPac["status"]=="1"){
 								$bgitem = "#d9ead3";
 							}elseif($rowPac["status"]=="2"){

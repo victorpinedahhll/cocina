@@ -29,9 +29,10 @@ include("header.php");
 					<div class="colores">
 						<b>Identificador:</b>&nbsp; 
 						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Sin Asignar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #e1f0ed; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #c0dbf0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #efe4d6; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Enviado a Cocina</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d4f5d0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=5" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
@@ -63,6 +64,21 @@ include("header.php");
 						$fecha_vence_orden = strtotime("-6 hours", $fecha_vence_orden);
 						$fecha_vence_orden = date ("Y-m-d H:i:s" , $fecha_vence_orden);
 
+						$qEST = "";
+						if($_GET["est"]=="1"){
+							$qEST = "AND auxiliar_nutricion IS NULL";
+						}elseif($_GET["est"]=="2"){
+							$qEST = "AND id IN (SELECT idpaciente FROM _pacientes_menu_enlace m WHERE m.idpaciente=o.id AND m.keyunico NOT LIKE 'solicitud%')";
+						}elseif($_GET["est"]=="3"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=o.id AND p.status='0')";
+						}elseif($_GET["est"]=="4"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=o.id AND p.status='1')";
+						}elseif($_GET["est"]=="5"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=o.id AND p.status='2')";
+						}elseif($_GET["est"]=="C"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=o.id AND p.status='C')";
+						}
+
 						$qryPac = "
 							SELECT *
 								, (
@@ -72,6 +88,7 @@ include("header.php");
 								SELECT nombre FROM _habitaciones h WHERE h.id = o.habitacion
 								) AS nhabitacion  
 							FROM _ordenes_medicas o 
+							WHERE id > 0 $qEST
 							ORDER by status,fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
@@ -172,7 +189,7 @@ include("header.php");
 								<?php 
 								}elseif($resPE->num_rows > 0){
 									?>
-										<i class="fa fa-square mr-3" style="font-size: 14pt; color: #e1f0ed; border: 1px solid #C0C0C0;" title="En Proceso"></i>
+										<i class="fa fa-square mr-3" style="font-size: 14pt; color: #c0dbf0; border: 1px solid #C0C0C0;" title="En Proceso"></i>
 								<?php 
 								}
 
@@ -187,11 +204,11 @@ include("header.php");
 											<?php
 										}elseif($rowES["status"]=="1"){
 											?>
-											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #e1f0ed; border: 1px solid #C0C0C0;" title="Entregada a Auxiliar"></i>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #d4f5d0; border: 1px solid #C0C0C0;" title="Entregada a Auxiliar"></i>
 											<?php
 										}elseif($rowES["status"]=="2"){
 											?>
-											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #d9ead3; border: 1px solid #C0C0C0;" title="Entregada a Paciente"></i>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #f8f5e5; border: 1px solid #C0C0C0;" title="Entregada a Paciente"></i>
 											<?php
 										}elseif($rowES["status"]=="C"){
 											?>

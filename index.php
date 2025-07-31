@@ -1,160 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta name="robots" content="noindex, nofollow, nosnippet">
-	<title>HHLL | Sistema de Cocina</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Herrera Llerandi</title>
+    <meta name="robots" content="noindex, nofollow, nosnippet">
     <meta name="author" content="imupgrade.com" />
-   
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-	<!--Custom styles-->
-	<?php include ('include_css.php'); ?>
+    <link rel="https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css">
 
-	<style>
-		html,body {
-			padding: 0px;
-			margin: 0px;
-		}
-		body {
-			background-image: url('images/bg-cocina2.jpg');
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-position: center center;
-		}
-		.imu {
-			width: 100%;
-			max-width: 300px;
-			font-size: 8pt;
-			text-align: center;
-			margin: 10px auto;
-			color: #fff;
-			letter-spacing: 0.3px;
-			background: rgba(0, 0, 0, 0.3);
-			border-radius: 30px;
-			padding: 3px;
-		}
-		.imu a {
-			color: #fff !important;
-		}
-
-		.card-header, .login_btn {
-			background: #1a3a6c;
-			color:  #fff;
-		}
-		.card-header h3 {
-			color: #fff;
-		}
-		.input-group-text {
-			background: #069ef6 !important;
-		}
-	</style>
+    <style>
+        @font-face {
+          font-family: GothamPro;
+          src: url(fonts/GothamPro.eot);
+          src: url(fonts/GothamPro.woff2) format("woff2"),url(fonts/GothamPro.woff) format("woff"),url(fonts/GothamPro.ttf) format("truetype"),url(fonts/GothamPro.svg#GothamPro) format("svg"),url(fonts/GothamPro.eot?#iefix) format("embedded-opentype");
+          font-weight: 200;
+          font-style: normal
+        }
+        @font-face {
+          font-family: 'GothamPro light';
+          src: url(fonts/GothamPro-Light.eot);
+          src: url(fonts/GothamPro-Light.woff2) format("woff2"),url(fonts/GothamPro-Light.woff) format("woff"),url(fonts/GothamPro-Light.ttf) format("truetype"),url(fonts/GothamPro-Light.svg#GothamPro-Light) format("svg"),url(fonts/GothamPro-Light.eot?#iefix) format("embedded-opentype");
+          font-weight: 100;
+          font-style: normal
+        }
+        body {
+            font-family: 'GothamPro';
+        }
+        .full-height {
+            height: 100vh; /* Hace que la fila ocupe toda la altura de la ventana del navegador */
+        }
+        .logowhite {
+            display: none;
+        }
+        @media (max-width: 767px){
+            .logowhite {
+                display: block;
+                width: 100%;
+                position: absolute;
+                top: 45px;
+                left: 0px;
+                text-align: center;
+            }
+            .logowhite img {
+                width: 55% !important;
+            }
+        }
+        .col-ins {
+            background: linear-gradient(#004997,#003064);
+/*            background: #004997;*/
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .col-ins-2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @media (max-width: 767px){
+            .col-ins {
+                display: none !important;
+            }
+        }
+        .form-container {
+            width: 100%;
+            max-width: 425px; /* Opcional: Para limitar el ancho del formulario */
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px 40px 35px 40px;
+            border-radius: 7px;
+        }
+        h3  {
+            color: #004997;
+            letter-spacing: 15px;
+            font-size: 32pt;
+            line-height: 44pt;
+            margin-left: 25px;
+        }
+        label {
+            font-size: 10pt;
+        }
+        .btn-intranet {
+            background: #004997;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .btn-intranet:hover {
+            background: #6d97af;
+            color: #002549;
+        }
+        .powered {
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            font-size: 9pt;
+            text-align: right;
+            color: #C0C0C0;
+        }
+        .powered a {
+            color: #C0C0C0;
+            text-decoration: none;
+        }
+        #bgfondo {
+            background-image: url('images/bg-cocina2.jpg');
+            background-size: cover; /* Ajusta la imagen al tamaño del div */
+            background-position: center right; /* Centra la imagen */
+            transition: background-image 0.3s ease; /* Transición suave */
+        }
+        #h4title { 
+            color: #004997;
+            font-size: 20pt;
+        }
+        @media (max-width: 767px){
+            #bgfondo {
+                background: linear-gradient(#004997,#003064);
+                color: #fff;
+            }
+            .form-container {
+                background: transparent !important;
+            }
+            #h4title { 
+                color: #006be0;
+            }
+        }
+        #show_password {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: transparent;
+            border: 0px;
+            color: #002345;
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-	<div class="row logo-home">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<img src="images/logo-trans.png" alt="Area Administrativa" class="img-fluid">
-		</div>
-	</div>
-	<div class="d-flex justify-content-center">
-		<div class="card position-relative">
-			<div class="card-header text-center">
-				<h3>Cocina</h3>
-			</div>
-			<div class="card-body">
-				<br>
-				<form action="login.php" method="POST">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" name="usuario" class="form-control" placeholder="usuario" value="<?php if(isset($_COOKIE["usuario_cook"])){ echo $_COOKIE["usuario_cook"]; }?>">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" id="txtPassword" name="clave" class="form-control" placeholder="contraseña">
-						<div class="input-group-append">
-	            <button id="show_password" class="btn btn-light" type="button" onclick="mostrarPassword()" style="border-top: 1px solid #d3d2d2; border-right: 1px solid #d3d2d2; border-bottom: 1px solid #d3d2d2;"> <span class="fa fa-eye-slash icon"></span> </button>
-	          </div>
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox" name="recuerdame" value="SI" <?php if(isset($_COOKIE["recuerdame_cook"])){ echo "checked"; } ?>>Recuerdame
-					</div>
-					<div class="form-group">
-						<input type="submit" name="submitlogin" value="Login" class="btn float-right login_btn">
-					</div>
-					
-				</form>
+<body class="h-100">
+    <div class="container-fluid p-0 full-height position-relative">
+        <div class="row h-100">
+            <!-- Columna 1 -->
+            <div class="col-md-5 d-flex justify-content-center align-items-center col-ins">
+                <div class="text-center w-100">
+                    <img src="images/logo-herrerallerandi.png" alt="Hospital Herrera Llerandi" class="w-50">
+                    <h3>intranet</h3>
+                </div>
+            </div>
+            <!-- Columna 2 -->
+            <div class="col-md-7 position-relative col-ins-2" id="bgfondo">
+                <div class="logowhite">
+                    <img src="images/logo-herrerallerandi.png" alt="Hospital Herrera Llerandi">
+                </div>
+                <div class="form-container">
+                    <h4 id="h4title" class="text-center mb-4">Sistema <b>Cocina</b></h4>
+                    <form action="login.php" method="POST">
+                    <div class="mb-2">
+                        <label class="form-label">Usuario</label>
+                        <input type="text" name="usuario" class="form-control">
+                    </div>
+                    <div class="mb-4 position-relative">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" name="clave" class="form-control" id="txtPassword">
+                        <button id="show_password" type="button" onclick="mostrarPassword()">
+                            <span class="fa fa-eye-slash icon"></span>
+                        </button>
+                    </div>
+                    <div>
+                        <input type="submit" name="submitlogin" class="btn btn-intranet w-100" value="ingresar">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-			</div>
-		</div>
-	</div>
-	<p class="imu">
-		Powered by: 
-		<a href="http://www.imupgrade.com" target="_blank">
-			ImageUpgrade
-		</a> &nbsp;|&nbsp; IT Herrera Llerandi
-	</p>
-</div>
-
-<!-- Modal agregar -->
-<div class="modal fade" id="boxModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered position-relative" role="document">
-    <div class="modal-content">
-        <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="top:20px; right: 20px; z-index: 777;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-		<div class="modal-body p-4 modal-custom">
-			<form action="olvido_clave.php" method="POST" accept-charset="utf-8">
-			<h2 style="color: #002d59;">¿olvidó su contraseña?</h2>
-			<div class="form-row">
-				<div class="form-group col-8">
-					<label>Ingrese E-mail registrado</label>
-					<input type="email" name="email" class="form-control">
-				</div>
-				<div class="form-group col-4">
-					<label>&nbsp;</label>
-					<input type="submit" name="submit" class="form-control btn text-light" value="enviar" style="background: #002d59;">
-				</div>
-			</div>
-			</form>
-		</div>
+        <div class="powered">
+            Powered by:&nbsp; <a href="https://imupgrade.com" target="_blank">Image Upgrade GT</a>
+        </div>
     </div>
-  </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-function mostrarPassword(){
-		var cambio = document.getElementById("txtPassword");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-	$('#ShowPassword').click(function () {
-		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-	});
-});
-</script>
+    <script>
+        function mostrarPassword(){
+            var cambio = document.getElementById("txtPassword");
+            if(cambio.type == "password"){
+                cambio.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            }else{
+                cambio.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+        } 
+        
+        $(document).ready(function () {
+            //CheckBox mostrar contraseÃ±a
+            $('#ShowPassword').click(function () {
+                $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+            });
+        });
+
+    </script>
 
 </body>
 </html>

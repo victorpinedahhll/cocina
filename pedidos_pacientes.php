@@ -25,13 +25,15 @@ include("header.php");
 					}
 					</style>
 					<div class="colores">
-						<b>Identificador:</b>&nbsp; 
-						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Sin Asignar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #e1f0ed; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #efe4d6; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Enviado a Cocina</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
+						<b>Estados:</b>&nbsp; 
+						<?php if($nvsession!="AUXILIAR"){ ?>
+						<i class="fa fa-square d-none" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Sin Asignar</a>&nbsp;&nbsp;&nbsp;
+						<?php } ?>
+						<i class="fa fa-square d-none" style="color: #c0dbf0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square d-none" style="color: #efe4d6; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Enviado a Cocina</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square d-none" style="color: #d4f5d0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=4" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square d-none" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=5" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square d-none" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
 						<div class="row box-menu mb-2" style="background-color: #1366E0 !important">
@@ -60,6 +62,21 @@ include("header.php");
 							$qryNV = "AND auxiliar_nutricion = '$idsession'";
 						}
 
+						$qEST = "";
+						if($_GET["est"]=="1"){
+							$qEST = "AND auxiliar_nutricion IS NULL";
+						}elseif($_GET["est"]=="2"){
+							$qEST = "AND id IN (SELECT idpaciente FROM _pacientes_menu_enlace m WHERE m.idpaciente=a.id AND m.keyunico NOT LIKE 'solicitud%')";
+						}elseif($_GET["est"]=="3"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=a.id AND p.status='0')";
+						}elseif($_GET["est"]=="4"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=a.id AND p.status='1')";
+						}elseif($_GET["est"]=="5"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=a.id AND p.status='2')";
+						}elseif($_GET["est"]=="C"){
+							$qEST = "AND id IN (SELECT orden_medica FROM _pacientes_solicitudes p WHERE p.orden_medica=a.id AND p.status='C')";
+						}
+
 						//$qryPac = "SELECT * FROM _ordenes_medicas a WHERE status='A' and id not in (select id_paciente from _pacientes_solicitudes b where b.id_paciente=a.id) ORDER by fecha_ingreso";
 						$qryPac = "
 							SELECT *
@@ -73,7 +90,7 @@ include("header.php");
 									SELECT nombre FROM _habitaciones h WHERE h.id = a.habitacion
 								) AS nhabitacion 
 							FROM _ordenes_medicas a 
-							WHERE status='A' $qryNV $qEst0 $qEst1 $qEst2 $qEst3 $qEstC 
+							WHERE status='A' $qryNV $qEST  
 							ORDER by fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
 						while ($rowPac = $rsPac->fetch_assoc()){
@@ -92,7 +109,7 @@ include("header.php");
 							$qryEC = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '0'";
 							$resOM = $conexion->query($qryEC);
 
-							// reviso si ya se agregaron platos a una orden medica si enviar a cocina
+							// reviso si ya se agregaron platos a una orden medica sin enviar a cocina
 							$veriOkPP = "NO";
 							$qryPP = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM'";
 							$resPP = $conexion->query($qryPP);
@@ -111,34 +128,34 @@ include("header.php");
 
 							$bgitem = "#ffffff";
 
-							// orden sin asignar auxiliar de nutricion
-							if($rEstOm->num_rows > 0){
-								$bgitem = "#ffffff";
+							// // orden sin asignar auxiliar de nutricion
+							// if($rEstOm->num_rows > 0){
+							// 	$bgitem = "#ffffff";
 
-							// entregada a paciente
-							}elseif($rEstp->num_rows > 0){
-								$bgitem = "#f8f5e5";
+							// // entregada a paciente
+							// }elseif($rEstp->num_rows > 0){
+							// 	$bgitem = "#f8f5e5";
 
-							// entregada por cocina a auxiliar de nutricion
-							}elseif($rEstc->num_rows > 0){
-								$bgitem = "#d9ead3";
+							// // entregada por cocina a auxiliar de nutricion
+							// }elseif($rEstc->num_rows > 0){
+							// 	$bgitem = "#d9ead3";
 
-							// en cocina
-							}elseif($resOM->num_rows > 0 && $veriOkPP == "NO"){
-								$bgitem = "#efe4d6";
+							// // en cocina
+							// }elseif($resOM->num_rows > 0 && $veriOkPP == "NO"){
+							// 	$bgitem = "#efe4d6";
 							
-							// en proceso
-							}elseif($veriOkPP == "SI"){
-								$bgitem = "#e1f0ed";
+							// // en proceso
+							// }elseif($veriOkPP == "SI"){
+							// 	$bgitem = "#c0dbf0";
 
-							// cancelada
-							}elseif($cancelado){
-								$bgitem = "#f4cccc";
+							// // cancelada
+							// }elseif($cancelado){
+							// 	$bgitem = "#f4cccc";
 
-							// asigna auxiliar de cocina
-							}elseif($rowPac["auxiliar_nutricion"] > 0){
-								$bgitem = "#e1f0ed";
-							}
+							// // asigna auxiliar de cocina
+							// }elseif($rowPac["auxiliar_nutricion"] > 0){
+							// 	$bgitem = "#e1f0ed";
+							// }
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
 							<div class="col-md-1 pl-0">
@@ -174,7 +191,7 @@ include("header.php");
 								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								Código: <?php echo $rowPac["codigo"]; ?>
 							</div>
-							<div class="col-md-2 pt-2">
+							<div class="col-md-2 pt-1">
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
 							<div class="col-md-2 pt-2">
@@ -192,13 +209,34 @@ include("header.php");
 								}
 								?>
 								<div class="row">
-									<div class="col-4 px-2">
+									<div class="col-4 px-2 position-relative">
+										<?php 
+										$qPP = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM' AND keyunico NOT LIKE 'solicitud%' AND paciente = 'SI'";
+										$rPP = $conexion->query($qPP);
+										if($rPP->num_rows > 0){
+										?>
+										<div style="position: absolute; top: -4px; right: 20px; background: red; width: 10px; height: 10px; border-radius: 25px;"></div>
+										<?php } ?>
 										<a href="pedidos_formulario.php?id=<?php echo $rowPac["id"]; ?>&paciente=SI" class="btn btn-sm btn-secondary w-100 py-2" style="line-height: 12pt;"><i class="fa fa-bed"></i><br>paciente</a>
 									</div>
-									<div class="col-4 px-2">
+									<div class="col-4 px-2 position-relative">
+										<?php 
+										$qPP2 = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM' AND keyunico NOT LIKE 'solicitud%' AND paciente = 'NO'";
+										$rPP2 = $conexion->query($qPP2);
+										if($rPP2->num_rows > 0){
+										?>
+										<div style="position: absolute; top: -4px; right: 20px; background: red; width: 10px; height: 10px; border-radius: 25px;"></div>
+										<?php } ?>
 										<a href="pedidos_formulario.php?id=<?php echo $rowPac["id"]; ?>&paciente=NO" class="btn btn-sm btn-outline-secondary w-100 py-2" style="line-height: 12pt;"><i class="fa fa-user-clock"></i><br>visitante <?php echo $cvisitantes; ?></a>
 									</div>
-									<div class="col-4 px-2">
+									<div class="col-4 px-2 position-relative">
+										<?php 
+										$qPP3 = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM' AND status = '1'";
+										$rPP3 = $conexion->query($qPP3);
+										if($rPP3->num_rows > 0){
+										?>
+										<div style="position: absolute; top: -4px; right: 20px; background: red; width: 10px; height: 10px; border-radius: 25px;"></div>
+										<?php } ?>
 										<a href="pedidos_historial.php?id=<?php echo $rowPac["id"]; ?>" class="btn btn-sm btn-outline-secondary w-100 py-2" style="line-height: 12pt;"><i class="fa fa-layer-group"></i><br>historial</a>
 									</div>
 								</div>
