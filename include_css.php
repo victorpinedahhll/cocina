@@ -825,7 +825,7 @@ h5 {
   color: #3e3e3e;
   padding: 7px 0px !important;
   border-radius: 4px;
-  text-shadow: 0px 1px 1px #fff;
+  /* text-shadow: 0px 1px 1px #fff; */
   border-right: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   /* box-shadow: 5px 10px 10px -10px #C0C0C0; */

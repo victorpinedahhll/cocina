@@ -147,7 +147,7 @@ include("parametros_generales.php");
             <a class="nav-link px-3 <?php if($page=="perfil"){ ?>active<?php } ?>" href="perfil_editar.php">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3" href="logout.php" style="color: #002d59 !important;">
+            <a class="nav-link px-3" href="logout.php" style="color: #e70914 !important;">
               <i class="fa fa-power-off" title="cerrar sesión"></i>
             </a>
           </li>

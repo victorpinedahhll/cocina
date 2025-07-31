@@ -34,23 +34,23 @@ include("header.php");
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
-						<div class="row box-menu mb-2">
-							<div class="col-md-1">
+						<div class="row box-menu mb-2" style="background-color: #1366E0 !important">
+							<div class="col-md-1 text-light">
 								Fecha
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-light">
 								Habitación / Tipo Dieta
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-light">
 								Nombre Paciente
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-light">
 								Médico Tratante
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-light">
 								Auxiliar de Nutrición
 							</div>
-							<div class="col-md-3 text-center">
+							<div class="col-md-3 text-center text-light">
 								Pedido a
 							</div>
 						</div>

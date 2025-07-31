@@ -35,29 +35,42 @@ include("header.php");
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="pt-2">
-						<div class="row box-menu mb-2">
-							<div class="col-md-2">
-								Fecha Ingreso
+						<div class="row box-menu mb-2" style="background-color: #1366E0 !important;">
+							<div class="col-md-1 text-light">
+								Fecha
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3 text-light">
 								Nombre Paciente
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-1 text-light">
 								Tipo Dieta
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 text-light">
 								Habitación
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3 text-light">
 								Médico Tratante
+							</div>
+							<div class="col-md-2 text-light">
+								Estado Solicitudes
 							</div>
 						</div>
 						<?php 
-						//$qryPac = "SELECT * FROM _ordenes_medicas a WHERE a.id in (select id_paciente from _pacientes_solicitudes b WHERE a.id=b.id_paciente and b.status<'2') and a.status='A' ORDER by a.fecha_ingreso";
+						// obtengo fecha actual menos 6 horas 
+						// que servira para no presentar platos agregados 
+						// a ordenes mayores a ese tiempo por cuestion de sessions
+						$fecha_vence_orden = strtotime($datenowfull);
+						$fecha_vence_orden = strtotime("-6 hours", $fecha_vence_orden);
+						$fecha_vence_orden = date ("Y-m-d H:i:s" , $fecha_vence_orden);
+
 						$qryPac = "
-							SELECT *, (
-								SELECT nombre FROM _tipo_dieta d WHERE d.id = o.dieta
-							) AS tdieta  
+							SELECT *
+								, (
+									SELECT nombre FROM _tipo_dieta d WHERE d.id = o.dieta
+								) AS tdieta 
+								, (
+								SELECT nombre FROM _habitaciones h WHERE h.id = o.habitacion
+								) AS nhabitacion  
 							FROM _ordenes_medicas o 
 							ORDER by status,fecha_ingreso";
 						$rsPac  = $conexion->query($qryPac);
@@ -84,30 +97,30 @@ include("header.php");
 
 							$bgitem = "#ffffff";
 
-							// entregada
-							if($entregado){
-								$bgitem = "#d9ead3";
+							// // entregada
+							// if($entregado){
+							// 	$bgitem = "#d9ead3";
 
-							// en cocina
-							}elseif($resOM->num_rows > 0){
-								$bgitem = "#efe4d6";
+							// // en cocina
+							// }elseif($resOM->num_rows > 0){
+							// 	$bgitem = "#efe4d6";
 							
-							// en proceso
-							}elseif($veriOkPP == "SI"){
-								$bgitem = "#e1f0ed";
+							// // en proceso
+							// }elseif($veriOkPP == "SI"){
+							// 	$bgitem = "#e1f0ed";
 
-							// cancelada
-							}elseif($cancelado){
-								$bgitem = "#f4cccc";
+							// // cancelada
+							// }elseif($cancelado){
+							// 	$bgitem = "#f4cccc";
 
-							// asigna auxiliar de cocina
-							}elseif($rowPac["auxiliar_nutricion"] > 0){
-								$bgitem = "#e1f0ed";
-							}
+							// // asigna auxiliar de cocina
+							// }elseif($rowPac["auxiliar_nutricion"] > 0){
+							// 	$bgitem = "#e1f0ed";
+							// }
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
-							<div class="col-md-2 pt-1 pl-1">
-								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
+							<div class="col-md-1 pt-0 pl-1">
+								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="color: #000;">
 									Orden # <?php echo $rowPac["id"]; ?>
 								</a><br>
 								<?php
@@ -132,18 +145,62 @@ include("header.php");
 								echo $diaP."/".$mesN."/".$anoP; ?>
 								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
-							<div class="col-md-3 pt-2 pl-1" style="line-height: 14pt;">
+							<div class="col-md-3 pt-1 pl-1" style="line-height: 14pt;">
 								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
-							<div class="col-md-2 pt-2">
+							<div class="col-md-1 pt-2">
 								<?php echo $rowPac["tdieta"]; ?>
 							</div>
 							<div class="col-md-2 pt-2">
-								<?php echo $rowPac["habitacion"]; ?>
+								<?php echo $rowPac["nhabitacion"]; ?>
 							</div>
 							<div class="col-md-3 pt-2">
 								<?php echo $rowPac["medico_tratante"]; ?>
+							</div>
+							<div class="col-md-2 pt-2">
+								<?php
+								// revisa ordenes en proceso		
+								$qryPE = "SELECT * FROM _pacientes_menu_enlace WHERE idpaciente = '$idOM' AND keyunico NOT LIKE 'solicitud%' AND actualizacion > '$fecha_vence_orden'";
+								$resPE = $conexion->query($qryPE);
+
+								// revisa ordenes sin auxiliar de nutricion asignado
+								$qryPE2 = "SELECT * FROM _ordenes_medicas WHERE id = '$idOM' AND auxiliar_nutricion IS NULL";
+								$resPE2 = $conexion->query($qryPE2);
+								if($resPE2->num_rows > 0){ ?>
+										<i class="fa fa-square mr-3" style="font-size: 14pt; color: #ffffff; border: 1px solid #C0C0C0;" title="Sin Asignar"></i>
+								<?php 
+								}elseif($resPE->num_rows > 0){
+									?>
+										<i class="fa fa-square mr-3" style="font-size: 14pt; color: #e1f0ed; border: 1px solid #C0C0C0;" title="En Proceso"></i>
+								<?php 
+								}
+
+								// revisa estado en solicitudes (entregado a cocina, entregado a auxiliar, entregado a paciente y canceladp)
+								$qryES = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = '$idOM'";
+								$resES = $conexion->query($qryES);
+								if($resES->num_rows > 0){ 
+									while ($rowES = $resES->fetch_assoc()){
+										if($rowES["status"]=="0"){
+											?>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #efe4d6; border: 1px solid #C0C0C0;" title="Enviada a Cocina"></i>
+											<?php
+										}elseif($rowES["status"]=="1"){
+											?>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #e1f0ed; border: 1px solid #C0C0C0;" title="Entregada a Auxiliar"></i>
+											<?php
+										}elseif($rowES["status"]=="2"){
+											?>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #d9ead3; border: 1px solid #C0C0C0;" title="Entregada a Paciente"></i>
+											<?php
+										}elseif($rowES["status"]=="C"){
+											?>
+											<i class="fa fa-square mr-3" style="font-size: 14pt; color: #f4cccc; border: 1px solid #C0C0C0;" title="Cancelada"></i>
+											<?php
+										}
+									} 
+								}
+								?>
 							</div>
 						</div>
 						<?php } ?>
