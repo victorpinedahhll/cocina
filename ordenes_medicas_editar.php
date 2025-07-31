@@ -43,13 +43,13 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<div class="row box-menu mx-1 mb-3">
+					<div class="row box-menu mx-1 mb-3 text-light" style="background: #1366e0;">
 						<div class="col-md-6 py-2">
-							<h5 class="text-secondary m-0 p-0">
-								<a href="ordenes_medicas.php" style="color: #002d59;">
+							<h5 class="text-light m-0 p-0">
+								<a href="ordenes_medicas.php" style="color: #fff;">
 									<i class="fa fa-angle-left"></i>
 								</a>&nbsp;
-								Información del paciente
+								Orden Médica # <?php echo $idPac; ?>
 							</h5>
 						</div>
 						<div class="col-md-6 py-2 text-right">

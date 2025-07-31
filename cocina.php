@@ -39,7 +39,7 @@ include("header.php");
 							<div class="col-md-2" style="color: #fff !important;">
 								Nombre Paciente
 							</div>
-							<div class="col-md-2" style="color: #fff !important;">
+							<div class="col-md-1" style="color: #fff !important;">
 								Solicitante
 							</div>
 							<div class="col-md-2" style="color: #fff !important;">
@@ -47,6 +47,9 @@ include("header.php");
 							</div>
 							<div class="col-md-3" style="color: #fff !important;">
 								Médico Tratante
+							</div>
+							<div class="col-md-1" style="color: #fff !important;">
+								&nbsp;
 							</div>
 							<div class="col-md-1" style="color: #fff !important;">
 								&nbsp;
@@ -88,10 +91,7 @@ include("header.php");
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
 							<div class="col-md-2 pt-0 pl-1">
-								Orden # <?php echo $rowPac["orden_medica"]; ?> / 
-								<a href="cocina_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline; color: #000;">
-									Pedido <?php echo $rowPac["id"]; ?>
-								</a><br>
+								Orden # <?php echo $rowPac["orden_medica"]; ?> / Pedido <?php echo $rowPac["id"]; ?><br>
 								<span style="font-size: 9pt;">
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
@@ -120,7 +120,7 @@ include("header.php");
 								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
-							<div class="col-md-2 pt-2">
+							<div class="col-md-1 pt-2">
 								<?php if($rowPac["paciente"]=="SI"){ echo "Paciente"; }elseif($rowPac["paciente"]=="NO"){ echo "Visitante"; } ?>
 							</div>
 							<div class="col-md-2 pt-2">
@@ -129,8 +129,13 @@ include("header.php");
 							<div class="col-md-3 pt-2">
 								<?php echo $rowPac["medico_nombre"]; ?>
 							</div>
-							<div class="col-md-1 pt-2">
-								<a href="#" onClick="window.open('solicitudes_imprimir.php?sol=<?php echo $rowPac["id"];?>','mywindow','width=700,height=800,scrollbars=no,status=yes')"><i class="fa fa-print btn" style="background: #e6e6e6; color: #3e3e3e;"></i></a>
+							<div class="col-md-1 pt-3">
+								<a href="#" onClick="window.open('solicitudes_imprimir.php?sol=<?php echo $rowPac["id"];?>','mywindow','width=700,height=800,scrollbars=no,status=yes')"><i class="fa fa-print" style="background: #e6e6e6; color: #3e3e3e;"></i></a>
+							</div>
+							<div class="col-md-1 pt-3">
+								<a href="cocina_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline; color: #000;">
+									<i class="fa fa-edit"></i>
+								</a>
 							</div>
 						</div>
 						<?php } ?>

@@ -40,7 +40,7 @@ include("header.php");
 							<div class="col-md-1 text-light">
 								Fecha
 							</div>
-							<div class="col-md-3 text-light">
+							<div class="col-md-2 text-light">
 								Nombre Paciente
 							</div>
 							<div class="col-md-1 text-light">
@@ -54,6 +54,9 @@ include("header.php");
 							</div>
 							<div class="col-md-2 text-light">
 								Estado Solicitudes
+							</div>
+							<div class="col-md-1 text-light text-center">
+								
 							</div>
 						</div>
 						<?php 
@@ -137,9 +140,8 @@ include("header.php");
 						?>
 						<div class="row box-items" style="background: <?php echo $bgitem; ?>;">
 							<div class="col-md-1 pt-0 pl-1">
-								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="color: #000;">
-									Orden # <?php echo $rowPac["id"]; ?>
-								</a><br>
+								Orden # <?php echo $rowPac["id"]; ?>
+								<br>
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
 								$diaP  = date("d",$fecha);
@@ -162,7 +164,7 @@ include("header.php");
 								echo $diaP."/".$mesN."/".$anoP; ?>
 								<?php if($rowPac["status"]=="I"){ ?><br><span class="text-danger" style="font-size: 9pt;">Inactivo</span><?php } ?>
 							</div>
-							<div class="col-md-3 pt-1 pl-1" style="line-height: 14pt;">
+							<div class="col-md-2 pt-1 pl-1" style="line-height: 14pt;">
 								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
@@ -218,6 +220,11 @@ include("header.php");
 									} 
 								}
 								?>
+							</div>
+							<div class="col-md-1 pt-3 text-center">
+								<a href="ordenes_medicas_editar.php?id=<?php echo $rowPac["id"]; ?>" style="color: #000;">
+                                    <i class="fa fa-edit"></i>
+								</a>
 							</div>
 						</div>
 						<?php } ?>

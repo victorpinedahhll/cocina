@@ -19,24 +19,27 @@ include("header.php");
 			<div class="row">
 				<div class="col-md-12">
 					
-						<div class="row box-menu mb-2">
-							<div class="col-md-2">
-								Fecha Ingreso
+						<div class="row box-menu mb-2" style="background: #1366e0;">
+							<div class="col-md-1 text-light">
+								Ingreso
 							</div>
-							<div class="col-md-1">
+							<div class="col-md-1 text-light">
 								Código
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3 text-light">
 								Nombre Paciente
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3 text-light">
 								Médico Tratante
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2 text-light">
 								Alergias
 							</div>
-							<div class="col-md-1 text-center">
+							<div class="col-md-1 text-light text-center">
 								Estado
+							</div>
+							<div class="col-md-1 text-light text-center">
+								
 							</div>
 						</div>
 						<?php 
@@ -50,7 +53,7 @@ include("header.php");
 							}
 						?>
 						<div class="row box-items py-2" style="background-color: <?php echo $bgcolor; ?>;">
-							<div class="col-md-2">
+							<div class="col-md-1">
 								<?php
 								$fecha = strtotime($rowPac["fecha_ingreso"]);
 								$diaP  = date("d",$fecha);
@@ -75,15 +78,13 @@ include("header.php");
 							<div class="col-md-1 pl-0">
 								<?php echo $rowPac["codigo"]; ?>
 							</div>
-							<div class="col-md-2 pl-0">
-								<a href="pacientes_editar.php?id=<?php echo $rowPac["id"]; ?>" style="text-decoration: underline;">
-									<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
-								</a>
+							<div class="col-md-3 pl-0">
+								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?>
 							</div>
 							<div class="col-md-3">
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<?php
 								$cod_pac = $rowPac["codigo"]; 
 								$qryAl = "SELECT _alergia FROM _pacientes_alergias WHERE _paciente_cod = '$cod_pac'";
@@ -100,6 +101,11 @@ include("header.php");
 							<div class="col-md-1 text-center">
 								<?php 
 								if($rowPac["status"]=="I"){ echo "Inactivo"; }else{ echo "Activo"; } ?>
+							</div>
+							<div class="col-md-1 col-3 text-center">
+								<a href="pacientes_editar.php?id=<?php echo $rowPac["id"]; ?>" style="color: #000; text-decoration: underline;">
+                                    <i class="fa fa-edit"></i>
+								</a>
 							</div>
 						</div>
 						<?php } ?>
