@@ -161,6 +161,7 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 								?>
 								
 							</div>
+							<?php if(1==2){ ?>
 							<div class="col-md-6">
 								<label>Auxiliar de Nutrición</label>
 								<select name="auxiliar" class="form-control">
@@ -192,6 +193,7 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 									<?php } ?>
 								</select>
 							</div>
+							<?php } ?>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-12">

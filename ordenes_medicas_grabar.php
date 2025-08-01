@@ -2,6 +2,11 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
+/** Error reporting */
+// error_reporting(E_ALL);
+// ini_set('display_errors', TRUE);
+// ini_set('display_startup_errors', TRUE);
+
 header("Content-Type: text/html;charset=UTF-8");
 
 $areaLg = "ORDENES"; // valida roles del usuario
@@ -92,7 +97,7 @@ if($_POST['acceso']=="agregar"){
 	if($resVal->numb_rows <= 0){
 
 		// inserto los datos en la tabla pacientes
-		$qryPac = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `status`, `usuario`, `fecha_ingreso`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','A','$nmsession','$datenow')";
+		$qryPac = "INSERT INTO `_pacientes`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `codigo`, `cod_medico`, `medico_tratante`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$pcodigo','$medico','$medicotratante','$observaciones','A','$nmsession')";
 		$conexion->query($qryPac);
 
 		// ingreso las alergias del paciente
@@ -113,7 +118,7 @@ if($_POST['acceso']=="agregar"){
 
 	}
 
- 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `auxiliar_nutricion`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$auxiliar','$nmsession')";
+ 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
  	$result = $conexion->query($qry);
 	if($result){
 		unset($_SESSION["sessordenadd"]);
@@ -133,7 +138,7 @@ if($_POST['acceso']=="editar"){
 	$idpaciente    = $_POST['idpaciente'];
 	$status        = $_POST['status'];
 
-	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', dieta='$dieta', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', auxiliar='$auxiliar', usuario='$nmsession' WHERE id='$id'";
+	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', dieta='$dieta', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', usuario='$nmsession' WHERE id='$id'";
 	$conexion->query($qry);
 
 	$conexion->close();

@@ -162,9 +162,9 @@ if($_GET["van"]=="1"){
 									<b style="font-size: 20pt; color: #1d88f4;">VISITANTE <?php echo $cvisitantes; ?></b>
 								<?php } ?>
 							</li>
-							<li style="width: 25%;">
+							<li style="width: 25%; line-height: 12pt; padding-top: 15px;">
 								<label>Auxiliar de Nutrición:</label>
-								<?php if ($nvsession == "ADMIN" || $nvsession == "COCINA"){ ?>
+								<?php if ( ($nvsession == "ADMIN" || $nvsession == "COCINA") && 1==2 ){ ?>
 								<form action="pedidos_asignar.php" method="POST">
 								<input type="hidden" name="asignar"  value="SI">
 								<input type="hidden" name="id"       value="<?php echo $idPac; ?>">

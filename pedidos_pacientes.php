@@ -195,7 +195,78 @@ include("header.php");
 								<?php echo $rowPac["medico_tratante"]; ?>
 							</div>
 							<div class="col-md-2 pt-2">
-								<?php if($rowPac["auxiliar_nutricion"] > 0){ echo $rowPac["auxiliarn"]; }else{ echo "Aún NO asignado"; } ?>
+								<?php if ($nvsession == "ADMIN" || $nvsession == "COCINA"){ ?>
+								<a href="#" data-toggle="modal" data-target="#modalAsignar<?php echo $idOM; ?>">
+									<?php 
+									if($rowPac["auxiliar_nutricion"] > 0){ 
+										echo $rowPac["auxiliarn"]; 
+									}else{ 
+										echo "Aún NO asignado"; 
+									} ?>
+								</a>
+								<?php }else{ ?>
+									<?php 
+									if($rowPac["auxiliar_nutricion"] > 0){ 
+										echo $rowPac["auxiliarn"]; 
+									}else{ 
+										echo "Aún NO asignado"; 
+									} ?>
+								<?php } ?>
+								<!-- Modal -->
+								<div class="modal fade" id="modalAsignar<?php echo $idOM; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<form action="pedidos_asignar.php" method="POST" class="mt-3">
+										<input type="hidden" name="asignar"  value="SI">
+										<input type="hidden" name="id"       value="<?php echo $idOM; ?>">
+										<div class="modal-content">
+											<div class="modal-header" style="background: #002d59;">
+												<h5 class="modal-title text-light" id="exampleModalLabel">Orden # <?php echo $rowPac["id"]; ?></h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<h4><?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?></h4>
+												<b>Dieta: <?php echo $rowPac["tdieta"]; ?></b>
+												<div class="row mb-4 mt-3">
+													<div class="col-md-12">
+														<select name="auxiliar" class="form-control" style="padding: 4px 8px; background: #ffffff;">
+															<option value="">elegir uno</option>
+															<?php 
+															$qryX = "
+															SELECT * 
+															FROM _usuarios_admin a 
+															WHERE 
+																(
+																	status_wua32 = 1 
+																	AND nivel_wua67 = 'AUXILIAR' 
+																	AND id_us00 IN (
+																		SELECT _usuario_id 
+																		FROM _usuarios_roles u 
+																		WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+																	)
+																)
+																OR id_us00 IN (
+																	SELECT auxiliar_nutricion 
+																	FROM _ordenes_medicas  
+																	WHERE auxiliar_nutricion IS NOT NULL
+																)
+															";
+															$resX = $conexion->query($qryX);
+															while ($rowX = $resX->fetch_assoc()){
+															?>
+															<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$rowPac["auxiliar_nutricion"]){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+															<?php } ?>
+														</select>
+													</div>
+												</div>
+												
+												<input type="submit" value="asignar" class="btn" style="background: #002d59; color: #fff;">
+											</div>
+										</div>
+										</form>
+									</div>
+								</div>
 							</div>
 							<div class="col-md-3 pt-0">
 								<?php

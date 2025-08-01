@@ -152,6 +152,7 @@ $status     = $sessadd["status"];
 								<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>">&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
 								<?php } ?>
 							</div>
+							<?php if(1==2){ ?>
 							<div class="form-group col-md-6">
 								<label>Auxiliar de Nutrición</label>
 								<select name="auxiliar" class="form-control">
@@ -183,6 +184,7 @@ $status     = $sessadd["status"];
 									<?php } ?>
 								</select>
 							</div>
+							<?php } ?>
 						</div>
 						<div class="form-row mt-3">
 							<div class="form-group col-md-4"></div>

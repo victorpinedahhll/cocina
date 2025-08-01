@@ -26,10 +26,13 @@ include("header.php");
 					</style>
 					<div class="colores">
 						<b>Identificador:</b>&nbsp; 
-						<i class="fa fa-square" style="color: #c0dbf0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=0" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
-						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #c0dbf0; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=1" style="color: #000; text-decoration: underline;">En Proceso</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #d9ead3; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=2" style="color: #000; text-decoration: underline;">Entregado a Auxiliar</a>&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-square" style="color: #f8f5e5; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=3" style="color: #000; text-decoration: underline;">Entregado a Paciente</a>&nbsp;&nbsp;&nbsp;
 						<i class="fa fa-square" style="color: #f4cccc; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=C" style="color: #000; text-decoration: underline;">Cancelado</a>&nbsp;&nbsp;&nbsp;
+						<?php if( $_GET["est"] > 0 ){ ?>
+						<i class="fa fa-square" style="color: #ffffff; border: 1px solid #C0C0C0;"></i>&nbsp; <a href="?est=" style="color: #000; text-decoration: underline;">TODOS</a>&nbsp;&nbsp;&nbsp;
+						<?php } ?>
 					</div>
 					<div class="pt-2">
 						<div class="row box-menu mb-2" style="background: #1366e0;">
@@ -61,11 +64,11 @@ include("header.php");
 						$qEst2 = "";
 						$qEstC = "";
 
-						if($_GET["est"]=="0"){
+						if($_GET["est"]=="1"){
 							$qEst0 = "AND status = '0'";
-						}elseif($_GET["est"]=="1"){
-							$qEst1 = "AND status = '1'";
 						}elseif($_GET["est"]=="2"){
+							$qEst1 = "AND status = '1'";
+						}elseif($_GET["est"]=="3"){
 							$qEst2 = "AND status = '2'";
 						}elseif($_GET["est"]=="C"){
 							$qEstC = "AND status = 'C'";
