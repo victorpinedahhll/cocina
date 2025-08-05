@@ -16,6 +16,7 @@ header("Content-Type: text/html;charset=UTF-8");
  	$papellido     = $_POST['papellido'];
  	$sapellido     = $_POST['sapellido'];
 	$dieta         = $_POST['dieta'];
+	$menu          = $_POST['menu'];
  	$habitacion    = $_POST['habitacion'];
  	$medico        = $_POST['medico'];
  	$codigo        = $_POST["codigo"];
@@ -41,7 +42,7 @@ header("Content-Type: text/html;charset=UTF-8");
 		$nameO  = $otromed;
 	}
 
- 	$qry = "INSERT INTO `_pacientes_solicitudes`(`id`, `orden_medica`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `medico_tratante`, `medico_nombre`, `medico_otro`, `dieta`, `observaciones`, `motivo`, `paciente`, `auxiliar_nutricion`, `status`, `usuario`, `actualizacion`, `fecha_ingreso`) VALUES ('0','$idpac','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$codigo','$medico','$nameM','$otromed','$dieta','$observaciones','$motivo','$paciente','$auxiliar','0','$ussession','$datenowfull','$datenowfull')";
+ 	$qry = "INSERT INTO `_pacientes_solicitudes`(`id`, `orden_medica`, `pnombre`, `snombre`, `papellido`, `sapellido`, `habitacion`, `codigo`, `medico_tratante`, `medico_nombre`, `medico_otro`, `dieta`, `menu`, `observaciones`, `motivo`, `paciente`, `auxiliar_nutricion`, `status`, `usuario`, `actualizacion`, `fecha_ingreso`) VALUES ('0','$idpac','$pnombre','$snombre','$papellido','$sapellido','$habitacion','$codigo','$medico','$nameM','$otromed','$dieta','$menu','$observaciones','$motivo','$paciente','$auxiliar','0','$ussession','$datenowfull','$datenowfull')";
  	$conexion->query($qry);
 
 	$pruebasList = "";

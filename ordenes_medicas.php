@@ -44,7 +44,7 @@ include("header.php");
 								Nombre Paciente
 							</div>
 							<div class="col-md-1 text-light">
-								Tipo Dieta
+								Dieta/Menú
 							</div>
 							<div class="col-md-2 text-light">
 								Habitación
@@ -87,6 +87,9 @@ include("header.php");
 								, (
 									SELECT nombre FROM _tipo_dieta d WHERE d.id = o.dieta
 								) AS tdieta 
+								, (
+									SELECT nombre FROM _tipo_menu m WHERE m.id = o.menu
+								) AS tmenu 
 								, (
 								SELECT nombre FROM _habitaciones h WHERE h.id = o.habitacion
 								) AS nhabitacion  
@@ -168,8 +171,9 @@ include("header.php");
 								<?php echo $rowPac["pnombre"]; ?> <?php if(!empty($rowPac["snombre"])) { echo $rowPac["snombre"]; } ?> <?php echo $rowPac["papellido"]; ?> <?php if(!empty($rowPac["sapellido"])) { echo $rowPac["sapellido"]; } ?><br>
 								<span style="font-size: 9pt;">código <?php echo $rowPac["codigo"]; ?></span>
 							</div>
-							<div class="col-md-1 pt-2">
-								<?php echo $rowPac["tdieta"]; ?>
+							<div class="col-md-1 pt-1">
+								<?php echo $rowPac["tdieta"]; ?><br>
+								<?php echo $rowPac["tmenu"]; ?>
 							</div>
 							<div class="col-md-2 pt-2">
 								<?php echo $rowPac["nhabitacion"]; ?>

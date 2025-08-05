@@ -18,11 +18,17 @@ include("parametros_generales.php");
 
 $pcodigo       = $_POST['pcodigo'];
 
+$qryORM = "";
+if($_POST['acceso']=="editar"){
+	$id     = $_POST['id'];
+	$qryORM = "AND a.id != '$id'";
+}
+
 // envio alerta de no poder crear orden medica si aun existe otra en proceso
 $qryVO = "
 	SELECT * 
 	FROM _ordenes_medicas a 
-	WHERE
+	WHERE 
 		a.codigo IN (
 			SELECT codigo_pac 
 			FROM _pacientes_menu_enlace b 
@@ -37,7 +43,8 @@ $qryVO = "
 			WHERE 
 				c.codigo='$pcodigo' 
 				AND c.status = 0 
-		)
+		) 
+		$qryORM 
 
 ";
 $resVO = $conexion->query($qryVO);
@@ -49,6 +56,7 @@ if($resVO->num_rows > 0){
 $pnombre       = $_POST['pnombre'];
 $snombre       = $_POST['snombre'];
 $dieta         = $_POST["dieta"];
+$menu          = $_POST["menu"];
 $papellido     = $_POST['papellido'];
 $sapellido     = $_POST['sapellido'];
 $habitacion    = $_POST['habitacion'];
@@ -118,7 +126,7 @@ if($_POST['acceso']=="agregar"){
 
 	}
 
- 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
+ 	$qry    = "INSERT INTO `_ordenes_medicas`(`id`, `pnombre`, `snombre`, `papellido`, `sapellido`, `dieta`, `menu`, `habitacion`, `codigo`, `cod_medico`, `medico_tratante`, `motivo_ingreso`, `observaciones`, `status`, `usuario`) VALUES ('0','$pnombre','$snombre','$papellido','$sapellido','$dieta','$menu','$habitacion','$pcodigo','$medico','$medicotratante','$motivo','$observaciones','A','$nmsession')";
  	$result = $conexion->query($qry);
 	if($result){
 		unset($_SESSION["sessordenadd"]);
@@ -138,7 +146,7 @@ if($_POST['acceso']=="editar"){
 	$idpaciente    = $_POST['idpaciente'];
 	$status        = $_POST['status'];
 
-	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', dieta='$dieta', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', usuario='$nmsession' WHERE id='$id'";
+	$qry = "UPDATE `_ordenes_medicas` SET pnombre='$pnombre', snombre='$snombre', papellido='$papellido', sapellido='$sapellido', dieta='$dieta', menu='$menu', habitacion='$habitacion', codigo='$pcodigo', cod_medico='$medico', medico_tratante='$medicotratante', motivo_ingreso='$motivo', observaciones='$observaciones', status='$status', usuario='$nmsession' WHERE id='$id'";
 	$conexion->query($qry);
 
 	$conexion->close();

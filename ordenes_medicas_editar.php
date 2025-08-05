@@ -17,6 +17,7 @@ $snombre    = $rowPac["snombre"];
 $papellido  = $rowPac["papellido"];
 $sapellido  = $rowPac["sapellido"];
 $dieta      = $rowPac["dieta"];
+$menu       = $rowPac["menu"];
 $habitacion = $rowPac["habitacion"];
 $pcodigo    = $rowPac["codigo"];
 $cama       = $rowPac["cama"];
@@ -60,11 +61,11 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 					<div class="box-items">
 						<div id="errores" style="color: red; margin-top: 10px;"></div>
 						<div class="form-row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label class="label-codigo">Código Paciente *</label>
 								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label class="label-dieta">Tipo de Dieta *</label>
 								<select name="dieta" id="dieta" class="form-control">
 									<option value="">elija una</option>
@@ -75,6 +76,20 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 									while ($rowD = $resD->fetch(PDO::FETCH_ASSOC)){
 									?>
 									<option value="<?php echo $rowD["id"]; ?>" <?php if($rowD["id"]==$dieta){ echo "selected"; } ?>><?php echo $rowD["nombre"]; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="label-menu">Tipo de Menú *</label>
+								<select name="menu" id="menu" class="form-control">
+									<option value="">elija una</option>
+									<?php 
+									$qryD = "SELECT * FROM _tipo_menu WHERE status = 'A'";
+									$resD = $pdo->prepare($qryD);
+									$resD->execute();
+									while ($rowD = $resD->fetch(PDO::FETCH_ASSOC)){
+									?>
+									<option value="<?php echo $rowD["id"]; ?>" <?php if($rowD["id"]==$menu){ echo "selected"; } ?>><?php echo $rowD["nombre"]; ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -161,45 +176,12 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 								?>
 								
 							</div>
-							<?php if(1==2){ ?>
-							<div class="col-md-6">
-								<label>Auxiliar de Nutrición</label>
-								<select name="auxiliar" class="form-control">
-									<option value="">elegir uno</option>
-									<?php 
-									$qryX = "
-									SELECT * 
-									FROM _usuarios_admin a 
-									WHERE 
-										(
-											status_wua32 = 1 
-											AND nivel_wua67 = 'AUXILIAR' 
-											AND id_us00 IN (
-												SELECT _usuario_id 
-												FROM _usuarios_roles u 
-												WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
-											)
-										)
-										OR id_us00 IN (
-											SELECT auxiliar_nutricion 
-											FROM _ordenes_medicas  
-											WHERE auxiliar_nutricion IS NOT NULL
-										)
-									";
-									$resX = $conexion->query($qryX);
-									while ($rowX = $resX->fetch_assoc()){
-									?>
-									<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
-									<?php } ?>
-								</select>
-							</div>
-							<?php } ?>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-12">
-								<label>Status</label>&nbsp;  
-								<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; } ?>> Activo&nbsp; 
-								<input type="radio" name="status" value="I" <?php if($status=="I"){ echo "checked"; } ?>> Inactivo&nbsp; 
+								<label>Estado</label><br>  
+								<input type="radio" name="status" value="A" <?php if($status=="A"){ echo "checked"; } ?>> Paciente Activo&nbsp; <br>
+								<input type="radio" name="status" value="D" <?php if($status=="D"){ echo "checked"; } ?>> <span style="color: red;">Se le dio De Alta</span>&nbsp; 
 							</div>
 						</div>
 						<div class="form-row mt-3">
@@ -245,6 +227,9 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 			let omdieta      = $('#dieta').val().trim();
 			// console.log('dieta:', omdieta);
 
+			let ommenu      = $('#menu').val().trim();
+			// console.log('dieta:', omdieta);
+
 			let ompnombre    = $('#pnombre').val().trim();
 			// console.log('pnombre:', ompnombre);
 
@@ -271,6 +256,12 @@ $auxiliar   = $rowPac["auxiliar_nutricion"];
 				errores.push('El campo Tipo de Dieta es obligatorio');
 				$('#dieta').css('border', '1px solid red');
 				$('.label-dieta').css('color', 'red');
+			}
+
+			if (ommenu === '') {
+				errores.push('El campo Tipo de Menú es obligatorio');
+				$('#menu').css('border', '1px solid red');
+				$('.label-menu').css('color', 'red');
 			}
 
 			if (ompnombre === '') {

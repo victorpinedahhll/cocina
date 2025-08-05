@@ -37,13 +37,13 @@ $status     = $sessadd["status"];
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<div class="row box-menu mx-1 mb-3">
+					<div class="row box-menu mx-1 mb-3" style="background: #1366e0;">
 						<div class="col-md-6 py-2">
-							<h5 class="text-secondary m-0 p-0">
-								<a href="ordenes_medicas.php" style="color: #002d59;">
+							<h5 class="m-0 p-0 text-light">
+								<a href="ordenes_medicas.php" style="color: #ffffff !important;">
 									<i class="fa fa-angle-left"></i>
 								</a>&nbsp;
-								Información del paciente
+								<?php echo $titulo; ?>
 							</h5>
 						</div>
 						<div class="col-md-6 py-2 text-right">
@@ -54,15 +54,28 @@ $status     = $sessadd["status"];
 					<div class="box-items">
 						<div id="errores" style="color: red; margin-top: 10px;"></div>
 						<div class="form-row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label>Código Paciente *</label>
 								<input type="text" name="pcodigo" id="pcodigo" class="form-control" value="<?php echo $pcodigo; ?>">
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label>Tipo de Dieta *</label>
 								<select name="dieta" id="dieta" class="form-control">
 									<?php 
 									$qryD = "SELECT * FROM _tipo_dieta WHERE status = 'A'";
+									$resD = $pdo->prepare($qryD);
+									$resD->execute();
+									while ($rowD = $resD->fetch(PDO::FETCH_ASSOC)){
+									?>
+									<option value="<?php echo $rowD["id"]; ?>"><?php echo $rowD["nombre"]; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label>Tipo de Menú *</label>
+								<select name="menu" id="menu" class="form-control">
+									<?php 
+									$qryD = "SELECT * FROM _tipo_menu WHERE status = 'A'";
 									$resD = $pdo->prepare($qryD);
 									$resD->execute();
 									while ($rowD = $resD->fetch(PDO::FETCH_ASSOC)){
@@ -152,39 +165,6 @@ $status     = $sessadd["status"];
 								<input type="checkbox" name="alergias[]" value="<?php echo $rowA["_nombre"]; ?>">&nbsp; <?php echo $rowA["_nombre"]; ?>&nbsp; <br>
 								<?php } ?>
 							</div>
-							<?php if(1==2){ ?>
-							<div class="form-group col-md-6">
-								<label>Auxiliar de Nutrición</label>
-								<select name="auxiliar" class="form-control">
-									<option value="">elegir uno</option>
-									<?php 
-									$qryX = "
-									SELECT * 
-									FROM _usuarios_admin a 
-									WHERE 
-										(
-											status_wua32 = 1 
-											AND nivel_wua67 = 'AUXILIAR' 
-											AND id_us00 IN (
-												SELECT _usuario_id 
-												FROM _usuarios_roles u 
-												WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
-											)
-										)
-										OR id_us00 IN (
-											SELECT auxiliar_nutricion 
-											FROM _ordenes_medicas  
-											WHERE auxiliar_nutricion IS NOT NULL
-										)
-									";
-									$resX = $conexion->query($qryX);
-									while ($rowX = $resX->fetch_assoc()){
-									?>
-									<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$auxiliar){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
-									<?php } ?>
-								</select>
-							</div>
-							<?php } ?>
 						</div>
 						<div class="form-row mt-3">
 							<div class="form-group col-md-4"></div>

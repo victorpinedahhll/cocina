@@ -10,6 +10,7 @@ $idPac  = $_GET["id"];
 $qryPac = "
 	SELECT *
 		, (SELECT nombre FROM _tipo_dieta t WHERE t.id=a.dieta) AS ndieta 
+		, (SELECT nombre FROM _tipo_menu m WHERE m.id=a.menu) AS nmenu 
 		, (SELECT nombre FROM _habitaciones h WHERE h.id=a.habitacion) AS nhabitacion 
 		, (SELECT nombre_us07 FROM _usuarios_admin u WHERE u.id_us00=a.auxiliar_nutricion) AS nauxiliar 
 	FROM _ordenes_medicas a 
@@ -143,9 +144,9 @@ if($_GET["van"]=="1"){
 								<label>Habitacion/Cama *</label><br>
 								<?php echo $habitacion; ?>
 							</li>
-							<li class="pt-1 pl-0" style="width: 24%; line-height: 13pt;">
+							<li class="pt-1 pl-0" style="width: 16%; line-height: 13pt;">
 								<?php if($_REQUEST["paciente"]=="SI"){ ?>
-								<div class="m-0 px-3 text-center" style="background: #2b6daf; width: 70%; color: #fff; border-radius: 7px; line-height: 14pt; padding: 12px 0;">
+								<div class="m-0 px-3 text-center" style="background: #1366e0; width: 70%; color: #fff; border-radius: 7px; line-height: 14pt; padding: 12px 0;">
 									<span>Tipo de Dieta</span><br>
 									<b style="font-size: 15pt;"><?php echo $rowPac["ndieta"]; ?></b>
 								</div>
@@ -159,10 +160,18 @@ if($_GET["van"]=="1"){
 									}
 									?>
 									<label>Menú para</label><br>
-									<b style="font-size: 20pt; color: #1d88f4;">VISITANTE <?php echo $cvisitantes; ?></b>
+									<b style="font-size: 20pt; color: #1366e0;">VISITANTE <?php echo $cvisitantes; ?></b>
 								<?php } ?>
 							</li>
-							<li style="width: 25%; line-height: 12pt; padding-top: 15px;">
+							<?php if($_REQUEST["paciente"]=="SI"){ ?>
+							<li class="pt-1 pl-0" style="width: 16%; line-height: 13pt;">
+								<div class="m-0 px-3 text-center" style="background: #1366e0; width: 70%; color: #fff; border-radius: 7px; line-height: 14pt; padding: 12px 0;">
+									<span>Tipo de Menú</span><br>
+									<b style="font-size: 15pt;"><?php echo $rowPac["nmenu"]; ?></b>
+								</div>
+							</li>
+							<?php } ?>
+							<li style="width: 18%; line-height: 12pt; padding-top: 15px;">
 								<label>Auxiliar de Nutrición:</label>
 								<?php if ( ($nvsession == "ADMIN" || $nvsession == "COCINA") && 1==2 ){ ?>
 								<form action="pedidos_asignar.php" method="POST">
@@ -209,7 +218,7 @@ if($_GET["van"]=="1"){
 									<br><?php echo $rowPac["nauxiliar"]; ?>
 								<?php } ?>
 							</li>
-							<li class="text-right pt-3" style="width: 5%;">
+							<li class="text-right pt-3" style="width: 4%;">
 								<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModal" style="background: #002d59; color: #fff;">
 									<i class="fa fa-plus"></i>
 								</button>

@@ -40,8 +40,18 @@ include("header.php");
                 $qryH = "
                 SELECT *
                     , (select nombre from _tipo_dieta t where t.id=a.dieta) as ndieta 
+                    , (select nombre from _tipo_menu m where m.id=a.menu) as nmenu 
                 FROM _pacientes_solicitudes a 
-                WHERE status = '0' $qTipd
+                WHERE 
+                    status = '0' 
+                    AND orden_medica IN (
+                        SELECT id 
+                        FROM _ordenes_medicas o 
+                        WHERE 
+                            o.id=a.orden_medica 
+                            AND o.status = 'A' 
+                    ) 
+                    $qTipd
                 ";
                 $resH = $conexion->query($qryH);
                 while ($rowH = $resH->fetch_assoc()){
@@ -52,6 +62,7 @@ include("header.php");
                             <h4 class="m-0" style="font-size: 14pt;"><b>Orden # <?php echo $rowH["orden_medica"]; ?> &nbsp;|&nbsp; Pedido # <?php echo $rowH["id"]; ?></b></h4>    
                             <h5 class="m-0" style="color: #fff !important; font-size: 12pt;"><?php echo $rowH["pnombre"]; ?> <?php echo $rowH["papellido"]; ?></h5>
                             <p class="m-0" style="font-size: 10pt;">Tipo Dieta: <b><?php echo $rowH["ndieta"]; ?></b></p>
+                            <p class="m-0" style="font-size: 10pt;">Tipo Menú: <b><?php echo $rowH["nmenu"]; ?></b></p>
                             <p class="m-0" style="font-size: 10pt;"><?php echo $rowH["habitacion"]; ?></p>
                             <p class="m-0" style="font-size: 10pt;">DR. <?php echo $rowH["medico_nombre"]; ?></p>
                         </div>
