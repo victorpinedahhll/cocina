@@ -89,6 +89,9 @@ include("header.php");
 								, (
 									SELECT nombre FROM _habitaciones h WHERE h.id = a.habitacion
 								) AS nhabitacion 
+								, (
+									SELECT area FROM _habitaciones h WHERE h.id = a.habitacion
+								) AS narea 
 							FROM _ordenes_medicas a 
 							WHERE status='A' $qryNV $qEST  
 							ORDER by fecha_ingreso";
@@ -201,7 +204,7 @@ include("header.php");
 									if($rowPac["auxiliar_nutricion"] > 0){ 
 										echo $rowPac["auxiliarn"]; 
 									}else{ 
-										echo "Aún NO asignado"; 
+										echo "<b style='color: red;'>Aún NO asignado</b>"; 
 									} ?>
 								</a>
 								<?php }else{ ?>
@@ -232,30 +235,30 @@ include("header.php");
 													<div class="col-md-12">
 														<select name="auxiliar" class="form-control" style="padding: 4px 8px; background: #ffffff;">
 															<option value="">elegir uno</option>
-															<?php 
+															<?php
+															$area_aux = $rowPac["narea"]; 
 															$qryX = "
 															SELECT * 
 															FROM _usuarios_admin a 
 															WHERE 
-																(
-																	status_wua32 = 1 
-																	AND nivel_wua67 = 'AUXILIAR' 
-																	AND id_us00 IN (
-																		SELECT _usuario_id 
-																		FROM _usuarios_roles u 
-																		WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
-																	)
-																)
-																OR id_us00 IN (
-																	SELECT auxiliar_nutricion 
-																	FROM _ordenes_medicas  
-																	WHERE auxiliar_nutricion IS NOT NULL
+																area_wua45 = '$area_aux' AND 
+																status_wua32 = 1 
+																AND nivel_wua67 = 'AUXILIAR' 
+																AND id_us00 IN (
+																	SELECT _usuario_id 
+																	FROM _usuarios_roles u 
+																	WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
 																)
 															";
+															
 															$resX = $conexion->query($qryX);
-															while ($rowX = $resX->fetch_assoc()){
-															?>
-															<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$rowPac["auxiliar_nutricion"]){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+															if($resX->num_rows > 0){
+																while ($rowX = $resX->fetch_assoc()){
+																?>
+																<option value="<?php echo $rowX["id_us00"]; ?>" <?php if($rowX["id_us00"]==$rowPac["auxiliar_nutricion"]){ echo "selected"; } ?>><?php echo $rowX["nombre_us07"]; ?></option>
+																<?php } ?>
+															<?php }else{ ?>
+																<option value="">No hay auxiliares de nutricion para esta area</option>
 															<?php } ?>
 														</select>
 													</div>
@@ -270,14 +273,15 @@ include("header.php");
 							</div>
 							<div class="col-md-3 pt-0">
 								<?php
-								$cvisitantes = 1; 
-								// cuento cuantas solicitudes de visitantes existen
-								$id_pac = $rowPac["id"];
-								$qryVE = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = $id_pac AND paciente = 'NO'";
-								$resVE = $conexion->query($qryVE);
-								while ($rowVE = $resVE->fetch_assoc()){
-									$cvisitantes++;
-								}
+								if($rowPac["auxiliar_nutricion"] > 0){
+									$cvisitantes = 1; 
+									// cuento cuantas solicitudes de visitantes existen
+									$id_pac = $rowPac["id"];
+									$qryVE = "SELECT * FROM _pacientes_solicitudes WHERE orden_medica = $id_pac AND paciente = 'NO'";
+									$resVE = $conexion->query($qryVE);
+									while ($rowVE = $resVE->fetch_assoc()){
+										$cvisitantes++;
+									}
 								?>
 								<div class="row">
 									<div class="col-4 px-2 position-relative">
@@ -311,6 +315,7 @@ include("header.php");
 										<a href="pedidos_historial.php?id=<?php echo $rowPac["id"]; ?>" class="btn btn-sm btn-outline-secondary w-100 py-2" style="line-height: 12pt;"><i class="fa fa-layer-group"></i><br>historial</a>
 									</div>
 								</div>
+								<?php } ?>
 							</div>
 						</div>
 						<?php } ?>

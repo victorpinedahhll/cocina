@@ -9,6 +9,11 @@ require("_private/_access.php");
 require("logged.php");
 include("parametros_generales.php");
 
+if ($_POST['auxiliar'] <= 0){
+	echo "<script>alert('Es obligatorio elegir un Auxiliar de Nutrición.');history.back();</script>";
+    exit;
+}
+
 if ( $_POST["asignar"]=="SI" ) {
 
 	$auxiliar = $_POST['auxiliar'];
