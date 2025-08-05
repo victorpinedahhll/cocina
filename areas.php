@@ -46,10 +46,10 @@ if ($van_reg > $no_of_records_per_page){
 		<div class="container" style="margin-top: 175px;">
 			<div class="row">
 				<div class="col-md-7 pr-5">
-					<div class="row box-menu py-2 mb-2">
-						<div class="col-8"><b>Nombre</b></div>
-						<div class="col-3 text-center"><b>Status</b></div>
-						<div class="col-1 text-center">&nbsp;</div>
+					<div class="row box-menu py-2 mb-2" style="background: #1366e0;">
+						<div class="col-8 text-light"><b>Nombre</b></div>
+						<div class="col-3 text-light text-center"><b>Status</b></div>
+						<div class="col-1 text-light text-center">&nbsp;</div>
 					</div>
 					<?php 
 					$van = 0;
@@ -198,9 +198,9 @@ if ($van_reg > $no_of_records_per_page){
 				<div class="col-md-4">
 					<form action="areas_grabar.php" method="POST" accept-charset="utf-8">
 					<input type="hidden" name="acc" value="add">
-					<div class="row box-menu mx-0">
+					<div class="row box-menu mx-0" style="background: #1366e0;">
 						<div class="col-md-12">
-							<h5 class="text-secondary py-1 m-0 text-center"><b>Agregar Area</b></h5>
+							<h5 class="text-light py-1 m-0 text-center"><b>Agregar Area</b></h5>
 						</div>
 					</div>
 					<div class="box-items mt-2">
@@ -219,7 +219,7 @@ if ($van_reg > $no_of_records_per_page){
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<input type="submit" name="submitformAdd" class="form-control btn btn-cocina text-light" value="agregar">
+								<input type="submit" name="submitformAdd" class="form-control btn text-light" style="background: #1366e0;" value="agregar">
 							</div>
 						</div>
 					</div>

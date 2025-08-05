@@ -19,13 +19,13 @@ include("header.php");
 			<div class="row">
 				<div class="col-md-12" >
 					<div class="row box-menu mb-2" style="background-color: #1366E0 !important;">
-						<div class="col-md-2" style="color: white !important;">
-								Usuario
+						<div class="col-md-2 text-left" style="color: white !important;">
+							Usuario
 						</div>
-						<div class="col-md-3" style="color: white;">
-							Nombre
+						<div class="col-md-4 text-left" style="color: white;">
+							Nombre/Área
 						</div>
-						<div class="col-md-4" style="color: white !important;">
+						<div class="col-md-4 text-left" style="color: white !important;">
 							Email
 						</div>
 						<div class="col-md-2" style="color: white !important;">
@@ -36,8 +36,9 @@ include("header.php");
 						$van = 0;
 						if($idsession==="1"){
 							$qryus = "
-                                SELECT * 
-                                FROM _usuarios_admin 
+                                SELECT *
+									, (SELECT _nombre FROM _areas b WHERE b._id=a.area_wua45) AS areaname 
+                                FROM _usuarios_admin a 
                                 WHERE 
                                     id_us00 > '0'  
                                 ORDER BY 
@@ -47,8 +48,9 @@ include("header.php");
 						}else{
 							// no lista webmaster ni ambiente de pruebas (sandbox)
 							$qryus = "
-                                SELECT * 
-                                FROM _usuarios_admin 
+                                SELECT *
+									, (SELECT _nombre FROM _areas b WHERE b._id=a.area_wua45) AS areaname 
+                                FROM _usuarios_admin a 
                                 WHERE 
                                     id_us00 > '1' 
                                 ORDER BY 
@@ -64,10 +66,11 @@ include("header.php");
 						    <div class="col-md-2 pt-1">
 								<?php echo $rowus["usuario_us13"]; ?>
 							</div>	
-                            <div class="col-md-3 pt-1">
-								<?php echo $rowus["nombre_us07"]; ?>
+                            <div class="col-md-4 pt-1">
+								<?php echo $rowus["nombre_us07"]; ?> 
+								<?php if($rowus["area_wua45"] > "1"){ echo "(".$rowus["areaname"].")"; } ?>
 							</div>
-							<div class="col-md-5 pt-1">
+							<div class="col-md-4 pt-1">
 								<?php echo $rowus["email_wua25"]; ?>
 							</div>
 							<div class="col-md-1 col-3 text-center">

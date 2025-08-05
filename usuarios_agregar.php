@@ -56,6 +56,21 @@ $postuseradd = $_SESSION["formadduser"];
                                         <?php } ?>
                                     </div>
                                 </div>
+                                <div class="form-row" id="areaux" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label>Área de Atención</label>
+                                        <select name="area" class="form-control">
+                                            <option value="">elija una</option>
+                                            <?php 
+                                            $qAR = "SELECT * FROM _areas WHERE _status='A'";
+                                            $rAR = $conexion->query($qAR);
+                                            while ($fAR = $rAR->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $fAR["_id"];?>"><?php echo $fAR["_nombre"];?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label>Nombre *</label>
@@ -85,32 +100,32 @@ $postuseradd = $_SESSION["formadduser"];
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12 pl-5">
-                            
-                        <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
-
+                            <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
                             <div id="checkboxes">
-                                <div class="grupo pt-3" data-area="ENFERMERIA">
-                                    <b>Enfermería</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES">&nbsp; Pacientes<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES">&nbsp; Ordenes Médicas
+                                <?php 
+                                $qCB = "SELECT _area FROM _roles GROUP by _area ORDER by _area desc";
+                                $rCB = $conexion->query($qCB);
+                                while ($fCB = $rCB->fetch_assoc()){
+                                ?>
+                                <div class="grupo pt-3" data-area="<?php echo $fCB["_area"]; ?>">
+                                    <b><?php echo ucfirst($fCB["_area"]); ?></b><br>
+                                    <?php
+                                    $van  = 0;
+                                    $areaCB = $fCB["_area"]; 
+                                    $qCB2 = "SELECT * FROM _roles WHERE _area = '$areaCB'";
+                                    $rCB2 = $conexion->query($qCB2);
+                                    while ($fCB2 = $rCB2->fetch_assoc()){
+                                        $van++;
+                                        $mt = "";
+                                        if($van==1){
+                                            $mt = "mt-3";
+                                        }
+                                        ?>
+                                        <input type="checkbox" <?php if($areaCB=="AUXILIAR"){ ?>id="<?php echo $fCB2["_nombre_sys"]; ?>"<?php } ?> class="rol-checkbox <?php echo $mt; ?>" name="roles[]" value="<?php echo $fCB2["_nombre_sys"]; ?>">&nbsp; <?php echo $fCB2["_nombre"]; ?><br>
+                                    <?php } ?>
                                 </div>
-
-                                <div class="grupo pt-3" data-area="COCINA">
-                                    <b>Cocina</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" id="TOMA_PEDIDOS" value="TOM_PEDIDOS">&nbsp; Pedidos a Pacientes<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU">&nbsp; Tipos de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA">&nbsp; Tipos de Dieta<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS">&nbsp; Platos Menu<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION">&nbsp; Programación de Menus<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS">&nbsp; Pedidos<br>
-                                    <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS">&nbsp; Alergias
-                                </div>
-
-                                <div class="grupo pt-3" data-area="ADMIN">
-                                    <b>Administración</b><br>
-                                    <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS">&nbsp; Control de Usuarios
-                                </div>
-                        </div>
+                                <?php } ?>
+                            </div>
                     </div>
 
                     <div class="form-row mt-4 mb-4 pl-4">
@@ -138,8 +153,10 @@ $postuseradd = $_SESSION["formadduser"];
             } else {
                 if (areaSeleccionada === "AUXILIAR") {
                     $('#TOMA_PEDIDOS').prop('checked', true); // check de pacientes pedidos
+                    $('#areaux').show();
                 } else {
                     $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
+                    $('#areaux').hide();
                 }
             }
         });

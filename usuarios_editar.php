@@ -20,7 +20,8 @@ $qry  = "
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'PROGRAMACION') AS PROGRAMACION
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'PEDIDOS') AS PEDIDOS
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'USUARIOS') AS USUARIOS
-    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'ALERGIAS') AS ALERGIAS
+    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'ALERGIAS') AS ALERGIAS 
+    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'AREAS') AS AREAS 
     FROM _usuarios_admin a  
     WHERE id_us00 = ?
 ";
@@ -77,6 +78,21 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <?php } ?>
                                     </div>
                                 </div>
+                                <div class="form-row" id="areaux" <?php if( $row["nivel_wua67"]!=="AUXILIAR" ){ ?>style="display: none;"<?php } ?>>
+                                    <div class="form-group col-md-12">
+                                        <label>Área de Atención</label>
+                                        <select name="area" class="form-control">
+                                            <option value="">elija una</option>
+                                            <?php 
+                                            $qAR = "SELECT * FROM _areas WHERE _status='A'";
+                                            $rAR = $conexion->query($qAR);
+                                            while ($fAR = $rAR->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $fAR["_id"];?>" <?php if($fAR["_id"]==$row["area_wua45"]){ echo "selected"; } ?>><?php echo $fAR["_nombre"];?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label>Nombre *</label>
@@ -114,27 +130,30 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="col-md-12 pl-5">
                         <h5 class="mb-0 pb-0 mt-5 text-secondary">Roles Usuario</h5>
                         <div id="checkboxes">
-                            <div class="grupo pt-3" data-area="ENFERMERIA">
-                                <b>Enfermería</b><br>
-                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="PACIENTES" <?php if(!empty($row["PACIENTES"]) && $row["PACIENTES"]=="PACIENTES"){ echo "checked"; } ?>>&nbsp; Pacientes<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ORDENES" <?php if(!empty($row["ORDENES"]) && $row["ORDENES"]=="ORDENES"){ echo "checked"; } ?>>&nbsp; Ordenes Médicas
+                            <?php 
+                            $qCB = "SELECT _area FROM _roles GROUP by _area ORDER by _area desc";
+                            $rCB = $conexion->query($qCB);
+                            while ($fCB = $rCB->fetch_assoc()){
+                            ?>
+                            <div class="grupo pt-3" data-area="<?php echo $fCB["_area"]; ?>">
+                                <b><?php echo $fCB["_area"]; ?></b><br>
+                                <?php
+                                $van  = 0;
+                                $areaCB = $fCB["_area"]; 
+                                $qCB2 = "SELECT * FROM _roles WHERE _area = '$areaCB'";
+                                $rCB2 = $conexion->query($qCB2);
+                                while ($fCB2 = $rCB2->fetch_assoc()){
+                                    $nomsys = $fCB2["_nombre_sys"];
+                                    $van++;
+                                    $mt = "";
+                                    if($van==1){
+                                        $mt = "mt-3";
+                                    }
+                                    ?>
+                                    <input type="checkbox" <?php if($areaCB=="AUXILIAR"){ ?>id="<?php echo $fCB2["_nombre_sys"]; ?>"<?php } ?> class="rol-checkbox <?php echo $mt; ?>" name="roles[]" value="<?php echo $fCB2["_nombre_sys"]; ?>" <?php if(!empty($row[$nomsys]) && $row[$nomsys]==$fCB2["_nombre_sys"]){ echo "checked"; } ?>>&nbsp; <?php echo $fCB2["_nombre"]; ?><br>
+                                <?php } ?>
                             </div>
-
-                            <div class="grupo pt-3" data-area="COCINA">
-                                <b>Cocina</b><br>
-                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="TOMA_PEDIDOS" id="TOMA_PEDIDOS" <?php if(!empty($row["TOMA_PEDIDOS"]) && $row["TOMA_PEDIDOS"]=="TOMA_PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos a Pacientes<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_MENU" <?php if(!empty($row["TIPO_MENU"]) && $row["TIPO_MENU"]=="TIPO_MENU"){ echo "checked"; } ?>>&nbsp; Tipos de Menus<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="TIPO_DIETA" <?php if(!empty($row["TIPO_DIETA"]) && $row["TIPO_DIETA"]=="TIPO_DIETA"){ echo "checked"; } ?>>&nbsp; Tipos de Dieta<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="MENUS" <?php if(!empty($row["MENUS"]) && $row["MENUS"]=="MENUS"){ echo "checked"; } ?>>&nbsp; Platos Menu<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PROGRAMACION" <?php if(!empty($row["PROGRAMACION"]) && $row["PROGRAMACION"]=="PROGRAMACION"){ echo "checked"; } ?>>&nbsp; Programación de Menus<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="PEDIDOS" <?php if(!empty($row["PEDIDOS"]) && $row["PEDIDOS"]=="PEDIDOS"){ echo "checked"; } ?>>&nbsp; Pedidos<br>
-                                <input type="checkbox" class="rol-checkbox" name="roles[]" value="ALERGIAS" <?php if(!empty($row["ALERGIAS"]) && $row["ALERGIAS"]=="ALERGIAS"){ echo "checked"; } ?>>&nbsp; Alergias
-                            </div>
-
-                            <div class="grupo pt-3" data-area="ADMIN">
-                                <b>Administración</b><br>
-                                <input type="checkbox" class="rol-checkbox mt-3" name="roles[]" value="USUARIOS" <?php if(!empty($row["USUARIOS"]) && $row["USUARIOS"]=="USUARIOS"){ echo "checked"; } ?>>&nbsp; Control de Usuarios
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
 

@@ -23,6 +23,7 @@ $nombre  = trim(get_post('nombre'));
 $email   = trim(post_email('email'));
 $clave1  = trim(get_post('pass1'));
 $clave2  = trim(get_post('pass2'));
+$area    = post_int('area');
 
 if ( $_POST["acceso"]=="agregar" || $_POST["acceso"]=="editar" ) {
 
@@ -32,6 +33,10 @@ if ( $_POST["acceso"]=="agregar" || $_POST["acceso"]=="editar" ) {
     }
     if( empty($usuario) ){
         echo "<script>alert('El campo de USUARIO es requerido.');history.back();</script>";
+        exit;
+    }
+    if( $nivel == 'AUXILIAR' && empty($area) ){
+        echo "<script>alert('El campo de AREA DE ATENCION para el nivel de AUXILIAR DE NUTRICION es requerido.');history.back();</script>";
         exit;
     }
 
@@ -90,9 +95,9 @@ if ( $_POST["acceso"]=="agregar" ) {
         exit;
     }
 
-    $sql  = "INSERT INTO `_usuarios_admin`(`id_us00`, `nombre_us07`, `usuario_us13`, `clave_us20`, `email_wua25`, `status_wua32`, `nivel_wua67`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql  = "INSERT INTO `_usuarios_admin`(`id_us00`, `nombre_us07`, `usuario_us13`, `clave_us20`, `email_wua25`, `status_wua32`, `area_wua45`, `nivel_wua67`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['0',$nombre,$usuario,$contrasena,$email,'1',$nivel]);
+    $stmt->execute(['0',$nombre,$usuario,$contrasena,$email,'1',$area,$nivel]);
 
     if ($stmt->rowCount() > 0) {
 
@@ -170,13 +175,13 @@ if ( $_POST["acceso"]=="editar" ) {
     }
 
     if($veriOk == "SI"){
-        $sql  = "UPDATE `_usuarios_admin` SET `nombre_us07` = ?, `usuario_us13` = ?, `clave_us20` = ?, `email_wua25` = ?, `status_wua32` = ?, `nivel_wua67`= ? WHERE id_us00 = ?";
+        $sql  = "UPDATE `_usuarios_admin` SET `nombre_us07` = ?, `usuario_us13` = ?, `clave_us20` = ?, `email_wua25` = ?, `status_wua32` = ?, `area_wua45` = ?, `nivel_wua67`= ? WHERE id_us00 = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nombre,$usuario,$contrasena,$email,$status,$nivel,$id]);
+        $stmt->execute([$nombre,$usuario,$contrasena,$email,$status,$area,$nivel,$id]);
     }else{
-        $sql  = "UPDATE `_usuarios_admin` SET `nombre_us07` = ?, `usuario_us13` = ?, `email_wua25` = ?, `status_wua32` = ?, `nivel_wua67`= ? WHERE id_us00 = ?";
+        $sql  = "UPDATE `_usuarios_admin` SET `nombre_us07` = ?, `usuario_us13` = ?, `email_wua25` = ?, `status_wua32` = ?, `area_wua45` = ?, `nivel_wua67`= ? WHERE id_us00 = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nombre,$usuario,$email,$status,$nivel,$id]);
+        $stmt->execute([$nombre,$usuario,$email,$status,$area,$nivel,$id]);
     }
     
     // elimino los roles para volverlos a agregar actualizados
