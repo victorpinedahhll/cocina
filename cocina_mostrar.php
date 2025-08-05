@@ -17,14 +17,13 @@ include("header.php");
 	<div class="col-md-12 content-box position-relative">
 
 		<div style="width: 96%; margin: 150px auto 150px auto;">
-            <div class="row">
-                <div class="col-md-12">
-                    ordenar por tipo de dieta:<br> 
+            <div class="row p-0" style="background: #1366e0; border-radius: 30px;">
+                <div class="col-md-12 py-2">
                     <?php
                     $qTD = "SELECT * FROM _tipo_dieta WHERE status = 'A'";
                     $rTD = $conexion->query($qTD);
                     while ($fTD = $rTD->fetch_assoc()){
-                        echo "<a href='?td=".$fTD["id"]."'>".$fTD["nombre"]."</a> &nbsp;|&nbsp; ";
+                        echo "<a href='?td=".$fTD["id"]."' style='color: #fff; margin-right: 15px; margin-left: 15px; border-right: 1px solid #c0dbf0; padding-right: 23px;'>".$fTD["nombre"]."</a>";
                     }
                     ?>
                 </div>
@@ -49,7 +48,7 @@ include("header.php");
 					$van++;
                     ?>
                     <div class="col-md-3" style="min-height: 300px;">
-                        <div class="p-3" style="background: #3e3e3e; color: #fff;">
+                        <div class="p-3" style="background: #002d59; color: #fff;">
                             <h4 class="m-0" style="font-size: 14pt;"><b>Orden # <?php echo $rowH["orden_medica"]; ?> &nbsp;|&nbsp; Pedido # <?php echo $rowH["id"]; ?></b></h4>    
                             <h5 class="m-0" style="color: #fff !important; font-size: 12pt;"><?php echo $rowH["pnombre"]; ?> <?php echo $rowH["papellido"]; ?></h5>
                             <p class="m-0" style="font-size: 10pt;">Tipo Dieta: <b><?php echo $rowH["ndieta"]; ?></b></p>
