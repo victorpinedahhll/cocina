@@ -79,7 +79,7 @@ $row  = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <?php } ?>
                                     </div>
                                 </div>
-                                <div class="form-row" id="areaux" <?php if( $row["nivel_wua67"]!=="AUXILIAR" ){ ?>style="display: none;"<?php } ?>>
+                                <div class="form-row d-none" id="areaux" <?php if( $row["nivel_wua67"]!=="AUXILIAR" ){ ?>style="display: none;"<?php } ?>>
                                     <div class="form-group col-md-12">
                                         <label>Área de Atención</label>
                                         <select name="area" class="form-control">

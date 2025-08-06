@@ -153,10 +153,10 @@ $postuseradd = $_SESSION["formadduser"];
             } else {
                 if (areaSeleccionada === "AUXILIAR") {
                     $('#TOMA_PEDIDOS').prop('checked', true); // check de pacientes pedidos
-                    $('#areaux').show();
+                    // $('#areaux').show(); // se inactivo ya que la asignacion se haran programadas
                 } else {
                     $(`.grupo[data-area="${areaSeleccionada}"] .rol-checkbox`).prop('checked', true);
-                    $('#areaux').hide();
+                    // $('#areaux').hide(); // se inactivo ya que la asignacion se haran programadas
                 }
             }
         });

@@ -35,10 +35,11 @@ if ( $_POST["acceso"]=="agregar" || $_POST["acceso"]=="editar" ) {
         echo "<script>alert('El campo de USUARIO es requerido.');history.back();</script>";
         exit;
     }
-    if( $nivel == 'AUXILIAR' && empty($area) ){
-        echo "<script>alert('El campo de AREA DE ATENCION para el nivel de AUXILIAR DE NUTRICION es requerido.');history.back();</script>";
-        exit;
-    }
+    // se inactivo ya que las asignaciones se haran programadas
+    // if( $nivel == 'AUXILIAR' && empty($area) ){
+    //     echo "<script>alert('El campo de AREA DE ATENCION para el nivel de AUXILIAR DE NUTRICION es requerido.');history.back();</script>";
+    //     exit;
+    // }
 
 }
 
