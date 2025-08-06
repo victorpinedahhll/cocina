@@ -241,13 +241,19 @@ include("header.php");
 															SELECT * 
 															FROM _usuarios_admin a 
 															WHERE 
-																area_wua45 = '$area_aux' AND 
 																status_wua32 = 1 
 																AND nivel_wua67 = 'AUXILIAR' 
 																AND id_us00 IN (
 																	SELECT _usuario_id 
 																	FROM _usuarios_roles u 
 																	WHERE _usuario_id = a.id_us00 AND _rol = 'TOMA_PEDIDOS' 
+																)
+																AND id_us00 IN (
+																	SELECT id_aux 
+																	FROM _auxiliar_asignaciones c 
+																	WHERE c.id_aux = a.id_us00 
+																	AND c.id_area = '$area_aux' 
+																	AND '$datenow' BETWEEN fecha_inicio AND fecha_final 
 																)
 															";
 															

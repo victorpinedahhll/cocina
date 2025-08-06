@@ -33,6 +33,7 @@ if (isset($_POST['submitformDel']) && isset($_SESSION['logincook']) && $nvsessio
 }
 
 $conexion->query($qry);
+$conexion->close();
 
 header("Location: areas.php");
 ?>

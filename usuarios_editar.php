@@ -22,6 +22,7 @@ $qry  = "
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'USUARIOS') AS USUARIOS
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'ALERGIAS') AS ALERGIAS 
     , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'AREAS') AS AREAS 
+    , (SELECT _rol FROM _usuarios_roles b WHERE b._usuario_id = a.id_us00 AND _rol = 'ASIGNACIONES') AS ASIGNACIONES 
     FROM _usuarios_admin a  
     WHERE id_us00 = ?
 ";

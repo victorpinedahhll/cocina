@@ -53,4 +53,15 @@ function formatearFechaEs($fechaInput) {
     return $fecha; 
     
 }
+
+// formatea fechas
+function formatearFecha($fechanormal) {
+    date_default_timezone_set('America/Guatemala');
+
+    $fechanormal = strtotime($fechanormal);
+    $fechanormalfinal  = date("d/m/Y",$fechanormal);
+
+    return $fechanormalfinal; 
+    
+}
 ?>
