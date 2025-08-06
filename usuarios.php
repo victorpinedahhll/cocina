@@ -23,7 +23,7 @@ include("header.php");
 							Usuario
 						</div>
 						<div class="col-md-4 text-left" style="color: white;">
-							Nombre/Área
+							Nombre
 						</div>
 						<div class="col-md-4 text-left" style="color: white !important;">
 							Email
@@ -68,7 +68,6 @@ include("header.php");
 							</div>	
                             <div class="col-md-4 pt-1">
 								<?php echo $rowus["nombre_us07"]; ?> 
-								<?php if($rowus["area_wua45"] > "1"){ echo "(".$rowus["areaname"].")"; } ?>
 							</div>
 							<div class="col-md-4 pt-1">
 								<?php echo $rowus["email_wua25"]; ?>

@@ -43,6 +43,7 @@ if (isset($_POST['submitformDel']) && isset($_SESSION['logincook']) && $nvsessio
 }
 
 $conexion->query($qry);
+$conexion->close();
 
 if (isset($_POST['submitform']) && isset($_SESSION['logincook']) && $nvsessiontemp=="A") {
 	echo "<script>document.location='platos_opciones2_editar.php?id=$id&idm=$idmenu&id2=$idopc';</script>";
