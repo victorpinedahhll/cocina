@@ -19,18 +19,19 @@ if($final < $inicio){
 	exit;
 }
 
-$qryS = "
-SELECT * 
-FROM _auxiliar_asignaciones 
-WHERE 
-    id_area = '$area' 
-    AND '$datenow' BETWEEN '$inicio' AND '$final'
-";
-$resS = $conexion->query($qryS);
-if($resS->num_rows > 0){
-    echo "<script>alert('Lo sentimos, ya existe un Auxiliar asignado a esta fecha y a esta área');document.location='asignaciones_auxiliares.php';</script>";
-	exit;
-}
+// se inactivo el filtro ya que ahora se puede agregar a mas de un auxiliar a la misma area y fechas
+// $qryS = "
+// SELECT * 
+// FROM _auxiliar_asignaciones 
+// WHERE 
+//     id_area = '$area' 
+//     AND '$datenow' BETWEEN '$inicio' AND '$final'
+// ";
+// $resS = $conexion->query($qryS);
+// if($resS->num_rows > 0){
+//     echo "<script>alert('Lo sentimos, ya existe un Auxiliar asignado a esta fecha y a esta área');document.location='asignaciones_auxiliares.php';</script>";
+// 	exit;
+// }
 
 if ( $_POST['acc'] == "add" ){
 
