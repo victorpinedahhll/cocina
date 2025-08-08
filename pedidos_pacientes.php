@@ -252,6 +252,7 @@ include("header.php");
 																	SELECT id_aux 
 																	FROM _auxiliar_asignaciones c 
 																	WHERE c.id_aux = a.id_us00 
+																	AND c.status = 'A' 
 																	AND c.id_area = '$area_aux' 
 																	AND '$datenow' BETWEEN fecha_inicio AND fecha_final 
 																)
